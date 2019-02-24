@@ -1,0 +1,7 @@
+
+def build(bld):
+    bld(
+        includes=['glm'],
+        export_includes=['.'],
+        name='glm',
+    )
