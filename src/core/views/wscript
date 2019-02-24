@@ -1,0 +1,9 @@
+
+def build(bld):
+    bld.stlib(
+        use=['opengl', 'renderer'],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='views'
+    )

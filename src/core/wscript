@@ -1,0 +1,14 @@
+
+def build(bld):
+    bld.recurse('camera')
+    bld.recurse('opengl')
+    bld.recurse('renderer')
+    bld.recurse('views')
+
+    bld.stlib(
+        use=['views', 'camera'],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='core'
+    )

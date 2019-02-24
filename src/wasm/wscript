@@ -1,0 +1,7 @@
+
+def build(bld):
+    bld.program(
+        use=['core'],
+        source=bld.path.ant_glob('*.cpp'),
+        target='index',
+    )
