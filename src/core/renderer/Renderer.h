@@ -1,20 +1,19 @@
 #pragma once
-#include "I_Renderer.h"
 
 class I_Camera;
-class I_Renderable;
+class I_RenderableRepository;
 
-class Renderer : public I_Renderer
+class Renderer
 {
 public:
-    Renderer(I_Camera& camera);
+    Renderer(I_Camera& camera, const I_RenderableRepository& respository);
     ~Renderer();
 
     void setSize(int width, int height);
 
-    void clear() const;
-    void render(const I_Renderable& renderable) const;
+    void render() const;
 
 private:
     I_Camera& camera_;
+    const I_RenderableRepository& respository_;
 };

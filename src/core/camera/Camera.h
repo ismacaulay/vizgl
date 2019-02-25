@@ -29,8 +29,8 @@ private:
     double near_;
     double far_;
 
-    glm::mat4 proj_;
     glm::mat4 view_;
+    glm::mat4 proj_;
 
     glm::vec3 target_;
     glm::vec3 position_;

@@ -9,11 +9,36 @@
     <div class="container">
       <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
     </div>
+    <script src="view_api_wrapper.js"></script>
+
     <script>
       Module = {
         canvas: document.getElementById("canvas")
       };
+
+      Module.onRuntimeInitialized = () => {
+        viewApi = new ViewApi(Module);
+
+        // fetch("surface.json").then(response => {
+        //   response.json().then(data => {
+        //     const { vertices, triangles } = data;
+        //     console.log({ vertices, triangles });
+
+        //     viewApi.createMesh(vertices, triangles);
+        //   });
+        // });
+
+        fetch("cube.json").then(response => {
+          response.json().then(data => {
+            const { vertices } = data;
+            console.log({ vertices });
+
+            viewApi.createMesh(vertices);
+          });
+        });
+      };
     </script>
+
     <script async type="text/javascript" src="index.js"></script>
   </body>
 </html>

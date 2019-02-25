@@ -1,8 +1,9 @@
 #pragma once
+#include "I_CameraApi.h"
 
 class I_CameraControls;
 
-class CameraController
+class CameraController : public I_CameraApi
 {
 public:
     explicit CameraController(I_CameraControls& cameraControls);

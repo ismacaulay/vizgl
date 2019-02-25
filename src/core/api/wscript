@@ -1,0 +1,7 @@
+
+def build(bld):
+    bld(
+        includes=['.'],
+        export_includes=['.'],
+        name='api',
+    )

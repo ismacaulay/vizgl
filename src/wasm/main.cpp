@@ -1,81 +1,78 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
-#include <functional>
-#include <memory>
 
-#include "Core.h"
+#include "CoreInstance.h"
 
-std::vector<float> CUBE_VERTICES = {
-    // positions          // color       // tex coords
-    -0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 0.0f,
+// std::vector<float> CUBE_VERTICES = {
+//     // positions          // color       // tex coords
+//     -0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 0.0f,
+//      0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 0.0f,
+//      0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 1.0f,
+//      0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //1.0f, 1.0f,
+//     -0.5f,  0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  1.0, 0.0, 0.0, //0.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 0.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 0.0f,
+//      0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //1.0f, 1.0f,
+//     -0.5f,  0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 1.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0, 1.0, 0.0, //0.0f, 0.0f,
 
-    -0.5f,  0.5f,  0.5f,  0.0, 0.0, 1.0, //1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0, 0.0, 1.0, //1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0, 0.0, 1.0, //0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0, 0.0, 1.0, //0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0, 0.0, 1.0, //0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0, 0.0, 1.0, //1.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  0.0, 0.0, 1.0, //1.0f, 0.0f,
+//     -0.5f,  0.5f, -0.5f,  0.0, 0.0, 1.0, //1.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0, 0.0, 1.0, //0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0, 0.0, 1.0, //0.0f, 1.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0, 0.0, 1.0, //0.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  0.0, 0.0, 1.0, //1.0f, 0.0f,
 
-    0.5f,  0.5f,  0.5f,  1.0, 1.0, 0.0, //1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0, 1.0, 0.0, //1.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0, 1.0, 0.0, //0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0, 1.0, 0.0, //0.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  1.0, 1.0, 0.0, //0.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0, 1.0, 0.0, //1.0f, 0.0f,
+//     0.5f,  0.5f,  0.5f,  1.0, 1.0, 0.0, //1.0f, 0.0f,
+//     0.5f,  0.5f, -0.5f,  1.0, 1.0, 0.0, //1.0f, 1.0f,
+//     0.5f, -0.5f, -0.5f,  1.0, 1.0, 0.0, //0.0f, 1.0f,
+//     0.5f, -0.5f, -0.5f,  1.0, 1.0, 0.0, //0.0f, 1.0f,
+//     0.5f, -0.5f,  0.5f,  1.0, 1.0, 0.0, //0.0f, 0.0f,
+//     0.5f,  0.5f,  0.5f,  1.0, 1.0, 0.0, //1.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //0.0f, 1.0f,
+//      0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //1.0f, 1.0f,
+//      0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //1.0f, 0.0f,
+//      0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //1.0f, 0.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0, 1.0, 1.0, //0.0f, 0.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0, 1.0, 1.0, //0.0f, 1.0f,
 
-    -0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //0.0f, 1.0f
-};
+//     -0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //0.0f, 1.0f,
+//      0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //1.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //1.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  1.0, 0.0, 1.0, //0.0f, 0.0f,
+//     -0.5f,  0.5f, -0.5f,  1.0, 0.0, 1.0, //0.0f, 1.0f
+// };
 
-std::shared_ptr<Core> core;
 void main_loop() {
-    core->run();
+    CoreInstance::getInstance().render();
 }
 
 int mouse_down_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    core->cameraController().start(mouseEvent->button, mouseEvent->canvasX, mouseEvent->canvasY);
+    CoreInstance::getInstance().cameraApi().start(mouseEvent->button, mouseEvent->canvasX, mouseEvent->canvasY);
     return 0;
 }
 
 int mouse_up_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    core->cameraController().finish();
+    CoreInstance::getInstance().cameraApi().finish();
     return 0;
 }
 
 int mouse_move_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    core->cameraController().update(mouseEvent->canvasX, mouseEvent->canvasY);
+    CoreInstance::getInstance().cameraApi().update(mouseEvent->canvasX, mouseEvent->canvasY);
     return 0;
 }
 
 int mouse_wheel_callback(int eventType, const EmscriptenWheelEvent *wheelEvent, void *userData)
 {
-    core->cameraController().zoom(wheelEvent->deltaY);
+    CoreInstance::getInstance().cameraApi().zoom(wheelEvent->deltaY);
     return 0;
 }
 
@@ -85,7 +82,7 @@ int resize_callback(int type, const EmscriptenUiEvent *event, void *data)
     {
         int width, height;
         emscripten_get_canvas_element_size("canvas", &width, &height);
-        core->setSize(width, height);
+        CoreInstance::getInstance().setSize(width, height);
     }
 
     return 0;
@@ -127,11 +124,9 @@ EMSCRIPTEN_KEEPALIVE int main() {
 
     emscripten_set_resize_callback(nullptr, nullptr, true, &resize_callback);
 
-    core = std::make_shared<Core>();
-
     int width, height;
     emscripten_get_canvas_element_size("canvas", &width, &height);
-    core->setSize(width, height);
+    CoreInstance::getInstance().setSize(width, height);
 
     // std::vector<float> vertices = {
     //     // positions       // colors         // tex coords
@@ -140,7 +135,7 @@ EMSCRIPTEN_KEEPALIVE int main() {
     //      0.0f,  0.5f, 0.0, 0.0f, 0.0f, 1.0f, // 1.0f, 1.0f, // 2
     //     //-0.5f,  0.5f, 0.0, 1.0f, 1.0f, 0.0f, // 0.0f, 1.0f, // 3
     // };
-    core->viewManager().createMesh(CUBE_VERTICES);
+    // CoreInstance::getInstance().viewApi().createMesh(CUBE_VERTICES);
 
     emscripten_set_main_loop(main_loop, 0, true);
     return 0;

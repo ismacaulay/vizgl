@@ -1,9 +1,10 @@
 #include "ViewManager.h"
 
+#include "I_RenderableRepository.h"
+#include "I_View.h"
 #include "I_ViewFactory.h"
-#include "I_ViewRepository.h"
 
-ViewManager::ViewManager(I_ViewFactory& factory, I_ViewRepository& repository)
+ViewManager::ViewManager(I_ViewFactory& factory, I_RenderableRepository& repository)
     : factory_(factory)
     , repository_(repository)
 {
@@ -11,6 +12,10 @@ ViewManager::ViewManager(I_ViewFactory& factory, I_ViewRepository& repository)
 
 void ViewManager::createMesh(const std::vector<float>& vertices)
 {
-    auto view = factory_.createMesh(vertices);
-    repository_.addView(view);
+    const auto* view = factory_.createMesh(vertices);
+    repository_.add(view);
+}
+
+void ViewManager::createMesh(const std::vector<float>& vertices, const std::vector<uint32_t>& indices)
+{
 }

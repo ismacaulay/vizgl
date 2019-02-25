@@ -7,7 +7,6 @@
 
 namespace {
 const unsigned int VERTEX_SIZE = 3;
-const unsigned int COLOR_SIZE = 3;
 
 const std::string VERTEX_SHADER = ""
 "precision highp float;                                                     \n"
@@ -39,21 +38,23 @@ class MeshView::Impl
 {
 public:
     Impl(const std::vector<float>& vertices)
-        : vb(vertices.data(), vertices.size() * (VERTEX_SIZE + COLOR_SIZE) * sizeof(float))
+        : vb(vertices.data(), vertices.size() * sizeof(float))
         , layout()
         , va()
         , shader(VERTEX_SHADER, FRAGMENT_SHADER)
     {
         layout.push<float>(VERTEX_SIZE);
-        layout.push<float>(COLOR_SIZE);
 
         va.addBuffer(vb, layout);
+
+        vertexCount = vertices.size() / VERTEX_SIZE;
     }
 
     VertexBuffer vb;
     VertexBufferLayout layout;
     VertexArray va;
     Shader shader;
+    unsigned int vertexCount;
 };
 
 MeshView::MeshView(const std::vector<float>& vertices)
@@ -74,4 +75,14 @@ const VertexBuffer& MeshView::vertexBuffer() const
 Shader& MeshView::shader() const
 {
     return p_->shader;
+}
+
+RenderableType MeshView::type() const
+{
+    return RenderableType::Triangles;
+}
+
+unsigned int MeshView::vertexCount() const
+{
+    return p_->vertexCount;
 }

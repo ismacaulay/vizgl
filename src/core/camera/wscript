@@ -1,7 +1,7 @@
 
 def build(bld):
     bld.stlib(
-        use=['glm'],
+        use=['glm', 'api'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],

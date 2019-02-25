@@ -13,6 +13,8 @@ public:
     const VertexArray& vertexArray() const;
     const VertexBuffer& vertexBuffer() const;
     Shader& shader() const;
+    RenderableType type() const;
+    unsigned int vertexCount() const;
 
 private:
     class Impl;

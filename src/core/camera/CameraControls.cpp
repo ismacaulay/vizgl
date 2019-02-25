@@ -11,7 +11,6 @@ CameraControls::CameraControls(I_Camera& camera)
     : camera_(camera)
     , state_(ControlState::None)
     , rotate_(glm::vec2())
-    , zoom_(glm::vec2())
     , pan_(glm::vec2())
 {
 }

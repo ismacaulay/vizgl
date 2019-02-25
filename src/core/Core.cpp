@@ -1,13 +1,12 @@
 #include "Core.h"
 
 #include "Camera.h"
-#include "CameraControls.h"
 #include "CameraController.h"
+#include "CameraControls.h"
+#include "RenderableRepository.h"
 #include "Renderer.h"
 #include "ViewFactory.h"
 #include "ViewManager.h"
-#include "ViewRenderer.h"
-#include "ViewRepository.h"
 
 class Core::Impl
 {
@@ -17,32 +16,30 @@ public:
         , cameraControls(camera)
         , cameraController(cameraControls)
 
-        , renderer(camera)
+        , renderableRepository()
+        , renderer(camera, renderableRepository)
 
-        , viewRepository()
         , viewFactory()
-        , viewManager(viewFactory, viewRepository)
-
-        , viewRenderer(renderer, viewRepository)
+        , viewManager(viewFactory, renderableRepository)
     {
     }
 
-    void run()
+    void render()
     {
-        viewRenderer.render();
+        camera.update();
+        renderer.render();
     }
 
     Camera camera;
     CameraControls cameraControls;
     CameraController cameraController;
 
+    RenderableRepository renderableRepository;
     Renderer renderer;
 
-    ViewRepository viewRepository;
     ViewFactory viewFactory;
     ViewManager viewManager;
 
-    ViewRenderer viewRenderer;
 private:
 };
 
@@ -60,17 +57,17 @@ void Core::setSize(int width, int height)
     p_->camera.updateAspectRatio(width, height);
 }
 
-void Core::run()
+void Core::render()
 {
-    p_->run();
+    p_->render();
 }
 
-ViewManager& Core::viewManager() const
+I_ViewApi& Core::viewApi() const
 {
     return p_->viewManager;
 }
 
-CameraController& Core::cameraController() const
+I_CameraApi& Core::cameraApi() const
 {
     return p_->cameraController;
 }

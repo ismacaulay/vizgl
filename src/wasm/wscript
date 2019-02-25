@@ -3,5 +3,11 @@ def build(bld):
     bld.program(
         use=['core'],
         source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        linkflags=[
+            '-s', 'EXPORTED_FUNCTIONS=["_createMesh", "_createMesh2"]',
+            '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"]',
+        ],
         target='index',
     )

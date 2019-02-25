@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 
-#include "ViewManager.h"
-#include "CameraController.h"
+#include "I_ViewApi.h"
+#include "I_CameraApi.h"
 
 class Core {
 public:
@@ -11,10 +11,10 @@ public:
 
     void setSize(int width, int height);
 
-    void run();
+    void render();
 
-    ViewManager& viewManager() const;
-    CameraController& cameraController() const;
+    I_ViewApi& viewApi() const;
+    I_CameraApi& cameraApi() const;
 
 private:
     class Impl;

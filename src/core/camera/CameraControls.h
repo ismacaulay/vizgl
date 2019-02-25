@@ -31,6 +31,5 @@ private:
     I_Camera& camera_;
     ControlState state_;
     glm::vec2 rotate_;
-    glm::vec2 zoom_;
     glm::vec2 pan_;
 };

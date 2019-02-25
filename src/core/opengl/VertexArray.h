@@ -13,5 +13,4 @@ public:
     void unbind() const;
 
 private:
-    unsigned int rendererID_;
 };

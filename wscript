@@ -13,34 +13,19 @@ def configure(conf):
 
     conf.env.CXXFLAGS = [
         '-std=c++17',
-        # '-Wall',
-        # '-Werror',
-        # '-Wno-int-to-pointer-cast',
+        '-Wall',
+        '-Werror',
+
         '-s', 'WASM=1',
-        '-s', 'USE_SDL=2',
         '-s', 'ALLOW_MEMORY_GROWTH=1',
+        # '-s', '''EXPORTED_FUNCTIONS=["_createMesh"] ''',
+        # '-s', '''EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap'] ''',
         '-O3',
     ]
 
     conf.env.LINKFLAGS = [
-        # '-lglfw',
-        '-s', 'USE_SDL=2',
+
     ]
-
-    # if sys.platform == 'darwin':
-    #     conf.env.FRAMEWORK = ['OpenGL']
-    #     conf.env.DEFINES = [
-    #         'GL_SILENCE_DEPRECATION',
-    #         # '__gl_h_',
-    #         # 'GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED',
-    #     ]
-
-    # elif sys.platform == 'linux':
-    #     conf.env.LINKFLAGS.extend([
-    #         '-lGL',
-    #         '-lGLEW',
-    #         '-ldl',
-    #     ])
 
 def build(bld):
     bld.recurse('src')
