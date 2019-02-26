@@ -1,6 +1,5 @@
 #include "MeshView.h"
 
-#include "VertexArray.h"
 #include "VertexBufferLayout.h"
 #include "VertexBuffer.h"
 #include "Shader.h"
@@ -40,19 +39,15 @@ public:
     Impl(const std::vector<float>& vertices)
         : vb(vertices.data(), vertices.size() * sizeof(float))
         , layout()
-        , va()
         , shader(VERTEX_SHADER, FRAGMENT_SHADER)
     {
         layout.push<float>(VERTEX_SIZE);
-
-        va.addBuffer(vb, layout);
 
         vertexCount = vertices.size() / VERTEX_SIZE;
     }
 
     VertexBuffer vb;
     VertexBufferLayout layout;
-    VertexArray va;
     Shader shader;
     unsigned int vertexCount;
 };
@@ -62,14 +57,14 @@ MeshView::MeshView(const std::vector<float>& vertices)
 {
 }
 
-const VertexArray& MeshView::vertexArray() const
-{
-    return p_->va;
-}
-
 const VertexBuffer& MeshView::vertexBuffer() const
 {
     return p_->vb;
+}
+
+const VertexBufferLayout& MeshView::vertexBufferLayout() const
+{
+    return p_->layout;
 }
 
 Shader& MeshView::shader() const

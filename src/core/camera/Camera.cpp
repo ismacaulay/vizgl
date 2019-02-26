@@ -8,8 +8,8 @@
 namespace
 {
 const glm::vec3 INITIAL_TARGET = glm::vec3(0.0f, 0.0f, 0.0f);
-const glm::vec3 INITAL_POSITION = glm::vec3(20.0f, 20.0f, 20.0f);
-const glm::vec3 UP = glm::vec3(0.0f, 1.0f,  0.0f);
+const glm::vec3 INITAL_POSITION = glm::vec3(0.0f, 0.0f, 3.0f);
+const glm::vec3 UP = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 Camera::Camera(double fov, double width, double height, double near, double far)
@@ -123,12 +123,12 @@ void Camera::update()
     panDelta_ = glm::vec3();
 }
 
-const glm::mat4& Camera::view()
+const glm::mat4& Camera::view() const
 {
     return view_;
 }
 
-const glm::mat4& Camera::projection()
+const glm::mat4& Camera::projection() const
 {
     return proj_;
 }

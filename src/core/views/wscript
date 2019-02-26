@@ -1,7 +1,7 @@
 
 def build(bld):
     bld.stlib(
-        use=['opengl', 'renderer'],
+        use=['opengl', 'renderer', 'plot'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],

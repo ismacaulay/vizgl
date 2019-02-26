@@ -24,6 +24,7 @@ def configure(conf):
     ]
 
     conf.env.LINKFLAGS = [
+        '-s', 'ALLOW_MEMORY_GROWTH=1',
 
     ]
 

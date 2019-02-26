@@ -10,8 +10,8 @@ public:
     MeshView(const std::vector<float>& vertices);
     virtual ~MeshView() = default;
 
-    const VertexArray& vertexArray() const;
     const VertexBuffer& vertexBuffer() const;
+    const VertexBufferLayout& vertexBufferLayout() const;
     Shader& shader() const;
     RenderableType type() const;
     unsigned int vertexCount() const;

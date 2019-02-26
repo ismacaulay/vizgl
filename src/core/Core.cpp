@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "CameraController.h"
 #include "CameraControls.h"
+#include "Plot.h"
 #include "RenderableRepository.h"
 #include "Renderer.h"
 #include "ViewFactory.h"
@@ -12,15 +13,17 @@ class Core::Impl
 {
 public:
     Impl()
-        : camera(45.0, 800.0, 600.0, 0.1f, 100.0f)
+        : plot()
+
+        , camera(45.0, 800.0, 600.0, 0.1f, 100.0f)
         , cameraControls(camera)
         , cameraController(cameraControls)
 
         , renderableRepository()
-        , renderer(camera, renderableRepository)
+        , renderer(camera, plot, renderableRepository)
 
         , viewFactory()
-        , viewManager(viewFactory, renderableRepository)
+        , viewManager(viewFactory, renderableRepository, plot)
     {
     }
 
@@ -29,6 +32,7 @@ public:
         camera.update();
         renderer.render();
     }
+    Plot plot;
 
     Camera camera;
     CameraControls cameraControls;

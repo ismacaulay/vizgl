@@ -19,23 +19,39 @@
       Module.onRuntimeInitialized = () => {
         viewApi = new ViewApi(Module);
 
-        // fetch("surface.json").then(response => {
-        //   response.json().then(data => {
-        //     const { vertices, triangles } = data;
-        //     console.log({ vertices, triangles });
-
-        //     viewApi.createMesh(vertices, triangles);
-        //   });
-        // });
-
-        fetch("cube.json").then(response => {
+        fetch("surface.json").then(response => {
           response.json().then(data => {
-            const { vertices } = data;
-            console.log({ vertices });
+            const { vertices, triangles } = data;
+            console.log({ vertices, triangles });
 
-            viewApi.createMesh(vertices);
+            viewApi.createMesh2(vertices, triangles);
           });
         });
+
+        // fetch("cube.json").then(response => {
+        //   response.json().then(data => {
+        //     const { vertices } = data;
+        //     console.log({ vertices });
+
+        //     const cube1 = vertices.map((v, i) => {
+        //       if (i % 3 == 0) {
+        //         return v + 1.0;
+        //       }
+        //       return v;
+        //     });
+        //     const cube2 = vertices.map((v, i) => {
+        //       if (i % 3 == 0) {
+        //         return v - 1.0;
+        //       }
+        //       return v;
+        //     });
+
+        //     console.log({ vertices, cube1, cube2 });
+
+        //     viewApi.createMesh(cube1);
+        //     viewApi.createMesh(cube2);
+        //   });
+        // });
       };
     </script>
 

@@ -16,8 +16,8 @@ public:
 
     void update();
 
-    const glm::mat4& view();
-    const glm::mat4& projection();
+    const glm::mat4& view() const;
+    const glm::mat4& projection() const;
 
 private:
     void updateMatrix();

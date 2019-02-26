@@ -5,6 +5,7 @@ def build(bld):
     bld.recurse('opengl')
     bld.recurse('renderer')
     bld.recurse('views')
+    bld.recurse('plot')
 
     bld.stlib(
         use=['views', 'camera'],
