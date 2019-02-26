@@ -8,6 +8,7 @@
 #include "Renderer.h"
 #include "ViewFactory.h"
 #include "ViewManager.h"
+#include "OrthographicCamera.h"
 
 class Core::Impl
 {
@@ -15,7 +16,7 @@ public:
     Impl()
         : plot()
 
-        , camera(45.0, 800.0, 600.0, 0.1f, 100.0f)
+        , camera()
         , cameraControls(camera)
         , cameraController(cameraControls)
 
@@ -34,7 +35,8 @@ public:
     }
     Plot plot;
 
-    Camera camera;
+    // Camera camera;
+    OrthographicCamera camera;
     CameraControls cameraControls;
     CameraController cameraController;
 

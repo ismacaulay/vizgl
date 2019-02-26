@@ -2,11 +2,11 @@
 #include "I_Camera.h"
 #include <algorithm>
 
-class Camera : public I_Camera
+class OrthographicCamera : public I_Camera
 {
 public:
-    Camera();
-    ~Camera() = default;
+    OrthographicCamera();
+    ~OrthographicCamera() = default;
 
     void updateAspectRatio(int width, int height);
 
@@ -20,11 +20,14 @@ public:
     const glm::mat4& projection() const;
 
 private:
-    double fov_;
-    double width_;
-    double height_;
-    double near_;
-    double far_;
+    void updateMatrix();
+
+private:
+    double width_, height_;
+    double left_, right_;
+    double bottom_, top_;
+    double near_, far_;
+    double zoom_;
 
     glm::mat4 view_;
     glm::mat4 proj_;

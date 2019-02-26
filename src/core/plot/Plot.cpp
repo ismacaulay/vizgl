@@ -2,10 +2,6 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <stdio.h>
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/string_cast.hpp>
-
 Plot::Plot()
     : xLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
     , yLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
@@ -74,13 +70,5 @@ void Plot::updateMatrix()
     glm::mat4 matrix(1.0f);
     matrix = glm::scale(matrix, 2.0f/s);
     matrix = glm::translate(matrix, -t);
-
-    printf("[xLimits] %s\n", glm::to_string(xLimits_).c_str());
-    printf("[yLimits] %s\n", glm::to_string(yLimits_).c_str());
-    printf("[zLimits] %s\n", glm::to_string(zLimits_).c_str());
-    printf("[scale] %f\n", scale);
-    printf("[t] %s\n", glm::to_string(-t).c_str());
-    printf("[s] %s\n", glm::to_string(2.0f/s).c_str());
-    printf("[matrix] %s\n", glm::to_string(matrix).c_str());
     model_ = matrix;
 }

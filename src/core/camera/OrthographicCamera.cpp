@@ -1,32 +1,31 @@
-#include "Camera.h"
+#include "OrthographicCamera.h"
 #include <cmath>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_access.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+
 namespace
 {
-const float FOV = 45.0;
-const float INITIAL_WIDTH = 800.0f;
-const float INITIAL_HEIGHT = 600.0f;
-const float NEAR = 0.1f;
-const float FAR = 2000.0f;
-
 const glm::vec3 INITIAL_TARGET = glm::vec3(0.0f, 0.0f, 0.0f);
 const glm::vec3 INITAL_POSITION = glm::vec3(0.0f, 0.0f, 3.0f);
 const glm::vec3 UP = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
-Camera::Camera()
-    : fov_(FOV)
-    , width_(INITIAL_WIDTH)
-    , height_(INITIAL_HEIGHT)
-    , near_(NEAR)
-    , far_(FAR)
+OrthographicCamera::OrthographicCamera()
+    : width_(800.0)
+    , height_(600.0)
+    , left_(-1.0)
+    , right_(1.0)
+    , bottom_(-1.0)
+    , top_(1.0)
+    , near_(0.1)
+    , far_(2000.0)
+    , zoom_(1.0)
 
     , view_(glm::mat4(1.0f))
-    , proj_(glm::perspective(glm::radians(fov_), width_/height_, near_, far_))
+    , proj_(glm::ortho(left_, right_, bottom_, top_, near_, far_))
 
     , target_(INITIAL_TARGET)
     , position_(INITAL_POSITION)
@@ -35,19 +34,18 @@ Camera::Camera()
     , panDelta_()
     , scale_(1.0)
 {
+    updateMatrix();
     update();
 }
 
-
-void Camera::updateAspectRatio(int width, int height)
+void OrthographicCamera::updateAspectRatio(int width, int height)
 {
     width_ = width;
     height_ = height;
-    double aspectRatio = static_cast<double>(width) / static_cast<double>(height);
-    proj_ = glm::perspective(glm::radians(fov_), aspectRatio, near_, far_);
+    updateMatrix();
 }
 
-void Camera::rotate(const glm::vec2& delta, double speed)
+void OrthographicCamera::rotate(const glm::vec2& delta, double speed)
 {
     auto calculateRotationAngle = [](double delta, double speed, double size) {
         return ((2 * M_PI * delta) / size) * speed;
@@ -59,34 +57,28 @@ void Camera::rotate(const glm::vec2& delta, double speed)
     sphericalDelta_.z -= upRotation;
 }
 
-void Camera::zoom(double delta, double scale)
+void OrthographicCamera::zoom(double delta, double scale)
 {
     if (delta > 0) {
-        scale_ /= scale;
+        zoom_ = std::max(0.0, std::min(std::numeric_limits<double>::max(), zoom_ * scale));
     } else if (delta < 0) {
-        scale_ *= scale;
+        zoom_ = std::max(0.0, std::min(std::numeric_limits<double>::max(), zoom_ / scale));
     }
+    updateMatrix();
 }
 
-void Camera::pan(const glm::vec2& delta)
+void OrthographicCamera::pan(const glm::vec2& delta)
 {
-    auto calculatePanDistance = [](double delta, double distance, double fov, double size) {
-        double targetDistance = distance * tan(((fov / 2) * M_PI) / 180.0);
-        return (2 * delta * targetDistance) / size;
-    };
-
-    glm::vec3 offset = position_ - target_;
-
-    double panLeftDistance = calculatePanDistance(delta.x, glm::length(offset), fov_, height_);
+    double panLeftDistance = delta.x * ( right_ - left_ ) / zoom_ / width_;
     glm::vec3 panX = glm::vec3(view_[0][0], view_[1][0], view_[2][0]);
     panDelta_ += panX * static_cast<float>(-panLeftDistance);
 
-    double panUpDistance = calculatePanDistance(delta.y, glm::length(offset), fov_, height_);
+    double panUpDistance = delta.y * ( top_ - bottom_ ) / zoom_ / height_;
     glm::vec3 panY = glm::vec3(view_[0][1], view_[1][1], view_[2][1]);
     panDelta_ += panY * static_cast<float>(panUpDistance);
 }
 
-void Camera::update()
+void OrthographicCamera::update()
 {
     auto applyQuaternion = [](const glm::vec3& v, const glm::quat& q) {
         return (q * v) * glm::inverse(q);
@@ -130,12 +122,27 @@ void Camera::update()
     panDelta_ = glm::vec3();
 }
 
-const glm::mat4& Camera::view() const
+const glm::mat4& OrthographicCamera::view() const
 {
     return view_;
 }
 
-const glm::mat4& Camera::projection() const
+const glm::mat4& OrthographicCamera::projection() const
 {
     return proj_;
+}
+
+void OrthographicCamera::updateMatrix() {
+    double dx = ( right_ - left_ ) / ( 2 * zoom_ );
+    double dy = ( top_ - bottom_ ) / ( 2 * zoom_ );
+    double cx = ( right_ + left_ ) / 2;
+    double cy = ( top_ + bottom_ ) / 2;
+
+    double left = cx - dx;
+    double right = cx + dx;
+    double top = cy + dy;
+    double bottom = cy - dy;
+    double ratio = width_/height_;
+
+    proj_ = glm::ortho(ratio * left, ratio * right, bottom, top, near_, far_);
 }
