@@ -15,17 +15,13 @@ def configure(conf):
         '-std=c++17',
         '-Wall',
         '-Werror',
-
         '-s', 'WASM=1',
-        '-s', 'ALLOW_MEMORY_GROWTH=1',
-        # '-s', '''EXPORTED_FUNCTIONS=["_createMesh"] ''',
-        # '-s', '''EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'cwrap'] ''',
         '-O3',
     ]
 
     conf.env.LINKFLAGS = [
+        '-s', 'WASM=1',
         '-s', 'ALLOW_MEMORY_GROWTH=1',
-
     ]
 
 def build(bld):

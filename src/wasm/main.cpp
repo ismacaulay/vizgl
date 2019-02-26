@@ -88,7 +88,8 @@ int resize_callback(int type, const EmscriptenUiEvent *event, void *data)
     return 0;
 }
 
-EMSCRIPTEN_KEEPALIVE int main() {
+EMSCRIPTEN_KEEPALIVE
+int main() {
     EmscriptenWebGLContextAttributes attrs;
     emscripten_webgl_init_context_attributes(&attrs);
 
