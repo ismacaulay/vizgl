@@ -16,11 +16,13 @@ def configure(conf):
         '-Wall',
         '-Werror',
         '-s', 'WASM=1',
+        # '-s', 'BINARYEN_TRAP_MODE="clamp"',
         '-O3',
     ]
 
     conf.env.LINKFLAGS = [
         '-s', 'WASM=1',
+        '-s', 'BINARYEN_TRAP_MODE="clamp"',
         '-s', 'ALLOW_MEMORY_GROWTH=1',
     ]
 

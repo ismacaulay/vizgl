@@ -5,3 +5,11 @@ def build(bld):
         export_includes=['.'],
         name='glm',
     )
+
+    bld.stlib(
+        source=bld.path.ant_glob('imgui/*.cpp'),
+        use='glad',
+        includes=['imgui'],
+        export_includes=['.'],
+        target='imgui',
+    )
