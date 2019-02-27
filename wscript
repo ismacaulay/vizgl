@@ -17,7 +17,7 @@ def configure(conf):
         '-Werror',
         '-s', 'WASM=1',
         # '-s', 'BINARYEN_TRAP_MODE="clamp"',
-        '-O3',
+        '-Os',
     ]
 
     conf.env.LINKFLAGS = [

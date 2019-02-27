@@ -1,5 +1,5 @@
 /* Ported from: https://github.com/hef/imgui-in-browser/ */
-#include "imgui_impl.h"
+#include "imgui_impl_em.h"
 
 #include <imgui.h>
 #include <stdio.h>

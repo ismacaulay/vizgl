@@ -8,7 +8,6 @@ def build(bld):
 
     bld.stlib(
         source=bld.path.ant_glob('imgui/*.cpp'),
-        use='glad',
         includes=['imgui'],
         export_includes=['.'],
         target='imgui',

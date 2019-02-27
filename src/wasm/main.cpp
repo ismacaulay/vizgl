@@ -1,17 +1,27 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
 #include <imgui/imgui.h>
-#include <imgui/imgui_impl.h>
+#include <imgui/imgui_impl_em.h>
 
 #include "CoreInstance.h"
 
 void main_loop()
 {
-    static bool bShowTestWindow = true;
+    static bool showDemo = true;
+
     ImGuiImpl::BeginFrame();
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow(&bShowTestWindow);
+    {
+        ImGui::Begin("Controls");
+        ImGui::Text("Average FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+        static float rotation[3] = { 0.10f, 0.20f, 0.30f };
+        ImGui::InputFloat3("Base model rotation", rotation);
+        ImGui::End();
+    }
+
+    ImGui::ShowDemoWindow(&showDemo);
 
     CoreInstance::getInstance().render();
     ImGui::Render();
