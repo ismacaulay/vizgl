@@ -1,0 +1,20 @@
+
+def build(bld):
+    bld.recurse('controllers')
+    bld.recurse('presenters')
+    bld.recurse('ui')
+
+    bld.stlib(
+        use=[
+            'components',
+            'glm',
+            'core',
+            'ui_controllers',
+            'ui_presenters',
+            'ui_ui',
+        ],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='imguicore'
+    )

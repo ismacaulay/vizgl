@@ -1,9 +1,9 @@
 
 def build(bld):
     bld.stlib(
-        use=['glm', 'api'],
+        use=['glm', 'api', 'components'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],
-        target='plot'
+        target='ui_controllers'
     )

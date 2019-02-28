@@ -10,5 +10,5 @@ public:
 private:
     CoreInstance();
 
-    static std::shared_ptr<Core> instance_;
+    static std::unique_ptr<Core> instance_;
 };

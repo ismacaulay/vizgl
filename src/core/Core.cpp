@@ -33,6 +33,7 @@ public:
         camera.update();
         renderer.render();
     }
+
     Plot plot;
 
     // Camera camera;
@@ -45,8 +46,6 @@ public:
 
     ViewFactory viewFactory;
     ViewManager viewManager;
-
-private:
 };
 
 Core::Core()
@@ -76,4 +75,9 @@ I_ViewApi& Core::viewApi() const
 I_CameraApi& Core::cameraApi() const
 {
     return p_->cameraController;
+}
+
+I_PlotApi& Core::plotApi() const
+{
+    return p_->plot;
 }

@@ -7,7 +7,14 @@ Plot::Plot()
     , yLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
     , zLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
     , model_(1.0f)
+    , rotation_()
 {
+}
+
+void Plot::setRotation(const glm::vec3& rotation)
+{
+    rotation_ = rotation;
+    updateMatrix();
 }
 
 void Plot::containVertices(const std::vector<float>& vertices)
@@ -68,6 +75,9 @@ void Plot::updateMatrix()
     glm::vec3 s(scale);
 
     glm::mat4 matrix(1.0f);
+    matrix = glm::rotate(matrix, rotation_.x, glm::vec3(1.0, 0.0, 0.0));
+    matrix = glm::rotate(matrix, rotation_.y, glm::vec3(0.0, 1.0, 0.0));
+    matrix = glm::rotate(matrix, rotation_.z, glm::vec3(0.0, 0.0, 1.0));
     matrix = glm::scale(matrix, 2.0f/s);
     matrix = glm::translate(matrix, -t);
     model_ = matrix;

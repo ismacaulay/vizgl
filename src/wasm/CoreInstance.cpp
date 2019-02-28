@@ -1,11 +1,11 @@
 #include "CoreInstance.h"
 
-std::shared_ptr<Core> CoreInstance::instance_ = nullptr;
+std::unique_ptr<Core> CoreInstance::instance_ = nullptr;
 
 Core& CoreInstance::getInstance()
 {
     if (instance_ == nullptr) {
-        instance_ = std::make_shared<Core>();
+        instance_ = std::make_unique<Core>();
     }
     return *instance_;
 }

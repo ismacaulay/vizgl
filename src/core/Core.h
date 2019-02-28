@@ -3,6 +3,7 @@
 
 #include "I_ViewApi.h"
 #include "I_CameraApi.h"
+#include "I_PlotApi.h"
 
 class Core {
 public:
@@ -15,6 +16,7 @@ public:
 
     I_ViewApi& viewApi() const;
     I_CameraApi& cameraApi() const;
+    I_PlotApi& plotApi() const;
 
 private:
     class Impl;

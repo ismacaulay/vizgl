@@ -1,11 +1,14 @@
 #pragma once
 #include "I_Plot.h"
+#include "I_PlotApi.h"
 
-class Plot : public I_Plot
+class Plot : public I_Plot, public I_PlotApi
 {
 public:
     explicit Plot();
     ~Plot() = default;
+
+    void setRotation(const glm::vec3& rotation);
 
     void containVertices(const std::vector<float>& vertices);
 
@@ -20,4 +23,6 @@ private:
     glm::vec2 zLimits_;
 
     glm::mat4 model_;
+
+    glm::vec3 rotation_;
 };
