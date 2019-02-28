@@ -10,5 +10,7 @@ public:
     ViewFactory() = default;
     ~ViewFactory() = default;
 
-    I_View* createMesh(const std::vector<float>& vertices);
+    I_View* createMesh(
+        const std::vector<float>& vertices,
+        const glm::vec4& color);
 };

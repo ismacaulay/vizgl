@@ -8,7 +8,7 @@ void VertexBufferLayout::push<float>(unsigned int count) {
 
 template<>
 void VertexBufferLayout::push<unsigned int>(unsigned int count) {
-    elements_.push_back({ GL_UNSIGNED_INT, count , GL_FALSE });
+    elements_.push_back({ GL_UNSIGNED_INT, count, GL_FALSE });
     stride_ += count * VertexBufferElement::getSizeOfType(GL_UNSIGNED_INT);
 }
 

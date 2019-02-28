@@ -18,7 +18,7 @@ ViewManager::ViewManager(
 
 void ViewManager::createMesh(const std::vector<float>& vertices)
 {
-    const auto* view = factory_.createMesh(vertices);
+    const auto* view = factory_.createMesh(vertices, glm::vec4(1.0, 0.0, 0.0, 1.0));
     plot_.containVertices(vertices);
     repository_.add(view);
 }

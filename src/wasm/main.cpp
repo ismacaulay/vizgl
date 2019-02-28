@@ -8,14 +8,14 @@
 
 void main_loop()
 {
-    static bool showDemo = true;
 
     ImGuiImpl::BeginFrame();
     ImGui::NewFrame();
 
     ImGuiCoreInstance::getInstance().render();
 
-    ImGui::ShowDemoWindow(&showDemo);
+    // static bool showDemo = false;
+    // ImGui::ShowDemoWindow(&showDemo);
 
     CoreInstance::getInstance().render();
     ImGui::Render();

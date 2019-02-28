@@ -21,8 +21,8 @@
 
         fetch("surface.json").then(response => {
           response.json().then(data => {
+            console.log(data);
             const { vertices, triangles } = data;
-            console.log({ vertices, triangles });
 
             viewApi.createMesh2(vertices, triangles);
           });

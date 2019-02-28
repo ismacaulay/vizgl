@@ -62,6 +62,7 @@ void Renderer::render() const
         shader.setUniformMat4f("u_model", plot_.model());
         shader.setUniformMat4f("u_view", camera_.view());
         shader.setUniformMat4f("u_proj", camera_.projection());
+        renderable->bindUniforms();
 
         GL_CALL(glDrawArrays(typeToGlMap.at(renderable->type()), 0, renderable->vertexCount()));
     }

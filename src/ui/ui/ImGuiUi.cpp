@@ -7,6 +7,7 @@
 ImGuiUi::ImGuiUi(I_ImGuiPresenter& presenter)
     : presenter_(presenter)
 {
+    presenter_.setRotation(rotation_[0], rotation_[1], rotation_[2]);
 }
 
 void ImGuiUi::render()
