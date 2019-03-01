@@ -1,0 +1,18 @@
+
+def build(bld):
+    bld.stlib(
+        use=[
+            'camera',
+            'components',
+            'geometryapi',
+            'mappingapi',
+            'modelapi',
+            'opengl',
+            'plot',
+            'rendererapi',
+        ],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='renderer'
+    )

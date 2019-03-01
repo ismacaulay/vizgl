@@ -1,7 +1,8 @@
 
 def build(bld):
-    bld(
+    bld.stlib(
+        source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],
-        name='components',
+        target='components',
     )

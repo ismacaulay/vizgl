@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "BoundingBox.h"
+
 Plot::Plot()
     : xLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
     , yLimits_(std::numeric_limits<float>::max(), std::numeric_limits<float>::min())
@@ -14,6 +16,20 @@ Plot::Plot()
 void Plot::setRotation(const glm::vec3& rotation)
 {
     rotation_ = rotation;
+    updateMatrix();
+}
+
+void Plot::contain(const BoundingBox& boundingBox)
+{
+    xLimits_.x = std::min(xLimits_.x, boundingBox.x.x);
+    xLimits_.y = std::max(xLimits_.y, boundingBox.x.y);
+
+    yLimits_.x = std::min(yLimits_.x, boundingBox.y.x);
+    yLimits_.y = std::max(yLimits_.y, boundingBox.y.y);
+
+    zLimits_.x = std::min(zLimits_.x, boundingBox.z.x);
+    zLimits_.y = std::max(zLimits_.y, boundingBox.z.y);
+
     updateMatrix();
 }
 
@@ -78,6 +94,7 @@ void Plot::updateMatrix()
     matrix = glm::rotate(matrix, rotation_.x, glm::vec3(1.0, 0.0, 0.0));
     matrix = glm::rotate(matrix, rotation_.y, glm::vec3(0.0, 1.0, 0.0));
     matrix = glm::rotate(matrix, rotation_.z, glm::vec3(0.0, 0.0, 1.0));
+
     matrix = glm::scale(matrix, 2.0f/s);
     matrix = glm::translate(matrix, -t);
     model_ = matrix;

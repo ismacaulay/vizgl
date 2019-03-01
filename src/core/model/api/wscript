@@ -1,0 +1,8 @@
+
+def build(bld):
+    bld(
+        use=[],
+        includes=['.'],
+        export_includes=['.'],
+        target='modelapi',
+    )

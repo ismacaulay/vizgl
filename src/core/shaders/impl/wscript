@@ -1,0 +1,9 @@
+
+def build(bld):
+    bld.stlib(
+        use=['opengl', 'shadersapi', 'mappingapi'],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='shaders',
+    )

@@ -1,0 +1,8 @@
+
+def build(bld):
+    bld(
+        use=['glm'],
+        includes=['.'],
+        export_includes=['.'],
+        target='rendererapi',
+    )

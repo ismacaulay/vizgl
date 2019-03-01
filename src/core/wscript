@@ -2,13 +2,26 @@
 def build(bld):
     bld.recurse('api')
     bld.recurse('camera')
+    bld.recurse('colormap')
+    bld.recurse('geometry')
+    bld.recurse('mapping')
+    bld.recurse('model')
     bld.recurse('opengl')
-    bld.recurse('renderer')
-    bld.recurse('views')
     bld.recurse('plot')
+    bld.recurse('renderer')
+    bld.recurse('shaders')
 
     bld.stlib(
-        use=['views', 'camera'],
+        use=[
+            'camera',
+            'colormap',
+            'geometry',
+            'mapping',
+            'model',
+            'plot',
+            'renderer',
+            'shaders',
+        ],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],

@@ -1,7 +1,7 @@
 
 def build(bld):
     bld.stlib(
-        use=['glm', 'api'],
+        use=['glm', 'api', 'geometryapi'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],

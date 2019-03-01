@@ -1,0 +1,9 @@
+
+def build(bld):
+    bld.stlib(
+        use=['glm'],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='openglapi',
+    )

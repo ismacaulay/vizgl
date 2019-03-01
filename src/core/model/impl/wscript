@@ -1,0 +1,17 @@
+
+def build(bld):
+    bld.stlib(
+        use=[
+            'api',
+            'components',
+            'geometryapi',
+            'modelapi',
+            'rendererapi',
+            'shadersapi',
+            'plot'
+        ],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='model'
+    )

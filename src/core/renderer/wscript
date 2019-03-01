@@ -1,9 +1,4 @@
 
 def build(bld):
-    bld.stlib(
-        use=['opengl', 'camera', 'plot'],
-        source=bld.path.ant_glob('*.cpp'),
-        includes=['.'],
-        export_includes=['.'],
-        target='renderer'
-    )
+    bld.recurse('api')
+    bld.recurse('impl')

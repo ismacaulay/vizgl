@@ -1,0 +1,8 @@
+
+def build(bld):
+    bld(
+        use=['components'],
+        includes=['.'],
+        export_includes=['.'],
+        target='shadersapi',
+    )

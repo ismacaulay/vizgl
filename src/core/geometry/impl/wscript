@@ -1,0 +1,9 @@
+
+def build(bld):
+    bld.stlib(
+        use=['api', 'geometryapi', 'opengl'],
+        source=bld.path.ant_glob('*.cpp'),
+        includes=['.'],
+        export_includes=['.'],
+        target='geometry'
+    )

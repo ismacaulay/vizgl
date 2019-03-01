@@ -1,6 +1,7 @@
 
 def build(bld):
     bld(
+        use=['components'],
         includes=['.'],
         export_includes=['.'],
         name='api',

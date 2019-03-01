@@ -10,6 +10,7 @@ public:
 
     void setRotation(const glm::vec3& rotation);
 
+    void contain(const BoundingBox& boundingBox);
     void containVertices(const std::vector<float>& vertices);
 
     const glm::mat4& model() const;

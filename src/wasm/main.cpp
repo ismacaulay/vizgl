@@ -8,7 +8,6 @@
 
 void main_loop()
 {
-
     ImGuiImpl::BeginFrame();
     ImGui::NewFrame();
 
@@ -18,6 +17,7 @@ void main_loop()
     // ImGui::ShowDemoWindow(&showDemo);
 
     CoreInstance::getInstance().render();
+
     ImGui::Render();
 }
 

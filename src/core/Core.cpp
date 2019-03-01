@@ -4,11 +4,30 @@
 #include "CameraController.h"
 #include "CameraControls.h"
 #include "Plot.h"
-#include "RenderableRepository.h"
+// #include "RenderableRepository.h"
 #include "Renderer.h"
-#include "ViewFactory.h"
-#include "ViewManager.h"
+// #include "ViewFactory.h"
+// #include "ViewManager.h"
 #include "OrthographicCamera.h"
+
+#include "GenericRepository.h"
+#include "ModelRendererFactory.h"
+#include "ShaderManager.h"
+#include "ModelManager.h"
+#include "ModelFactory.h"
+#include "ShaderFactory.h"
+#include "MappingFactory.h"
+#include "MappingManager.h"
+#include "GeometryFactory.h"
+#include "GeometryManager.h"
+#include "ColorMapFactory.h"
+#include "ColorMapManager.h"
+
+#include "I_Geometry.h"
+#include "I_Mapping.h"
+#include "I_Model.h"
+#include "I_ModelRenderer.h"
+#include "I_Shader.h"
 
 class Core::Impl
 {
@@ -20,11 +39,45 @@ public:
         , cameraControls(camera)
         , cameraController(cameraControls)
 
-        , renderableRepository()
-        , renderer(camera, plot, renderableRepository)
+        , geometryFactory()
+        , geometryManager(
+            geometryFactory,
+            geometryRepository)
 
-        , viewFactory()
-        , viewManager(viewFactory, renderableRepository, plot)
+        , colorMapFactory()
+        , colorMapManager(
+            colorMapFactory,
+            colorMapRepository)
+
+        , mappingFactory()
+        , mappingManager(
+            mappingFactory,
+            mappingRepository)
+
+        , shaderFactory()
+        , shaderManager(
+            mappingRepository,
+            shaderFactory,
+            shaderRepository)
+
+        , modelRendererFactory(
+            geometryRepository,
+            shaderRepository,
+            mappingRepository)
+
+        , modelFactory()
+        , modelManager(
+            modelFactory,
+            modelRepository,
+            shaderManager,
+            modelRendererFactory,
+            modelRendererRepository,
+            plot,
+            geometryRepository)
+
+
+
+        , renderer(camera, plot, modelRendererRepository)
     {
     }
 
@@ -41,11 +94,32 @@ public:
     CameraControls cameraControls;
     CameraController cameraController;
 
-    RenderableRepository renderableRepository;
+    GenericRepository<I_ColorMap> colorMapRepository;
+    GenericRepository<I_Geometry> geometryRepository;
+    GenericRepository<I_Mapping> mappingRepository;
+    GenericRepository<I_Model> modelRepository;
+    GenericRepository<I_ModelRenderer> modelRendererRepository;
+    GenericRepository<I_Shader> shaderRepository;
+
+    GeometryFactory geometryFactory;
+    GeometryManager geometryManager;
+
+    ColorMapFactory colorMapFactory;
+    ColorMapManager colorMapManager;
+
+    MappingFactory mappingFactory;
+    MappingManager mappingManager;
+
+    ShaderFactory shaderFactory;
+    ShaderManager shaderManager;
+
+    ModelRendererFactory modelRendererFactory;
+
+    ModelFactory modelFactory;
+    ModelManager modelManager;
+
     Renderer renderer;
 
-    ViewFactory viewFactory;
-    ViewManager viewManager;
 };
 
 Core::Core()
@@ -67,9 +141,19 @@ void Core::render()
     p_->render();
 }
 
-I_ViewApi& Core::viewApi() const
+I_GeometryApi& Core::geometryApi() const
 {
-    return p_->viewManager;
+    return p_->geometryManager;
+}
+
+I_MappingApi& Core::mappingApi() const
+{
+    return p_->mappingManager;
+}
+
+I_ModelApi& Core::modelApi() const
+{
+    return p_->modelManager;
 }
 
 I_CameraApi& Core::cameraApi() const
