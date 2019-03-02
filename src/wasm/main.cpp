@@ -65,8 +65,12 @@ int resize_callback(int type, const EmscriptenUiEvent *event, void *data)
 {
     if (type == EMSCRIPTEN_EVENT_RESIZE) {
         int width, height;
+        // use this if not using full screen
+        // emscripten_get_element_css_size(nullptr, &width, &height);
+        // emscripten_set_canvas_element_size(nullptr, int(width), int(height));
+
         emscripten_get_canvas_element_size("canvas", &width, &height);
-        CoreInstance::getInstance().setSize(width, height);
+        CoreInstance::getInstance().setSize(int(width), int(height));
     }
 
     return 1;
@@ -99,6 +103,7 @@ int main() {
         return -1;
     }
 
+
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
@@ -117,7 +122,11 @@ int main() {
     emscripten_set_resize_callback(nullptr, nullptr, true, &resize_callback);
 
     int width, height;
-    emscripten_get_canvas_element_size("canvas", &width, &height);
+    // if not using full screen, need to set the canvas ourselves
+    // emscripten_get_element_css_size(nullptr, &width, &height);
+    // emscripten_set_canvas_element_size(nullptr, int(width), int(height));
+
+    emscripten_get_canvas_element_size(nullptr, &width, &height);
     CoreInstance::getInstance().setSize(width, height);
 
     emscripten_set_main_loop(main_loop, 0, true);

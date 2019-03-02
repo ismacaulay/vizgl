@@ -11,6 +11,15 @@ export class MappingApi {
             'number', // unsigned int numData
             'number', // unsigned int gradientId
         ]);
+
+        this._setContinuousMappingGradient = this._module.wrap(
+            'setContinuousMappingGradient',
+            null,
+            [
+                'number', // unsigned int mappingId
+                'number', // unsigned int gradientId
+            ],
+        );
     }
 
     createStaticMapping(color) {
@@ -37,6 +46,14 @@ export class MappingApi {
             },
             cleanup: () => {
                 this._module.free(buffer);
+            },
+        });
+    }
+
+    setContinuousMappingGradient(mappingId, gradientId) {
+        return this._module.execute({
+            func: () => {
+                return this._setContinuousMappingGradient(mappingId, gradientId);
             },
         });
     }

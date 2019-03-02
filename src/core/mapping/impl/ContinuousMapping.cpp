@@ -68,3 +68,8 @@ void ContinuousMapping::bind(I_Shader& shader)
 {
     p_->bind(shader);
 }
+
+void ContinuousMapping::setGradient(const IntegerId& gradient)
+{
+    p_->gradientId = gradient;
+}

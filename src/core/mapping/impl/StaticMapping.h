@@ -13,6 +13,7 @@ public:
     MappingType type() const;
     void bind(I_Shader& shader);
 
+    void setGradient(const IntegerId& gradient);
 private:
     glm::vec3 rgb_;
     std::unordered_map<int, int> uniformLocationCache_;

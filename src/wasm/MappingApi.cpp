@@ -24,4 +24,13 @@ unsigned int createContinuousMapping(float* data, unsigned int numData, unsigned
     return id.value();
 }
 
+EMSCRIPTEN_KEEPALIVE
+void setContinuousMappingGradient(unsigned int mappingId, unsigned int gradientId) {
+    CoreInstance::getInstance().mappingApi().setContinuousMappingGradient(
+        IntegerId(mappingId),
+        IntegerId(gradientId)
+    );
+}
+
+
 }

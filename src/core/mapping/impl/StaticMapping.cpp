@@ -29,3 +29,7 @@ void StaticMapping::bind(I_Shader& shader)
     glm::vec3 normalizedColor = normalizeColor(rgb_);
     shader.setUniform3f("u_color", normalizedColor.r, normalizedColor.g, normalizedColor.b);
 }
+
+void StaticMapping::setGradient(const IntegerId& gradient)
+{
+}

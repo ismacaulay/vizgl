@@ -2,6 +2,7 @@
 
 #include "I_MappingFactory.h"
 #include "I_Repository.h"
+#include "I_Mapping.h"
 
 MappingManager::MappingManager(
     I_MappingFactory& factory,
@@ -22,4 +23,11 @@ IntegerId MappingManager::createContinuousMapping(
 {
     auto mapping = factory_.createContinuousMapping(data, colorMapId);
     return repository_.insert(mapping);
+}
+
+void MappingManager::setContinuousMappingGradient(
+    const IntegerId& mappingId, const IntegerId& colorMapId)
+{
+    auto& mapping = repository_.lookup(mappingId);
+    mapping.setGradient(colorMapId);
 }

@@ -20,6 +20,8 @@ public:
     MappingType type() const;
     void bind(I_Shader& shader);
 
+    void setGradient(const IntegerId& gradient);
+
 private:
     class Impl;
     std::unique_ptr<Impl> p_;

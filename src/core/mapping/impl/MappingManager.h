@@ -18,6 +18,9 @@ public:
     IntegerId createContinuousMapping(
         const std::vector<float>& data, const IntegerId& colorMapId);
 
+    void setContinuousMappingGradient(
+        const IntegerId& mappingId, const IntegerId& colorMapId);
+
 private:
     I_MappingFactory& factory_;
     I_Repository<I_Mapping>& repository_;
