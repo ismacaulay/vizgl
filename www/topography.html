@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Topography Example</title>
+        <style></style>
+    </head>
+    <body>
+        <div class="container">
+            <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+        </div>
+        <script src="vizgl-wrapper-umd.js"></script>
+
+        <script>
+            const vizgl = window.vizgl;
+
+            function loadJSON(url) {
+                return fetch(url).then(response => response.json());
+            }
+
+            Module = {
+                canvas: document.getElementById('canvas'),
+
+                onRuntimeInitialized: () => {
+                    const module = new vizgl.ModuleWrapper(Module);
+                    const geometryApi = new vizgl.GeometryApi(module);
+                    const colorMapApi = new vizgl.ColorMapApi(module);
+                    const mappingApi = new vizgl.MappingApi(module);
+                    const modelApi = new vizgl.ModelApi(module);
+
+                    const geometryLoader = loadJSON('res/geometry/topography.json');
+                    const dataLoader = loadJSON('res/data/topography.json');
+                    const colormapLoader = loadJSON('res/colormaps/joes-crazy-colors.json');
+
+                    Promise.all([geometryLoader, dataLoader, colormapLoader]).then(loadedData => {
+                        const [geometry, data, colormap] = loadedData;
+                        console.log({ loadedData });
+
+                        const { vertices, triangles } = geometry;
+                        const { values } = data;
+                        const { colors } = colormap;
+
+                        const transformedData = triangles.map(vertexIdx => {
+                            return values[vertexIdx];
+                        });
+                        console.log({ transformedData });
+                        const geometryId = geometryApi.createMesh2(vertices, triangles);
+                        const colorMapId = colorMapApi.createColorMap(colors);
+                        const mappingId = mappingApi.createContinuosMapping(
+                            transformedData,
+                            colorMapId,
+                        );
+
+                        const modelId = modelApi.createModel(geometryId, mappingId);
+                        console.log({ geometryId, mappingId, colorMapId });
+                    });
+                },
+            };
+        </script>
+
+        <script async type="text/javascript" src="vizgl.js"></script>
+    </body>
+</html>

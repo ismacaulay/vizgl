@@ -8,5 +8,5 @@ def build(bld):
         linkflags=[
             '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"]',
         ],
-        target='index',
+        target='vizgl',
     )

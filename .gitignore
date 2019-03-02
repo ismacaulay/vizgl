@@ -35,3 +35,12 @@
 
 # editors
 .vscode
+
+# js
+node_modules
+dist
+
+# build artifacts
+www/vizgl-wrapper-umd.js
+www/vizgl.js
+www/vizgl.wasm

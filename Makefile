@@ -2,9 +2,9 @@
 ORG=ismacaulay
 APP=vizgl
 SERVER=wasm-server
-BUILD_DIR=.build/src/wasm
-WASM_FILE=$(BUILD_DIR)/index.wasm
-JS_FILE =$(BUILD_DIR)/index.js
+BUILD_DIR=src/.build/wasm
+WASM_FILE=$(BUILD_DIR)/vizgl.wasm
+JS_FILE =$(BUILD_DIR)/vizgl.js
 
 baseimage:
 	docker build -t $(ORG)/$(APP) .
