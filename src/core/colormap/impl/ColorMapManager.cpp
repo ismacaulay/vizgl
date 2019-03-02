@@ -9,7 +9,7 @@ ColorMapManager::ColorMapManager(I_ColorMapFactory& factory, I_Repository<I_Colo
 {
 }
 
-IntegerId ColorMapManager::createColorMap(const std::vector<glm::vec3>& colors)
+IntegerId ColorMapManager::createColorMap(const std::vector<unsigned char>& colors)
 {
     auto colormap = factory_.createColorMap(colors);
     return repository_.insert(colormap);

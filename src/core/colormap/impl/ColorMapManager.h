@@ -10,7 +10,7 @@ class ColorMapManager : public I_ColorMapApi
 public:
     explicit ColorMapManager(I_ColorMapFactory& factory, I_Repository<I_ColorMap>& repository);
 
-    IntegerId createColorMap(const std::vector<glm::vec3>& colors);
+    IntegerId createColorMap(const std::vector<unsigned char>& colors);
 
 private:
     I_ColorMapFactory& factory_;

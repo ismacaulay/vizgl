@@ -11,7 +11,7 @@ public:
     ~StaticMapping() = default;
 
     MappingType type() const;
-    void bind();
+    void bind(I_Shader& shader);
 
 private:
     glm::vec3 rgb_;

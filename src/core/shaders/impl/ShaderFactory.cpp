@@ -1,7 +1,8 @@
 #include "ShaderFactory.h"
 
-#include "StaticShaderSource.h"
+#include "ContinuousMappingShaderSource.h"
 #include "Shader.h"
+#include "StaticShaderSource.h"
 
 std::shared_ptr<I_Shader> ShaderFactory::createShaderForMappingType(MappingType type)
 {
@@ -9,8 +10,14 @@ std::shared_ptr<I_Shader> ShaderFactory::createShaderForMappingType(MappingType 
     {
         case MappingType::Static:
         {
-            return std::make_shared<Shader>(StaticShaderSource::VertexShader, StaticShaderSource::FragmentShader);
+            return std::make_shared<Shader>(
+                StaticShaderSource::VertexShader,
+                StaticShaderSource::FragmentShader);
         }
+        case MappingType::Continuous:
+            return std::make_shared<Shader>(
+                ContinuousMappingShaderSource::VertexShader,
+                ContinuousMappingShaderSource::FragmentShader);
     };
 
     return nullptr;

@@ -1,7 +1,7 @@
 
 def build(bld):
     bld.stlib(
-        use=['api', 'mappingapi', 'openglapi'],
+        use=['api', 'mappingapi', 'opengl', 'colormapapi'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],

@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "I_CameraApi.h"
+#include "I_ColorMapApi.h"
 #include "I_GeometryApi.h"
 #include "I_MappingApi.h"
 #include "I_ModelApi.h"
@@ -16,6 +17,7 @@ public:
 
     void render();
 
+    I_ColorMapApi& colorMapApi() const;
     I_GeometryApi& geometryApi() const;
     I_MappingApi& mappingApi() const;
     I_ModelApi& modelApi() const;

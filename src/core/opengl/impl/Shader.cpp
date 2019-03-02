@@ -29,6 +29,11 @@ void Shader::setUniform1f(const std::string& name, float v)
     GL_CALL(glUniform1f(getUniformLocation(name), v));
 }
 
+void Shader::setUniform3f(const std::string& name, float v0, float v1, float v2)
+{
+    GL_CALL(glUniform3f(getUniformLocation(name), v0, v1, v2));
+}
+
 void Shader::setUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
     GL_CALL(glUniform4f(getUniformLocation(name), v0, v1, v2, v3));
@@ -42,6 +47,19 @@ void Shader::setUniform1i(const std::string& name, int v)
 void Shader::setUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
     GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix)));
+}
+
+void Shader::enableAttribute(
+    const std::string& name,
+    unsigned int size,
+    unsigned int type,
+    bool normalized,
+    unsigned int stride,
+    unsigned int offset)
+{
+    int location = getAttributeLocation(name);
+    GL_CALL(glEnableVertexAttribArray(location));
+    GL_CALL(glVertexAttribPointer(location, size, type, normalized, stride, (void *)offset));
 }
 
 unsigned int Shader::createShader(const std::string& vertexShader, const std::string& fragmentShader)
@@ -97,5 +115,20 @@ int Shader::getUniformLocation(const std::string& name)
         printf("Warning: Location for %s does not exists in shader %d\n", name.c_str(), id_);
     }
     uniformLocationCache_[name] = location;
+    return location;
+}
+
+int Shader::getAttributeLocation(const std::string& name)
+{
+    auto search = attributeLocationCache_.find(name);
+    if (search != attributeLocationCache_.end()) {
+        return search->second;
+    }
+
+    GL_CALL(int location = glGetAttribLocation(id_, name.c_str()));
+    if (location == -1) {
+        printf("Warning: Location for %s does not exists in shader %d\n", name.c_str(), id_);
+    }
+    attributeLocationCache_[name] = location;
     return location;
 }

@@ -1,10 +1,9 @@
 #include "MeshGeometry.h"
 
 #include "BoundingBox.h"
+#include "I_Shader.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
-
-#include "GLError.h"
 
 BoundingBox computeBoundingBox(const std::vector<float>& vertices)
 {
@@ -47,18 +46,12 @@ public:
         vertexCount = vertices.size() / 3;
     }
 
-    void bind()
+    void bind(I_Shader& shader)
     {
         vb.bind();
+        shader.bind();
 
-        unsigned int offset = 0;
-        const auto& elements = layout.getElements();
-        for (auto i = 0ul; i < elements.size(); i++) {
-            const auto& element = elements[i];
-            GL_CALL(glEnableVertexAttribArray(i));
-            GL_CALL(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride(), (const void*)offset));
-            offset += element.count * VertexBufferElement::getSizeOfType(element.type);
-        }
+        shader.enableAttribute("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
     }
 
     VertexBuffer vb;
@@ -91,7 +84,7 @@ unsigned int MeshGeometry::vertexCount() const
     return p_->vertexCount;
 }
 
-void MeshGeometry::bind()
+void MeshGeometry::bind(I_Shader& shader)
 {
-    p_->bind();
+    p_->bind(shader);
 }

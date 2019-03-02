@@ -33,14 +33,14 @@ void ModelRenderer::render(const glm::mat4& model, const glm::mat4& view, const 
     auto& shader = shaderRepsitory_.lookup(model_.shaderId());
     auto& mapping = mappingsRepository_.lookup(model_.mappingId());
 
-    geometry.bind();
+    geometry.bind(shader);
 
     shader.bind();
     shader.setUniformMat4f("u_model", model);
     shader.setUniformMat4f("u_view", view);
     shader.setUniformMat4f("u_proj", proj);
 
-    mapping.bind();
+    mapping.bind(shader);
 
     GL_CALL(glDrawArrays(typeToGlMap.at(geometry.type()), 0, geometry.vertexCount()));
 }

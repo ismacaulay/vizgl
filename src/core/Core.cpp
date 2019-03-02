@@ -39,6 +39,13 @@ public:
         , cameraControls(camera)
         , cameraController(cameraControls)
 
+        , colorMapRepository()
+        , geometryRepository()
+        , mappingRepository()
+        , modelRepository()
+        , modelRendererRepository()
+        , shaderRepository()
+
         , geometryFactory()
         , geometryManager(
             geometryFactory,
@@ -49,7 +56,7 @@ public:
             colorMapFactory,
             colorMapRepository)
 
-        , mappingFactory()
+        , mappingFactory(colorMapRepository)
         , mappingManager(
             mappingFactory,
             mappingRepository)
@@ -139,6 +146,11 @@ void Core::setSize(int width, int height)
 void Core::render()
 {
     p_->render();
+}
+
+I_ColorMapApi& Core::colorMapApi() const
+{
+    return p_->colorMapManager;
 }
 
 I_GeometryApi& Core::geometryApi() const

@@ -14,7 +14,7 @@ public:
     const BoundingBox& boundingBox() const;
     unsigned int vertexCount() const;
 
-    void bind();
+    void bind(I_Shader& shader);
 
 
 private:

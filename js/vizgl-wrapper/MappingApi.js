@@ -32,7 +32,6 @@ export class MappingApi {
         let buffer;
         return this._module.execute({
             func: () => {
-                console.log({ id: 'MappingApi', data });
                 buffer = this._module.malloc(new Float32Array(data));
                 return this._createContinuousMapping(buffer, data.length, gradientId);
             },

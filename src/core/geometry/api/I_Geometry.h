@@ -1,5 +1,6 @@
 #pragma once
 
+class I_Shader;
 class I_VertexBuffer;
 struct BoundingBox;
 
@@ -17,5 +18,5 @@ public:
     virtual const BoundingBox& boundingBox() const = 0;
     virtual unsigned int vertexCount() const = 0;
 
-    virtual void bind() = 0;
+    virtual void bind(I_Shader& shader) = 0;
 };

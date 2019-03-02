@@ -10,5 +10,5 @@ public:
     explicit ColorMapFactory() = default;
     ~ColorMapFactory() = default;
 
-    std::shared_ptr<I_ColorMap> createColorMap(const std::vector<glm::vec3>& colors);
+    std::shared_ptr<I_ColorMap> createColorMap(const std::vector<unsigned char>& colors);
 };

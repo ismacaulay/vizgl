@@ -3,4 +3,5 @@
 enum class MappingType
 {
     Static,
+    Continuous,
 };
