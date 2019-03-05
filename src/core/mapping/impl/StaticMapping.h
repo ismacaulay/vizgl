@@ -15,6 +15,6 @@ public:
 
     void setGradient(const IntegerId& gradient);
 private:
-    glm::vec3 rgb_;
+    glm::vec3 normalizedColor_;
     std::unordered_map<int, int> uniformLocationCache_;
 };

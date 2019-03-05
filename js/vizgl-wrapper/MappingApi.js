@@ -27,7 +27,6 @@ export class MappingApi {
         return this._module.execute({
             func: () => {
                 const typedBuffer = new Uint8Array(color);
-                console.log({ color, typedBuffer });
                 buffer = this._module.malloc(typedBuffer);
                 return this._createStaticMapping(buffer);
             },

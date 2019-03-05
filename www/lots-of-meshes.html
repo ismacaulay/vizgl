@@ -31,11 +31,9 @@
                 });
 
                 var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? [
-                    parseInt(result[1], 16),
-                    parseInt(result[2], 16),
-                    parseInt(result[3], 16)
-                ] : null;
+                return result
+                    ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
+                    : null;
             }
 
             function flattenArrayToTypedArray(input, TypedArray) {
@@ -60,21 +58,35 @@
                     const mappingApi = new vizgl.MappingApi(module);
                     const modelApi = new vizgl.ModelApi(module);
 
-                    const loader = loadJSON('res/lots-of-meshes.json');
-
+                    const loader = loadJSON('res/large-data/lots-of-meshes.json');
+                    console.log('Loading...');
                     Promise.all([loader]).then(loadedData => {
-                        const [meshes] = loadedData
-                        console.log({ loadedData });
+                        const [meshes] = loadedData;
+                        console.log('Processing...');
+                        // console.log({ loadedData });
 
+                        let totalTris = 0;
                         for (let i = 0; i < 100; i++) {
-                            const { vertices, triangles, color: { value: hexColor } } = meshes[i];
+                            const {
+                                vertices,
+                                triangles,
+                                color: { value: hexColor },
+                            } = meshes[i];
                             const verts = flattenArrayToTypedArray(vertices, Float32Array);
                             const tris = flattenArrayToTypedArray(triangles, Uint32Array);
                             const geometryId = geometryApi.createMesh2(verts, tris);
                             const mappingId = mappingApi.createStaticMapping(hexToRgb(hexColor));
                             const modelId = modelApi.createModel(geometryId, mappingId);
-                            console.log({ modelId, geometryId, mappingId });
+                            totalTris += triangles.length;
+                            console.log({
+                                modelId,
+                                geometryId,
+                                mappingId,
+                                totalTris,
+                                tris: triangles.length,
+                            });
                         }
+                        console.log({ totalTris });
                     });
                 },
             };

@@ -26,6 +26,10 @@ def configure(conf):
         '-s', 'ALLOW_MEMORY_GROWTH=1',
     ]
 
+    conf.env.DEFINES = [
+        'NDEBUG',
+    ]
+
 def build(bld):
     bld.recurse('vendor')
     bld.recurse('components')

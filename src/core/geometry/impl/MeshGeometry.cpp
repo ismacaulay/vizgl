@@ -49,8 +49,6 @@ public:
     void bind(I_Shader& shader)
     {
         vb.bind();
-        shader.bind();
-
         shader.enableAttribute("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
     }
 

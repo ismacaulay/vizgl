@@ -33,13 +33,13 @@ void ModelRenderer::render(const glm::mat4& model, const glm::mat4& view, const 
     auto& shader = shaderRepsitory_.lookup(model_.shaderId());
     auto& mapping = mappingsRepository_.lookup(model_.mappingId());
 
-    geometry.bind(shader);
-
+    // must bind shader before geometry and mapping, they use the bound shader
     shader.bind();
     shader.setUniformMat4f("u_model", model);
     shader.setUniformMat4f("u_view", view);
     shader.setUniformMat4f("u_proj", proj);
 
+    geometry.bind(shader);
     mapping.bind(shader);
 
     GL_CALL(glDrawArrays(typeToGlMap.at(geometry.type()), 0, geometry.vertexCount()));

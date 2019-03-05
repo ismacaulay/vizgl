@@ -9,7 +9,7 @@
 namespace
 {
 const glm::vec3 INITIAL_TARGET = glm::vec3(0.0f, 0.0f, 0.0f);
-const glm::vec3 INITAL_POSITION = glm::vec3(0.0f, 0.0f, 3.0f);
+const glm::vec3 INITAL_POSITION = glm::vec3(0.0f, 0.0f, 10.0f);
 const glm::vec3 UP = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
@@ -22,7 +22,7 @@ OrthographicCamera::OrthographicCamera()
     , top_(1.0)
     , near_(0.1)
     , far_(2000.0)
-    , zoom_(1.0)
+    , zoom_(0.5)
 
     , view_(glm::mat4(1.0f))
     , proj_(glm::ortho(left_, right_, bottom_, top_, near_, far_))

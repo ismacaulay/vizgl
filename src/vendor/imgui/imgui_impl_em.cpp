@@ -10,15 +10,16 @@
 #include <GLES2/gl2ext.h>
 
 // #include "draw.h"
-#define GL_CHECKED(command)\
-    command;\
-    for(int error = glGetError(); (error=glGetError()); error != GL_NO_ERROR)\
-    {\
-        emscripten_log(EM_LOG_CONSOLE|EM_LOG_C_STACK|EM_LOG_DEMANGLE, "glerror: %d", error);\
-    }
+#define GL_CHECKED(command) command;
+// #define GL_CHECKED(command)\
+//     command;\
+//     for(int error = glGetError(); (error=glGetError()); error != GL_NO_ERROR)\
+//     {\
+//         emscripten_log(EM_LOG_CONSOLE|EM_LOG_C_STACK|EM_LOG_DEMANGLE, "glerror: %d", error);\
+//     }
 
 
-#define DEBUGPRINT_KEYBOARD 1
+#define DEBUGPRINT_KEYBOARD 0
 
 const char* ImGuiImpl::vertexShader =
 "uniform mat4 ProjMtx;                                  \n"
@@ -137,16 +138,16 @@ void ImGuiImpl::RenderDrawLists(ImDrawData* drawData)
         return;
     drawData->ScaleClipRects(io.DisplayFramebufferScale);
 
-    GLint lastProgram; glGetIntegerv(GL_CURRENT_PROGRAM, &lastProgram);
-    GLint lastTexture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &lastTexture);
-    GLint lastActiveTexture; glGetIntegerv(GL_ACTIVE_TEXTURE, &lastActiveTexture);
-    GLint lastArrayBuffer; glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &lastArrayBuffer);
-    GLint lastElementArrayBuffer; glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &lastElementArrayBuffer);
+    // GLint lastProgram; glGetIntegerv(GL_CURRENT_PROGRAM, &lastProgram);
+    // GLint lastTexture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &lastTexture);
+    // GLint lastActiveTexture; glGetIntegerv(GL_ACTIVE_TEXTURE, &lastActiveTexture);
+    // GLint lastArrayBuffer; glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &lastArrayBuffer);
+    // GLint lastElementArrayBuffer; glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &lastElementArrayBuffer);
     GLint lastVertexArray; glGetIntegerv(GL_VERTEX_ARRAY_BINDING_OES, &lastVertexArray);
     //GLint lastBlendSrc; glGetIntegerv(GL_BLEND_SRC, &lastBlendSrc);
     //GLint lastBlendDst; glGetIntegerv(GL_BLEND_DST, &lastBlendDst);
-    GLint lastBlendEquationRgb; glGetIntegerv(GL_BLEND_EQUATION_RGB, &lastBlendEquationRgb);
-    GLint lastBlendEquationAlpha; glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &lastBlendEquationAlpha);
+    // GLint lastBlendEquationRgb; glGetIntegerv(GL_BLEND_EQUATION_RGB, &lastBlendEquationRgb);
+    // GLint lastBlendEquationAlpha; glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &lastBlendEquationAlpha);
     GLint lastViewport[4]; glGetIntegerv(GL_VIEWPORT, lastViewport);
     GLint lastScissorBox[4]; glGetIntegerv(GL_SCISSOR_BOX, lastScissorBox);
     GLboolean lastEnableBlend = glIsEnabled(GL_BLEND);
@@ -216,13 +217,13 @@ void ImGuiImpl::RenderDrawLists(ImDrawData* drawData)
             idxBufferOffset += drawCommand->ElemCount;
         }
     }
-    glUseProgram(lastProgram);
-    glActiveTexture(lastActiveTexture);
-    glBindTexture(GL_TEXTURE_2D, lastTexture);
+    // glUseProgram(lastProgram);
+    // glActiveTexture(lastActiveTexture);
+    // glBindTexture(GL_TEXTURE_2D, lastTexture);
     glBindVertexArrayOES(lastVertexArray);
-    glBindBuffer(GL_ARRAY_BUFFER, lastArrayBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lastElementArrayBuffer);
-    glBlendEquationSeparate(lastBlendEquationRgb, lastBlendEquationAlpha);
+    // glBindBuffer(GL_ARRAY_BUFFER, lastArrayBuffer);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lastElementArrayBuffer);
+    // glBlendEquationSeparate(lastBlendEquationRgb, lastBlendEquationAlpha);
     //glBlendFunc(lastBlendSrc, lastBlendDst);
     if(lastEnableBlend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
     if(lastEnableCullFace) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
@@ -403,5 +404,6 @@ int ImGuiImpl::keyboardCallback(int eventType, const EmscriptenKeyboardEvent* ke
         }
         break;
     }
-    return handled;
+    // return handled;
+    return false;
 }
