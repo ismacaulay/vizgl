@@ -16,28 +16,17 @@ namespace {
 }
 
 ModelRenderer::ModelRenderer(
-    const I_Model& model,
     I_Repository<I_Geometry>& geometryRepository,
-    I_Repository<I_Shader>& shaderRepsitory,
     I_Repository<I_Mapping>& mappingsRepository)
-    : model_(model)
-    , geometryRepository_(geometryRepository)
-    , shaderRepsitory_(shaderRepsitory)
+    : geometryRepository_(geometryRepository)
     , mappingsRepository_(mappingsRepository)
 {
 }
 
-void ModelRenderer::render(const glm::mat4& model, const glm::mat4& view, const glm::mat4& proj)
+void ModelRenderer::render(const I_Model& model, I_Shader& shader)
 {
-    auto& geometry = geometryRepository_.lookup(model_.geometryId());
-    auto& shader = shaderRepsitory_.lookup(model_.shaderId());
-    auto& mapping = mappingsRepository_.lookup(model_.mappingId());
-
-    // must bind shader before geometry and mapping, they use the bound shader
-    shader.bind();
-    shader.setUniformMat4f("u_model", model);
-    shader.setUniformMat4f("u_view", view);
-    shader.setUniformMat4f("u_proj", proj);
+    auto& geometry = geometryRepository_.lookup(model.geometryId());
+    auto& mapping = mappingsRepository_.lookup(model.mappingId());
 
     geometry.bind(shader);
     mapping.bind(shader);

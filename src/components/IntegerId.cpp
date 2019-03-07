@@ -30,3 +30,14 @@ bool IntegerId::operator==(const IntegerId& other) const
 {
     return value_ == other.value();
 }
+
+bool IntegerId::operator!=(const IntegerId& other) const
+{
+    return !(value_ == other.value());
+}
+
+IntegerId IntegerId::null()
+{
+    static IntegerId nullId(NULL_ID);
+    return nullId;
+}

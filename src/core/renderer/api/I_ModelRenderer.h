@@ -1,10 +1,12 @@
 #pragma once
-#include <glm/glm.hpp>
+
+class I_Model;
+class I_Shader;
 
 class I_ModelRenderer
 {
 public:
     virtual ~I_ModelRenderer() = default;
 
-    virtual void render(const glm::mat4& model, const glm::mat4& view, const glm::mat4& proj) = 0;
+    virtual void render(const I_Model& model, I_Shader& shader) = 0;
 };

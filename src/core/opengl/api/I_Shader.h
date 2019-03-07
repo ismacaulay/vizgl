@@ -3,6 +3,8 @@
 #include <string>
 #include <glm/glm.hpp>
 
+class IntegerId;
+
 class I_Shader
 {
 public:

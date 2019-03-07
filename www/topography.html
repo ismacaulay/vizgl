@@ -35,7 +35,6 @@
 
                     Promise.all([geometryLoader, dataLoader, colormapLoader]).then(loadedData => {
                         const [geometry, data, colormap] = loadedData;
-                        console.log({ loadedData });
 
                         const { vertices, triangles } = geometry;
                         const { values } = data;
@@ -44,7 +43,6 @@
                         const transformedData = triangles.map(vertexIdx => {
                             return values[vertexIdx];
                         });
-                        console.log({ transformedData });
                         const geometryId = geometryApi.createMesh2(vertices, triangles);
                         const colorMapId = colorMapApi.createColorMap(colors);
                         const mappingId = mappingApi.createContinuosMapping(

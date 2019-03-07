@@ -11,10 +11,14 @@ ModelRendererFactory::ModelRendererFactory(
     , shaderRepsitory_(shaderRepsitory)
     , mappingRepository_(mappingRepository)
 {
+    (void)geometryRepository_;
+    (void)shaderRepsitory_;
+    (void)mappingRepository_;
 }
 
 std::shared_ptr<I_ModelRenderer> ModelRendererFactory::create(const I_Model& model)
 {
-    return std::make_shared<ModelRenderer>(
-        model, geometryRepository_, shaderRepsitory_, mappingRepository_);
+    // return std::make_shared<ModelRenderer>(
+    //     model, geometryRepository_, shaderRepsitory_, mappingRepository_);
+    return nullptr;
 }

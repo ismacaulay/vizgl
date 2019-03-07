@@ -11,16 +11,12 @@ ModelManager::ModelManager(
     I_ModelFactory& modelFactory,
     I_Repository<I_Model>& modelRepository,
     I_ShaderManager& shaderManager,
-    I_ModelRendererFactory& modelRendererFactory,
-    I_Repository<I_ModelRenderer>& rendererRepository,
     I_Plot& plot,
     I_Repository<I_Geometry>& geometryRepository)
     :
       modelFactory_(modelFactory)
     , modelRepository_(modelRepository)
     , shaderManager_(shaderManager)
-    , modelRendererFactory_(modelRendererFactory)
-    , rendererRepository_(rendererRepository)
     , plot_(plot)
     , geometryRepository_(geometryRepository)
 {
@@ -35,9 +31,5 @@ IntegerId ModelManager::createModel(const IntegerId& geometryId, const IntegerId
 
     auto model = modelFactory_.create(geometryId, shaderId, mappingId);
     auto modelId = modelRepository_.insert(model);
-
-    auto renderer = modelRendererFactory_.create(*model);
-    rendererRepository_.insert(renderer);
-
     return modelId;
 }

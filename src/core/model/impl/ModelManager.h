@@ -17,8 +17,6 @@ public:
         I_ModelFactory& modelFactory,
         I_Repository<I_Model>& modelRepository,
         I_ShaderManager& shaderManager,
-        I_ModelRendererFactory& modelRendererFactory,
-        I_Repository<I_ModelRenderer>& rendererRepository,
         I_Plot& plot,
         I_Repository<I_Geometry>& geometryRepository);
     ~ModelManager() = default;
@@ -29,8 +27,6 @@ private:
     I_ModelFactory& modelFactory_;
     I_Repository<I_Model>& modelRepository_;
     I_ShaderManager& shaderManager_;
-    I_ModelRendererFactory& modelRendererFactory_;
-    I_Repository<I_ModelRenderer>& rendererRepository_;
     I_Plot& plot_;
     I_Repository<I_Geometry>& geometryRepository_;
 };

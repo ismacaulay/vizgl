@@ -12,6 +12,9 @@ public:
     bool isNull() const;
 
     bool operator==(const IntegerId& other) const;
+    bool operator!=(const IntegerId& other) const;
+
+    static IntegerId null();
 
 private:
     unsigned int value_;

@@ -22,6 +22,8 @@
 #include "GeometryManager.h"
 #include "ColorMapFactory.h"
 #include "ColorMapManager.h"
+#include "ModelRenderer.h"
+#include "ShaderBinder.h"
 
 #include "I_Geometry.h"
 #include "I_Mapping.h"
@@ -36,14 +38,15 @@ public:
         : plot()
 
         , camera()
-        , cameraControls(camera)
-        , cameraController(cameraControls)
+        , cameraControls(
+            camera)
+        , cameraController(
+            cameraControls)
 
         , colorMapRepository()
         , geometryRepository()
         , mappingRepository()
         , modelRepository()
-        , modelRendererRepository()
         , shaderRepository()
 
         , geometryFactory()
@@ -56,7 +59,8 @@ public:
             colorMapFactory,
             colorMapRepository)
 
-        , mappingFactory(colorMapRepository)
+        , mappingFactory(
+            colorMapRepository)
         , mappingManager(
             mappingFactory,
             mappingRepository)
@@ -66,25 +70,26 @@ public:
             mappingRepository,
             shaderFactory,
             shaderRepository)
+        , shaderBinder(
+            shaderRepository)
 
-        , modelRendererFactory(
+        , modelRenderer(
             geometryRepository,
-            shaderRepository,
             mappingRepository)
-
         , modelFactory()
         , modelManager(
             modelFactory,
             modelRepository,
             shaderManager,
-            modelRendererFactory,
-            modelRendererRepository,
             plot,
             geometryRepository)
 
-
-
-        , renderer(camera, plot, modelRendererRepository)
+        , renderer(
+            camera,
+            plot,
+            shaderBinder,
+            modelRenderer,
+            modelRepository)
     {
     }
 
@@ -105,7 +110,6 @@ public:
     GenericRepository<I_Geometry> geometryRepository;
     GenericRepository<I_Mapping> mappingRepository;
     GenericRepository<I_Model> modelRepository;
-    GenericRepository<I_ModelRenderer> modelRendererRepository;
     GenericRepository<I_Shader> shaderRepository;
 
     GeometryFactory geometryFactory;
@@ -119,9 +123,9 @@ public:
 
     ShaderFactory shaderFactory;
     ShaderManager shaderManager;
+    ShaderBinder shaderBinder;
 
-    ModelRendererFactory modelRendererFactory;
-
+    ModelRenderer modelRenderer;
     ModelFactory modelFactory;
     ModelManager modelManager;
 
