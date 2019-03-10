@@ -19,5 +19,5 @@ public:
     virtual const BoundingBox& boundingBox() const = 0;
     virtual unsigned int vertexCount() const = 0;
 
-    virtual void bind(I_Shader& shader) = 0;
+    virtual void render(I_Shader& shader) = 0;
 };

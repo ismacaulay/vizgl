@@ -20,7 +20,7 @@ MappingType StaticMapping::type() const
 
 void StaticMapping::bind(I_Shader& shader)
 {
-    // shader.setUniform3f("u_color", normalizedColor_.r, normalizedColor_.g, normalizedColor_.b);
+    shader.setUniform3f("u_color", normalizedColor_.r, normalizedColor_.g, normalizedColor_.b);
 }
 
 void StaticMapping::setGradient(const IntegerId& gradient)

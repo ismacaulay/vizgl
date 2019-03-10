@@ -32,5 +32,17 @@ void setContinuousMappingGradient(unsigned int mappingId, unsigned int gradientI
     );
 }
 
+EMSCRIPTEN_KEEPALIVE
+unsigned int createVoxelMapping(float* data, unsigned int numData, uint8_t* color, unsigned int geometryId) {
+    std::vector<float> d(data, data + numData);
+    glm::vec3 rgbColor(color[0], color[1], color[2]);
+
+    auto id = CoreInstance::getInstance().mappingApi().createVoxelMapping(
+        d,
+        rgbColor,
+        IntegerId(geometryId)
+    );
+    return id.value();
+}
 
 }

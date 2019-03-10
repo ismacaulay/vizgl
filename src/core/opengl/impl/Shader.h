@@ -18,7 +18,8 @@ public:
     void setUniform1i(const std::string& name, int v);
     void setUniformMat4f(const std::string& name, const glm::mat4& matrix);
 
-    void enableAttribute(
+    void enableAttribute(const std::string& name);
+    void vertexAttributePointer(
         const std::string& name,
         unsigned int size,
         unsigned int type,

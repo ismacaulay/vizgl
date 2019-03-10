@@ -1,3 +1,5 @@
+import { isTypedArray } from './utils';
+
 export class MappingApi {
     constructor(module) {
         this._module = module;
@@ -20,6 +22,13 @@ export class MappingApi {
                 'number', // unsigned int gradientId
             ],
         );
+
+        this._createVoxelMapping = this._module.wrap('createVoxelMapping', 'number', [
+            'number', // float* data
+            'number', // unsigned int numData
+            'number', // int8_t* color
+            'number', // unsigned int geometryId
+        ]);
     }
 
     createStaticMapping(color) {
@@ -53,6 +62,30 @@ export class MappingApi {
         return this._module.execute({
             func: () => {
                 return this._setContinuousMappingGradient(mappingId, gradientId);
+            },
+        });
+    }
+
+    createVoxelMapping(data, color, geometryId) {
+        let dataBuffer;
+        let colorBuffer;
+
+        return this._module.execute({
+            func: () => {
+                const dataArray = isTypedArray(data) ? data : new Float32Array(data);
+                const colorArray = isTypedArray(color) ? color : new Uint8Array(color);
+                dataBuffer = this._module.malloc(dataArray);
+                colorBuffer = this._module.malloc(colorArray);
+                return this._createVoxelMapping(
+                    dataBuffer,
+                    dataArray.length,
+                    colorBuffer,
+                    geometryId,
+                );
+            },
+            cleanup: () => {
+                this._module.free(dataBuffer);
+                this._module.free(colorBuffer);
             },
         });
     }

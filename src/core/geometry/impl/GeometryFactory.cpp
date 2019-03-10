@@ -16,9 +16,8 @@ std::shared_ptr<I_Geometry> GeometryFactory::createMesh(const std::vector<float>
     return std::make_shared<MeshGeometry>(vertices);
 }
 
-std::shared_ptr<I_Geometry> GeometryFactory::createVoxelMesh(const glm::vec3& dims)
+std::shared_ptr<I_VoxelGeometry> GeometryFactory::createVoxelMesh(const glm::vec3& dims)
 {
-    printf("[GeometryFactory] createVoxelMesh\n");
     auto id = voxelEngine_.generate(dims);
     return std::make_shared<VoxelGeometry>(id, voxelEngine_);
 }

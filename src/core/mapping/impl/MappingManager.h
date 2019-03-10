@@ -15,11 +15,16 @@ public:
     ~MappingManager() = default;
 
     IntegerId createStaticMapping(const glm::vec3& rgb);
+
     IntegerId createContinuousMapping(
         const std::vector<float>& data, const IntegerId& colorMapId);
-
     void setContinuousMappingGradient(
         const IntegerId& mappingId, const IntegerId& colorMapId);
+
+    IntegerId createVoxelMapping(
+        const std::vector<float>& data,
+        const glm::vec3& rgb,
+        const IntegerId& geometryId);
 
 private:
     I_MappingFactory& factory_;

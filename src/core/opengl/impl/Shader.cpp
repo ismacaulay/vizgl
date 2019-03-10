@@ -49,7 +49,13 @@ void Shader::setUniformMat4f(const std::string& name, const glm::mat4& matrix)
     GL_CALL(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix)));
 }
 
-void Shader::enableAttribute(
+void Shader::enableAttribute(const std::string& name)
+{
+    int location = getAttributeLocation(name);
+    GL_CALL(glEnableVertexAttribArray(location));
+}
+
+void Shader::vertexAttributePointer(
     const std::string& name,
     unsigned int size,
     unsigned int type,
@@ -58,7 +64,6 @@ void Shader::enableAttribute(
     unsigned int offset)
 {
     int location = getAttributeLocation(name);
-    GL_CALL(glEnableVertexAttribArray(location));
     GL_CALL(glVertexAttribPointer(location, size, type, normalized, stride, (void *)offset));
 }
 

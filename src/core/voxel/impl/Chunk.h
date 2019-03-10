@@ -11,7 +11,7 @@ public:
 
     void enableBlock(unsigned int x, unsigned int y, unsigned int z);
 
-    std::vector<float> vertices() const;
+    std::vector<float> vertices(const glm::vec3& baseOffset) const;
 
 private:
     unsigned int blockIndex(unsigned int x, unsigned int y, unsigned int z) const;

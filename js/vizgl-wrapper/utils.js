@@ -9,3 +9,9 @@ export function flattenArrayToTypedArray(input, TypedArray) {
     });
     return out;
 }
+
+export function isTypedArray(array) {
+    return (
+        array instanceof Float32Array || array instanceof Uint32Array || array instanceof Uint8Array
+    );
+}

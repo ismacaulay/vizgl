@@ -1,12 +1,12 @@
 #pragma once
-#include "I_Geometry.h"
+#include "I_VoxelGeometry.h"
 
 #include <memory>
 
 class I_VoxelEngine;
 class IntegerId;
 
-class VoxelGeometry : public I_Geometry
+class VoxelGeometry : public I_VoxelGeometry
 {
 public:
     explicit VoxelGeometry(const IntegerId& id, I_VoxelEngine& engine);
@@ -16,7 +16,9 @@ public:
     const BoundingBox& boundingBox() const;
     unsigned int vertexCount() const;
 
-    void bind(I_Shader& shader);
+    void render(I_Shader& shader);
+
+    const IntegerId& voxelMeshId() const;
 
 private:
     class Impl;

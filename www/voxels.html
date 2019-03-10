@@ -14,32 +14,55 @@
 
         <script>
             const vizgl = window.vizgl;
+            let module;
+            let geometryApi;
+            let colorMapApi;
+            let mappingApi;
+            let modelApi;
 
-            function loadJSON(url) {
-                return fetch(url).then(response => response.json());
+            function generateMappingData(dims) {
+                const [x, y, z] = dims;
+                const data = new Float32Array(x * y * z);
+                // for (let k = 0; k < z; k++) {
+                //     for (let j = 0; j < y; j++) {
+                //         for (let i = 0; i < x; i++) {
+                //             const index = k * y * z + j * y + i;
+                //             data[index] = index % 3 == 0 ? NaN : 1.0;
+                //         }
+                //     }
+                // }
+                return data;
+            }
+
+            async function loadBlockModel() {
+                return new Promise(() => {
+                    // const dims = [512, 512, 512];
+                    const dims = [307, 74, 213];
+                    const geometryId = geometryApi.createVoxelMesh(dims);
+
+                    const color = [19, 55, 130];
+                    const data = generateMappingData(dims);
+                    const mappingId = mappingApi.createVoxelMapping(data, color, geometryId);
+
+                    const modelId = modelApi.createModel(geometryId, mappingId);
+
+                    console.log({ geometryId, mappingId });
+                });
             }
 
             Module = {
                 canvas: document.getElementById('canvas'),
 
                 onRuntimeInitialized: () => {
-                    const module = new vizgl.ModuleWrapper(Module);
-                    const geometryApi = new vizgl.GeometryApi(module);
-                    const colorMapApi = new vizgl.ColorMapApi(module);
-                    const mappingApi = new vizgl.MappingApi(module);
-                    const modelApi = new vizgl.ModelApi(module);
+                    module = new vizgl.ModuleWrapper(Module);
+                    geometryApi = new vizgl.GeometryApi(module);
+                    colorMapApi = new vizgl.ColorMapApi(module);
+                    mappingApi = new vizgl.MappingApi(module);
+                    modelApi = new vizgl.ModelApi(module);
 
                     // Wait for gl context to be created an initialized (need main to run first)
                     setTimeout(() => {
-                        const dims = [16, 16, 16];
-                        const geometryId = geometryApi.createVoxelMesh(dims);
-
-                        const color = [116, 191, 165];
-                        const mappingId = mappingApi.createStaticMapping(color);
-
-                        const modelId = modelApi.createModel(geometryId, mappingId);
-
-                        console.log({ geometryId, mappingId });
+                        loadBlockModel();
                     }, 1);
                 },
             };

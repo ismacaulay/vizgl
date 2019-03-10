@@ -18,6 +18,7 @@ IntegerId MappingManager::createStaticMapping(const glm::vec3& rgb)
     return repository_.insert(mapping);
 }
 
+
 IntegerId MappingManager::createContinuousMapping(
     const std::vector<float>& data, const IntegerId& colorMapId)
 {
@@ -30,4 +31,11 @@ void MappingManager::setContinuousMappingGradient(
 {
     auto& mapping = repository_.lookup(mappingId);
     mapping.setGradient(colorMapId);
+}
+
+IntegerId MappingManager::createVoxelMapping(
+    const std::vector<float>& data, const glm::vec3& rgb, const IntegerId& geometryId)
+{
+    auto mapping = factory_.createVoxelMapping(data, rgb, geometryId);
+    return repository_.insert(mapping);
 }

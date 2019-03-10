@@ -10,7 +10,7 @@ public:
     ~GeometryFactory() = default;
 
     std::shared_ptr<I_Geometry> createMesh(const std::vector<float>& vertices);
-    std::shared_ptr<I_Geometry> createVoxelMesh(const glm::vec3& dims);
+    std::shared_ptr<I_VoxelGeometry> createVoxelMesh(const glm::vec3& dims);
 
 private:
     I_VoxelEngine& voxelEngine_;

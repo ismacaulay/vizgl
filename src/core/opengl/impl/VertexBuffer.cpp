@@ -3,6 +3,8 @@
 #include <GLES2/gl2.h>
 #include "GLError.h"
 
+#include <stdio.h>
+
 VertexBuffer::VertexBuffer()
 {
     GL_CALL(glGenBuffers(1, &rendererID_));
@@ -16,6 +18,7 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 
 VertexBuffer::~VertexBuffer()
 {
+    printf("[VertexBuffer] delete: %d\n", rendererID_);
     GL_CALL(glDeleteBuffers(1, &rendererID_));
 }
 

@@ -15,7 +15,13 @@ public:
 
     IntegerId generate(const glm::vec3& dims);
 
+    void onChanged(const IntegerId& mesh, const std::function<void()>& cb);
+    void setData(const IntegerId& mesh, const std::vector<float>& data);
+
+    const glm::vec3& dims(const IntegerId& mesh) const;
     const std::vector<float>& vertices(const IntegerId& mesh) const;
+    std::vector<float> vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const;
+
 
 private:
     I_ChunkManagerFactory& chunkManagerFactory_;

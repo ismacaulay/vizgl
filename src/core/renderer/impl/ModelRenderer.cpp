@@ -29,8 +29,7 @@ void ModelRenderer::render(const I_Model& model, I_Shader& shader)
     auto& geometry = geometryRepository_.lookup(model.geometryId());
     auto& mapping = mappingsRepository_.lookup(model.mappingId());
 
-    geometry.bind(shader);
     mapping.bind(shader);
-
-    GL_CALL(glDrawArrays(typeToGlMap.at(geometry.type()), 0, geometry.vertexCount()));
+    geometry.render(shader);
+    // GL_CALL(glDrawArrays(typeToGlMap.at(geometry.type()), 0, geometry.vertexCount()));
 }

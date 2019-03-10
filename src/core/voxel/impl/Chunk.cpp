@@ -17,34 +17,23 @@ void Chunk::enableBlock(unsigned int x, unsigned int y, unsigned int z)
     blocks_[index].setActive(true);
 }
 
-std::vector<float> Chunk::vertices() const
+std::vector<float> Chunk::vertices(const glm::vec3& chunkIndex) const
 {
-    int currentColor = 0;
-    std::vector<glm::vec3> colors = {
-        { 1.0, 0.0, 0.0 },
-        { 0.0, 1.0, 0.0 },
-        { 0.0, 0.0, 1.0 },
-    };
-
     std::vector<float> verts;
-    const auto addVert = [&verts, &colors, &currentColor](const glm::vec3& vert) {
+    const auto addVert = [&verts](const glm::vec3& vert) {
         verts.push_back(vert.x);
         verts.push_back(vert.y);
         verts.push_back(vert.z);
-
-        auto color = colors[currentColor];
-        verts.push_back(color.x);
-        verts.push_back(color.y);
-        verts.push_back(color.z);
     };
 
+    glm::vec3 baseOffset = chunkIndex * static_cast<float>(Voxel::CHUNK_SIZE);
     for(int k = 0; k < Voxel::CHUNK_SIZE; k++) {
         for(int j = 0; j < Voxel::CHUNK_SIZE; j++) {
             for(int i = 0; i < Voxel::CHUNK_SIZE; i++) {
                 unsigned int index = blockIndex(i, j, k);
                 const auto& block = blocks_[index];
                 if (block.isActive()) {
-                    glm::vec3 offset(i, j, k);
+                    glm::vec3 offset = baseOffset + glm::vec3(i, j, k);
                     glm::vec3 p0 = block.getVertex(0, offset);
                     glm::vec3 p1 = block.getVertex(1, offset);
                     glm::vec3 p2 = block.getVertex(2, offset);
@@ -108,8 +97,6 @@ std::vector<float> Chunk::vertices() const
                         addVert(p5); addVert(p1); addVert(p0);
                     }
                 }
-
-                currentColor = (currentColor + 1) % 3;
             }
         }
     }

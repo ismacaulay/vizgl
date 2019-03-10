@@ -6,6 +6,9 @@
 #include "VertexBufferLayout.h"
 #include "MeshUtils.h"
 
+#include <GLES2/gl2.h>
+#include "GLError.h"
+
 class MeshGeometry::Impl
 {
 public:
@@ -18,10 +21,11 @@ public:
         vertexCount = vertices.size() / 3;
     }
 
-    void bind(I_Shader& shader)
+    void render(I_Shader& shader)
     {
         vb.bind();
-        shader.enableAttribute("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+        // shader.enableAttribute("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, vertexCount));
     }
 
     VertexBuffer vb;
@@ -54,7 +58,7 @@ unsigned int MeshGeometry::vertexCount() const
     return p_->vertexCount;
 }
 
-void MeshGeometry::bind(I_Shader& shader)
+void MeshGeometry::render(I_Shader& shader)
 {
-    p_->bind(shader);
+    p_->render(shader);
 }

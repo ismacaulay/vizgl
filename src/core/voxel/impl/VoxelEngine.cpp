@@ -21,8 +21,32 @@ IntegerId VoxelEngine::generate(const glm::vec3& dims)
     return chunkManagerRepository_.insert(chunkManager);
 }
 
+void VoxelEngine::onChanged(const IntegerId& mesh, const std::function<void()>& cb)
+{
+    auto& chunkManager = chunkManagerRepository_.lookup(mesh);
+    chunkManager.onChanged(cb);
+}
+
+void VoxelEngine::setData(const IntegerId& mesh, const std::vector<float>& data)
+{
+    auto& chunkManager = chunkManagerRepository_.lookup(mesh);
+    chunkManager.setData(data);
+}
+
+const glm::vec3& VoxelEngine::dims(const IntegerId& mesh) const
+{
+    const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
+    return chunkManager.dims();
+}
+
 const std::vector<float>& VoxelEngine::vertices(const IntegerId& mesh) const
 {
     const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
     return chunkManager.vertices();
+}
+
+std::vector<float> VoxelEngine::vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const
+{
+    const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
+    return chunkManager.vertices(x, y, z);
 }

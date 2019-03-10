@@ -9,11 +9,13 @@
 #include "GenericRepository.h"
 #include "GeometryFactory.h"
 #include "GeometryManager.h"
+#include "I_ChunkManager.h"
 #include "I_Geometry.h"
 #include "I_Mapping.h"
 #include "I_Model.h"
 #include "I_ModelRenderer.h"
 #include "I_Shader.h"
+#include "IdLookupTable.h"
 #include "MappingFactory.h"
 #include "MappingManager.h"
 #include "ModelFactory.h"
@@ -27,7 +29,6 @@
 #include "ShaderFactory.h"
 #include "ShaderManager.h"
 #include "VoxelEngine.h"
-#include "I_ChunkManager.h"
 
 class Core::Impl
 {
@@ -48,6 +49,8 @@ public:
         , shaderRepository()
         , chunkManagerRepository()
 
+        , geometryToVoxelMeshLookupTable()
+
         , chunkManagerFactory()
         , voxelEngine(
             chunkManagerFactory,
@@ -57,7 +60,8 @@ public:
             voxelEngine)
         , geometryManager(
             geometryFactory,
-            geometryRepository)
+            geometryRepository,
+            geometryToVoxelMeshLookupTable)
 
         , colorMapFactory()
         , colorMapManager(
@@ -65,7 +69,9 @@ public:
             colorMapRepository)
 
         , mappingFactory(
-            colorMapRepository)
+            colorMapRepository,
+            geometryToVoxelMeshLookupTable,
+            voxelEngine)
         , mappingManager(
             mappingFactory,
             mappingRepository)
@@ -117,6 +123,8 @@ public:
     GenericRepository<I_Model> modelRepository;
     GenericRepository<I_Shader> shaderRepository;
     GenericRepository<I_ChunkManager> chunkManagerRepository;
+
+    IdLookupTable geometryToVoxelMeshLookupTable;
 
     ChunkManagerFactory chunkManagerFactory;
     VoxelEngine voxelEngine;
