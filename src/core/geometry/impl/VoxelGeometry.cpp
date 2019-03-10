@@ -17,7 +17,7 @@ class VoxelVertexBuffer
 public:
     VoxelVertexBuffer(const std::vector<float>& verts)
         : vb(std::make_unique<VertexBuffer>(verts.data(), verts.size() * sizeof(float)))
-        , count(verts.size() / 3)
+        , count(verts.size() / 6)
     {
     }
 
@@ -31,7 +31,6 @@ public:
     Impl(const IntegerId& id, I_VoxelEngine& engine)
         : voxelMeshId(id)
         , engine(engine)
-        // , vb(nullptr)
     {
         engine.onChanged(voxelMeshId, [this](){ update(); });
 
@@ -47,15 +46,11 @@ public:
                 for(int i = 0; i < dims.x; i++) {
                     std::vector<float> nextVerts = engine.vertices(voxelMeshId, i, j, k);
                     verts.insert(verts.end(), nextVerts.begin(), nextVerts.end());
-                    // printf("[VoxelGeometry] verts: %lu\n", verts.size());
-
-                    if (verts.size() >= 1000000) {
+                    if (verts.size() >= 2000000) {
                         buffers.emplace_back(verts);
                         boundingBox = MeshUtils::addVerticesToBoundingBox(boundingBox, verts);
                         verts.clear();
                     }
-
-                    // vertexCount += verts.size() / 3;
                 }
             }
         }
@@ -65,29 +60,17 @@ public:
             boundingBox = MeshUtils::addVerticesToBoundingBox(boundingBox, verts);
             verts.clear();
         }
-
-        // const auto& vertices = engine.vertices(voxelMeshId);
-        // printf("[VoxelGeometry] verts: %lu\n", vertices.size());
-
-        // vb = std::make_unique<VertexBuffer>(vertices.data(), vertices.size() * sizeof(float));
-
-        // boundingBox = MeshUtils::computeBoundingBox(vertices);
         printf("[VoxelGeometry] bb: x %f %f, y %f %f, z %f %f \n", boundingBox.x.x, boundingBox.x.y, boundingBox.y.x, boundingBox.y.y, boundingBox.z.x, boundingBox.z.y);
-
-        // vertexCount = vertices.size() / 3;
     }
-
-    // void bind(I_Shader& shader)
-    // {
-    //     // vb->bind();
-    // }
 
     void render(I_Shader& shader)
     {
         shader.enableAttribute("a_position");
+        shader.enableAttribute("a_barycentric");
         for (auto& buffer : buffers) {
             buffer.vb->bind();
-            shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+            shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+            shader.vertexAttributePointer("a_barycentric", 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 12);
             GL_CALL(glDrawArrays(GL_TRIANGLES, 0, buffer.count));
         }
     }
@@ -96,7 +79,6 @@ public:
     I_VoxelEngine& engine;
 
     std::vector<VoxelVertexBuffer> buffers;
-    // std::unique_ptr<VertexBuffer> vb;
 
     BoundingBox boundingBox;
     unsigned int vertexCount;

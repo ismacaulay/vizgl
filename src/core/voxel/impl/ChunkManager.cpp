@@ -40,8 +40,6 @@ ChunkManager::ChunkManager(const glm::vec3& dims)
             }
         }
     }
-
-    // updateMesh();
 }
 
 void ChunkManager::onChanged(const std::function<void()>& cb)
@@ -56,11 +54,6 @@ void ChunkManager::setData(const std::vector<float>& data)
 const glm::vec3& ChunkManager::dims() const
 {
     return dims_;
-}
-
-const std::vector<float>& ChunkManager::vertices() const
-{
-    return vertices_;
 }
 
 std::vector<float> ChunkManager::vertices(unsigned int x, unsigned int y, unsigned int z) const
@@ -81,20 +74,4 @@ Chunk ChunkManager::createChunk(const glm::vec3& dims)
         }
     }
     return chunk;
-}
-
-void ChunkManager::updateMesh()
-{
-    vertices_.clear();
-    // TODO: reserve verts
-    for(int k = 0; k < dims_.z; k++) {
-        for(int j = 0; j < dims_.y; j++) {
-            for(int i = 0; i < dims_.x; i++) {
-                unsigned int chunkIdx = (k * dims_.x * dims_.y) + (j * dims_.x) + i;
-                auto chunk = chunks_[chunkIdx];
-                auto chunkVerts = chunk.vertices(glm::vec3(i, j, k));
-                vertices_.insert(vertices_.end(), chunkVerts.begin(), chunkVerts.end());
-            }
-        }
-    }
 }

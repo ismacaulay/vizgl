@@ -2,7 +2,6 @@
 
 class VertexBuffer {
 public:
-    explicit VertexBuffer();
     explicit VertexBuffer(const void* data, unsigned int size);
     ~VertexBuffer();
 

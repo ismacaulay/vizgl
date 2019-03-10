@@ -39,12 +39,6 @@ const glm::vec3& VoxelEngine::dims(const IntegerId& mesh) const
     return chunkManager.dims();
 }
 
-const std::vector<float>& VoxelEngine::vertices(const IntegerId& mesh) const
-{
-    const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
-    return chunkManager.vertices();
-}
-
 std::vector<float> VoxelEngine::vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const
 {
     const auto& chunkManager = chunkManagerRepository_.lookup(mesh);

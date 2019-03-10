@@ -12,7 +12,6 @@ public:
     void setData(const std::vector<float>& data);
 
     const glm::vec3& dims() const;
-    const std::vector<float>& vertices() const;
     std::vector<float> vertices(unsigned int x, unsigned int y, unsigned int z) const;
 
 private:
@@ -22,8 +21,6 @@ private:
 private:
     std::vector<Chunk> chunks_;
     glm::vec3 dims_;
-
-    std::vector<float> vertices_;
 
     std::vector<std::function<void()>> observers_;
 };

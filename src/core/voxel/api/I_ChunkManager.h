@@ -14,6 +14,5 @@ public:
     virtual void setData(const std::vector<float>& data) = 0;
 
     virtual const glm::vec3& dims() const = 0;
-    virtual const std::vector<float>& vertices() const = 0;
     virtual std::vector<float> vertices(unsigned int x, unsigned int y, unsigned int z) const = 0;
 };
