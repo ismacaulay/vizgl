@@ -10,7 +10,7 @@
 
 class Core {
 public:
-    Core();
+    explicit Core();
     ~Core();
 
     void setSize(int width, int height);

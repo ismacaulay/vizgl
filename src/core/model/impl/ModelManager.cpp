@@ -7,14 +7,15 @@
 #include "I_Repository.h"
 #include "I_ShaderManager.h"
 
+#include <stdio.h>
+
 ModelManager::ModelManager(
     I_ModelFactory& modelFactory,
     I_Repository<I_Model>& modelRepository,
     I_ShaderManager& shaderManager,
     I_Plot& plot,
     I_Repository<I_Geometry>& geometryRepository)
-    :
-      modelFactory_(modelFactory)
+    : modelFactory_(modelFactory)
     , modelRepository_(modelRepository)
     , shaderManager_(shaderManager)
     , plot_(plot)

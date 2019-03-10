@@ -13,6 +13,10 @@ export class GeometryApi {
             'number', // uint32_t* triangles
             'number', // int numTriangles
         ]);
+
+        this._createVoxelMesh = this._module.wrap('createVoxelMesh', 'number', [
+            'number', // uint32_t[3] dims
+        ]);
     }
 
     createMesh(vertices) {
@@ -40,6 +44,19 @@ export class GeometryApi {
             cleanup: () => {
                 this._module.free(vBuffer);
                 this._module.free(tBuffer);
+            },
+        });
+    }
+
+    createVoxelMesh(dims) {
+        let buffer;
+        return this._module.execute({
+            func: () => {
+                buffer = this._module.malloc(new Uint32Array(dims));
+                return this._createVoxelMesh(buffer);
+            },
+            cleanup: () => {
+                this._module.free(buffer);
             },
         });
     }

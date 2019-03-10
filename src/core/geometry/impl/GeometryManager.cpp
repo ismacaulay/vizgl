@@ -3,6 +3,8 @@
 #include "I_GeometryFactory.h"
 #include "I_Repository.h"
 
+#include <stdio.h>
+
 GeometryManager::GeometryManager(I_GeometryFactory& factory, I_Repository<I_Geometry>& repository)
     : factory_(factory)
     , repository_(repository)
@@ -28,4 +30,10 @@ IntegerId GeometryManager::createMesh(
     }
 
     return createMesh(positions);
+}
+
+IntegerId GeometryManager::createVoxelMesh(const glm::vec3& dims)
+{
+    auto geometry = factory_.createVoxelMesh(dims);
+    return repository_.insert(geometry);
 }

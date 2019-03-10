@@ -3,33 +3,31 @@
 #include "Camera.h"
 #include "CameraController.h"
 #include "CameraControls.h"
-#include "Plot.h"
-// #include "RenderableRepository.h"
-#include "Renderer.h"
-// #include "ViewFactory.h"
-// #include "ViewManager.h"
-#include "OrthographicCamera.h"
-
-#include "GenericRepository.h"
-#include "ModelRendererFactory.h"
-#include "ShaderManager.h"
-#include "ModelManager.h"
-#include "ModelFactory.h"
-#include "ShaderFactory.h"
-#include "MappingFactory.h"
-#include "MappingManager.h"
-#include "GeometryFactory.h"
-#include "GeometryManager.h"
+#include "ChunkManagerFactory.h"
 #include "ColorMapFactory.h"
 #include "ColorMapManager.h"
-#include "ModelRenderer.h"
-#include "ShaderBinder.h"
-
+#include "GenericRepository.h"
+#include "GeometryFactory.h"
+#include "GeometryManager.h"
 #include "I_Geometry.h"
 #include "I_Mapping.h"
 #include "I_Model.h"
 #include "I_ModelRenderer.h"
 #include "I_Shader.h"
+#include "MappingFactory.h"
+#include "MappingManager.h"
+#include "ModelFactory.h"
+#include "ModelManager.h"
+#include "ModelRenderer.h"
+#include "ModelRendererFactory.h"
+#include "OrthographicCamera.h"
+#include "Plot.h"
+#include "Renderer.h"
+#include "ShaderBinder.h"
+#include "ShaderFactory.h"
+#include "ShaderManager.h"
+#include "VoxelEngine.h"
+#include "I_ChunkManager.h"
 
 class Core::Impl
 {
@@ -48,8 +46,15 @@ public:
         , mappingRepository()
         , modelRepository()
         , shaderRepository()
+        , chunkManagerRepository()
 
-        , geometryFactory()
+        , chunkManagerFactory()
+        , voxelEngine(
+            chunkManagerFactory,
+            chunkManagerRepository)
+
+        , geometryFactory(
+            voxelEngine)
         , geometryManager(
             geometryFactory,
             geometryRepository)
@@ -111,6 +116,10 @@ public:
     GenericRepository<I_Mapping> mappingRepository;
     GenericRepository<I_Model> modelRepository;
     GenericRepository<I_Shader> shaderRepository;
+    GenericRepository<I_ChunkManager> chunkManagerRepository;
+
+    ChunkManagerFactory chunkManagerFactory;
+    VoxelEngine voxelEngine;
 
     GeometryFactory geometryFactory;
     GeometryManager geometryManager;
@@ -130,7 +139,6 @@ public:
     ModelManager modelManager;
 
     Renderer renderer;
-
 };
 
 Core::Core()

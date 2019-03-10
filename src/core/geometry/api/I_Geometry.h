@@ -6,7 +6,8 @@ struct BoundingBox;
 
 enum class GeometryType
 {
-    Mesh
+    Mesh,
+    Voxel,
 };
 
 class I_Geometry

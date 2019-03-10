@@ -12,6 +12,7 @@
 namespace {
     const std::unordered_map<GeometryType, GLenum> typeToGlMap = {
         { GeometryType::Mesh, GL_TRIANGLES },
+        { GeometryType::Voxel, GL_TRIANGLES },
     };
 }
 

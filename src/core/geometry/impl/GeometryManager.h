@@ -15,6 +15,8 @@ public:
     IntegerId createMesh(const std::vector<float>& vertices,
                          const std::vector<uint32_t>& triangles);
 
+    IntegerId createVoxelMesh(const glm::vec3& dims);
+
 private:
     I_GeometryFactory& factory_;
     I_Repository<I_Geometry>& repository_;
