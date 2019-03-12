@@ -23,14 +23,17 @@
             function generateMappingData(dims) {
                 const [x, y, z] = dims;
                 const data = new Float32Array(x * y * z);
-                // for (let k = 0; k < z; k++) {
-                //     for (let j = 0; j < y; j++) {
-                //         for (let i = 0; i < x; i++) {
-                //             const index = k * y * z + j * y + i;
-                //             data[index] = index % 3 == 0 ? NaN : 1.0;
-                //         }
-                //     }
-                // }
+                for (let k = 0; k < z; k++) {
+                    for (let j = 0; j < y; j++) {
+                        for (let i = 0; i < x; i++) {
+                            const index = k * x * y + j * x + i;
+
+                            if (i % 2 === 0) {
+                                data[index] = NaN;
+                            }
+                        }
+                    }
+                }
                 return data;
             }
 
@@ -39,13 +42,14 @@
                     // const dims = [512, 512, 512];
                     // const dims = [374, 263, 197];
                     const dims = [256, 256, 256];
+                    // const dims = [17, 17, 17];
                     console.log({ blockCount: dims[0] * dims[1] * dims[2] });
 
-                    // const dims = [1, 1, 1];
                     const geometryId = geometryApi.createVoxelMesh(dims);
 
                     const color = [19, 55, 130];
                     const data = generateMappingData(dims);
+                    // const data = [NaN];
                     const mappingId = mappingApi.createVoxelMapping(data, color, geometryId);
 
                     const modelId = modelApi.createModel(geometryId, mappingId);

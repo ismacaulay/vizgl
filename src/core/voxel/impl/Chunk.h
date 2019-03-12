@@ -6,16 +6,20 @@
 class Chunk
 {
 public:
-    explicit Chunk();
+    explicit Chunk(const glm::vec3& dims);
     ~Chunk() = default;
 
-    void enableBlock(unsigned int x, unsigned int y, unsigned int z);
+    const glm::vec3& dims() const;
+
+    void setData(const std::vector<float>& data);
 
     std::vector<float> vertices(const glm::vec3& baseOffset) const;
 
 private:
+    void enableBlock(unsigned int x, unsigned int y, unsigned int z);
     unsigned int blockIndex(unsigned int x, unsigned int y, unsigned int z) const;
 
 private:
+    glm::vec3 dims_;
     std::vector<Block> blocks_;
 };

@@ -39,6 +39,8 @@ public:
 
     void update()
     {
+        buffers.clear();
+
         const auto& dims = engine.dims(voxelMeshId);
         std::vector<float> verts;
         for(int k = 0; k < dims.z; k++) {
@@ -60,7 +62,6 @@ public:
             boundingBox = MeshUtils::addVerticesToBoundingBox(boundingBox, verts);
             verts.clear();
         }
-        printf("[VoxelGeometry] bb: x %f %f, y %f %f, z %f %f \n", boundingBox.x.x, boundingBox.x.y, boundingBox.y.x, boundingBox.y.y, boundingBox.z.x, boundingBox.z.y);
     }
 
     void render(I_Shader& shader)

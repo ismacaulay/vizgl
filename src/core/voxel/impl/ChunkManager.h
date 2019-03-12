@@ -15,10 +15,6 @@ public:
     std::vector<float> vertices(unsigned int x, unsigned int y, unsigned int z) const;
 
 private:
-    Chunk createChunk(const glm::vec3& dims);
-    void updateMesh();
-
-private:
     std::vector<Chunk> chunks_;
     glm::vec3 dims_;
 

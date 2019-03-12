@@ -1,13 +1,55 @@
 #include "Chunk.h"
 
 #include "VoxelDefines.h"
+#include "ArrayUtils.h"
 
-Chunk::Chunk()
+#include <stdio.h>
+
+Chunk::Chunk(const glm::vec3& dims)
+    : dims_(dims)
 {
     const unsigned int totalBlocks = Voxel::CHUNK_SIZE * Voxel::CHUNK_SIZE * Voxel::CHUNK_SIZE;
     blocks_.reserve(totalBlocks);
     for(int i = 0; i < totalBlocks; i++) {
         blocks_.emplace_back();
+    }
+
+    for(int k = 0; k < dims.z; k++) {
+        for(int j = 0; j < dims.y; j++) {
+            for(int i = 0; i < dims.x; i++) {
+                enableBlock(i, j, k);
+            }
+        }
+    }
+}
+
+const glm::vec3& Chunk::dims() const
+{
+    return dims_;
+}
+
+void Chunk::setData(const std::vector<float>& data)
+{
+    if (data.size() < dims_.x * dims_.y * dims_.z) {
+        printf("[Chunk] invalid data size: got %lu, expected %f %f %f (%f)\n", data.size(), dims_.x, dims_.y, dims_.z, (dims_.x * dims_.y * dims_.z));
+        return;
+    }
+
+    for(auto& block : blocks_) {
+        block.setActive(false);
+    }
+
+    for(int k = 0; k < dims_.z; k++) {
+        for(int j = 0; j < dims_.y; j++) {
+            for(int i = 0; i < dims_.x; i++) {
+                unsigned int index = ArrayUtils::calculateIndex(i, j, k, dims_);
+                // printf("[Chunk] d: %f\n", data[index]);
+                if (!std::isnan(data[index])) {
+                    unsigned int blockIdx = blockIndex(i, j, k);
+                    blocks_[blockIdx].setActive(true);
+                }
+            }
+        }
     }
 }
 
@@ -137,5 +179,6 @@ std::vector<float> Chunk::vertices(const glm::vec3& chunkIndex) const
 
 unsigned int Chunk::blockIndex(unsigned int x, unsigned int y, unsigned int z) const
 {
-    return (z * Voxel::CHUNK_SIZE * Voxel::CHUNK_SIZE) + (y * Voxel::CHUNK_SIZE) + x;
+    static glm::vec3 dims(Voxel::CHUNK_SIZE, Voxel::CHUNK_SIZE, Voxel::CHUNK_SIZE);
+    return ArrayUtils::calculateIndex(x, y, z, dims);
 }

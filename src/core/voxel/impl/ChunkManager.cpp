@@ -1,5 +1,6 @@
 #include "ChunkManager.h"
 
+#include "ArrayUtils.h"
 #include "VoxelDefines.h"
 
 #include <stdio.h>
@@ -27,16 +28,12 @@ glm::vec3 calculateChunkDims(unsigned int x, unsigned int y, unsigned int z, con
 
 ChunkManager::ChunkManager(const glm::vec3& dims)
 {
-    printf("[ChunkManager] generating %f %f %f\n", dims.x, dims.y, dims.z);
-
     dims_ = calculateNumberOfChunks(dims);
-    printf("[ChunkManager] dims_: %f %f %f\n", dims_.x, dims_.y, dims_.z);
     for(int k = 0; k < dims_.z; k++) {
         for(int j = 0; j < dims_.y; j++) {
             for(int i = 0; i < dims_.x; i++) {
                 glm::vec3 chunkDims = calculateChunkDims(i, j, k, dims);
-                Chunk chunk = createChunk(chunkDims);
-                chunks_.push_back(chunk);
+                chunks_.emplace_back(chunkDims);
             }
         }
     }
@@ -49,6 +46,29 @@ void ChunkManager::onChanged(const std::function<void()>& cb)
 
 void ChunkManager::setData(const std::vector<float>& data)
 {
+    unsigned int offset = 0;
+    for(int k = 0; k < dims_.z; k++) {
+        for(int j = 0; j < dims_.y; j++) {
+            for(int i = 0; i < dims_.x; i++) {
+                unsigned int chunkIdx = ArrayUtils::calculateIndex(i, j, k, dims_);
+                auto& chunk = chunks_[chunkIdx];
+                auto& chunkDims = chunk.dims();
+
+                unsigned int endOffset = chunkDims.x * chunkDims.y * chunkDims.z;
+                std::vector<float> chunkData(
+                    data.begin() + offset,
+                    data.begin() + offset + endOffset
+                );
+                chunk.setData(chunkData);
+
+                offset += endOffset;
+            }
+        }
+    }
+
+    for (const auto& cb : observers_) {
+        cb();
+    }
 }
 
 const glm::vec3& ChunkManager::dims() const
@@ -58,20 +78,7 @@ const glm::vec3& ChunkManager::dims() const
 
 std::vector<float> ChunkManager::vertices(unsigned int x, unsigned int y, unsigned int z) const
 {
-    unsigned int chunkIdx = (z * dims_.x * dims_.y) + (y * dims_.x) + x;
+    unsigned int chunkIdx = ArrayUtils::calculateIndex(x, y, z, dims_);
     auto chunk = chunks_[chunkIdx];
     return chunk.vertices(glm::vec3(x, y, z));
-}
-
-Chunk ChunkManager::createChunk(const glm::vec3& dims)
-{
-    Chunk chunk;
-    for(int k = 0; k < dims.z; k++) {
-        for(int j = 0; j < dims.y; j++) {
-            for(int i = 0; i < dims.x; i++) {
-                chunk.enableBlock(i, j, k);
-            }
-        }
-    }
-    return chunk;
 }

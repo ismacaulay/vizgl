@@ -1,9 +1,9 @@
 
 def build(bld):
     bld.stlib(
-        use=['voxelapi', 'utils'],
         source=bld.path.ant_glob('*.cpp'),
+        use=['glm'],
         includes=['.'],
         export_includes=['.'],
-        target='voxel',
+        target='utils',
     )
