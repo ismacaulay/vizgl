@@ -10,24 +10,21 @@ const std::string VertexShader = ""
 "uniform mat4 u_model;                                                      \n"
 "uniform mat4 u_view;                                                       \n"
 "uniform mat4 u_proj;                                                       \n"
-"uniform vec3 u_color;                                                      \n"
-"                                                                           \n"
-"varying vec4 v_color;                                                      \n"
 "                                                                           \n"
 "void main() {                                                              \n"
 "   gl_Position = u_proj * u_view * u_model * vec4(a_position, 1.0);        \n"
-"   v_color = vec4(u_color, 1.0);                                           \n"
 "}                                                                          \n";
 
 const std::string FragmentShader = ""
 "precision highp float;                                                     \n"
-"varying vec4 v_color;                                                      \n"
 "                                                                           \n"
+"uniform vec3 u_color;                                                      \n"
+
 "void main() {                                                              \n"
-"   gl_FragColor = v_color;                                                 \n"
+"   gl_FragColor = vec4(u_color, 1.0);                                      \n"
 "}                                                                          \n";
 
-const std::string VertexShader2 = ""
+const std::string VertexShaderWithWireframe = ""
 "precision highp float;                                                     \n"
 "attribute vec3 a_position;                                                 \n"
 "attribute vec3 a_barycentric;                                              \n"
@@ -43,7 +40,7 @@ const std::string VertexShader2 = ""
 "   v_barycentric = a_barycentric;                                          \n"
 "}                                                                          \n";
 
-const std::string FragmentShader2 = ""
+const std::string FragmentShaderWithWireframe = ""
 "#extension GL_OES_standard_derivatives : enable                            \n"
 "precision highp float;                                                     \n"
 "                                                                           \n"

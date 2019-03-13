@@ -11,13 +11,21 @@ std::shared_ptr<I_Shader> ShaderFactory::createShaderForMappingType(MappingType 
         case MappingType::Static:
         {
             return std::make_shared<Shader>(
-                StaticShaderSource::VertexShader2,
-                StaticShaderSource::FragmentShader2);
+                StaticShaderSource::VertexShader,
+                StaticShaderSource::FragmentShader);
+        }
+        case MappingType::StaticWithWireframe:
+        {
+            return std::make_shared<Shader>(
+                StaticShaderSource::VertexShaderWithWireframe,
+                StaticShaderSource::FragmentShaderWithWireframe);
         }
         case MappingType::Continuous:
+        {
             return std::make_shared<Shader>(
                 ContinuousMappingShaderSource::VertexShader,
                 ContinuousMappingShaderSource::FragmentShader);
+        }
     };
 
     return nullptr;

@@ -3,5 +3,6 @@
 enum class MappingType
 {
     Static,
+    StaticWithWireframe,
     Continuous,
 };

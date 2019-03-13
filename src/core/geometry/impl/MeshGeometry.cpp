@@ -24,7 +24,8 @@ public:
     void render(I_Shader& shader)
     {
         vb.bind();
-        // shader.enableAttribute("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+        shader.enableAttribute("a_position");
+        shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
         GL_CALL(glDrawArrays(GL_TRIANGLES, 0, vertexCount));
     }
 

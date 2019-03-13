@@ -24,11 +24,11 @@
                     const mappingApi = new vizgl.MappingApi(module);
                     const modelApi = new vizgl.ModelApi(module);
 
-                    fetch('res/cube.json').then(response =>
+                    fetch('res/geometry/cube.json').then(response =>
                         response.json().then(geometryData => {
                             const { vertices } = geometryData;
 
-                            fetch('res/cube-data.json').then(response =>
+                            fetch('res/data/cube.json').then(response =>
                                 response.json().then(data => {
                                     const { data: cubeData, gradient } = data;
 

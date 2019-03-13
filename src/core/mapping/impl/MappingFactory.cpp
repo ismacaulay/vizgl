@@ -17,7 +17,7 @@ MappingFactory::MappingFactory(
 
 std::shared_ptr<I_Mapping> MappingFactory::createStaticMapping(const glm::vec3& rgb)
 {
-    return std::make_shared<StaticMapping>(rgb);
+    return std::make_shared<StaticMapping>(rgb, false);
 }
 
 std::shared_ptr<I_Mapping> MappingFactory::createContinuousMapping(
@@ -35,5 +35,5 @@ std::shared_ptr<I_Mapping> MappingFactory::createVoxelMapping(
     auto voxelId = geometryIdToVoxelIdLookupTable_.lookup(geometryId);
     voxelEngine_.setData(voxelId, data);
 
-    return std::make_shared<StaticMapping>(rgb);
+    return std::make_shared<StaticMapping>(rgb, true);
 }

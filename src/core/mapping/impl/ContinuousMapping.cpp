@@ -28,7 +28,8 @@ public:
     void bind(I_Shader& shader)
     {
         vb.bind();
-        // shader.enableAttribute("a_data", 1, GL_FLOAT, GL_FALSE, sizeof(float), 0);
+        shader.enableAttribute("a_data");
+        shader.vertexAttributePointer("a_data", 1, GL_FLOAT, GL_FALSE, sizeof(float), 0);
         shader.setUniform1f("u_data_min", data_min);
         shader.setUniform1f("u_data_max", data_max);
 
