@@ -17,6 +17,15 @@ export class GeometryApi {
         this._createVoxelMesh = this._module.wrap('createVoxelMesh', 'number', [
             'number', // uint32_t[3] dims
         ]);
+
+        this._createVoxelMesh2 = this._module.wrap('createVoxelMesh2', 'number', [
+            'number', // float* tensor_u
+            'number', // int tensor_u_length
+            'number', // float* tensor_v
+            'number', // int tensor_v_length
+            'number', // float* tensor_w
+            'number', // int tensor_w_length
+        ]);
     }
 
     createMesh(vertices) {
@@ -57,6 +66,32 @@ export class GeometryApi {
             },
             cleanup: () => {
                 this._module.free(buffer);
+            },
+        });
+    }
+
+    createVoxelMesh2(tensor_u, tensor_v, tensor_w) {
+        let uBuffer;
+        let vBuffer;
+        let wBuffer;
+        return this._module.execute({
+            func: () => {
+                uBuffer = this._module.malloc(new Float32Array(tensor_u));
+                vBuffer = this._module.malloc(new Float32Array(tensor_v));
+                wBuffer = this._module.malloc(new Float32Array(tensor_w));
+                return this._createVoxelMesh2(
+                    uBuffer,
+                    tensor_u.length,
+                    vBuffer,
+                    tensor_v.length,
+                    wBuffer,
+                    tensor_w.length,
+                );
+            },
+            cleanup: () => {
+                this._module.free(uBuffer);
+                this._module.free(vBuffer);
+                this._module.free(wBuffer);
             },
         });
     }

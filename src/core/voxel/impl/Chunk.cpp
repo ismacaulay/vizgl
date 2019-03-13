@@ -39,11 +39,10 @@ void Chunk::setData(const std::vector<float>& data)
         block.setActive(false);
     }
 
-    for(int k = 0; k < dims_.z; k++) {
+    for(int i = 0; i < dims_.x; i++) {
         for(int j = 0; j < dims_.y; j++) {
-            for(int i = 0; i < dims_.x; i++) {
+            for(int k = 0; k < dims_.z; k++) {
                 unsigned int index = ArrayUtils::calculateIndex(i, j, k, dims_);
-                // printf("[Chunk] d: %f\n", data[index]);
                 if (!std::isnan(data[index])) {
                     unsigned int blockIdx = blockIndex(i, j, k);
                     blocks_[blockIdx].setActive(true);

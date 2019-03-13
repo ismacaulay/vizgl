@@ -15,8 +15,13 @@ public:
     std::vector<float> vertices(unsigned int x, unsigned int y, unsigned int z) const;
 
 private:
+    std::vector<float> extractChunkData(
+        unsigned int x, unsigned int y, unsigned int z, const std::vector<float>& data);
+
+private:
     std::vector<Chunk> chunks_;
     glm::vec3 dims_;
+    glm::vec3 numChunks_;
 
     std::vector<std::function<void()>> observers_;
 };
