@@ -1,4 +1,5 @@
 import { Cube, Topography, LotsOfMeshes } from '../meshes';
+import ControlsContainer from '../controls/ControlsContainer';
 
 class App {
     constructor(vizgl) {
@@ -10,7 +11,8 @@ class App {
             throw Error('VizGL not initialized');
         }
 
-        this.view = new LotsOfMeshes(this.vizgl);
+        this.controls = new ControlsContainer(this.vizgl);
+        this.view = new Topography(this.vizgl);
     }
 }
 export default App;
