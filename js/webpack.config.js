@@ -1,17 +1,9 @@
-const path = require("path");
-
-const moduleName = "vizgl-wrapper";
+const path = require('path');
 
 module.exports = {
-  entry: "./vizgl-wrapper/index.js",
-  output: {
-    filename: `${moduleName}-umd.js`,
-    // path: path.resolve(__dirname, "dist"),
-    path: path.resolve(__dirname, "../www"),
-    library: moduleName,
-    libraryTarget: "umd"
-  },
-  mode: "development",
-  watch: true,
-  devtool: "inline-source-map"
+    entry: './vizgl-wrapper/index.js',
+    output: {
+        filename: `vizgl-wrapper.js`,
+        path: path.resolve(__dirname, '../www'),
+    },
 };

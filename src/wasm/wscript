@@ -6,8 +6,12 @@ def build(bld):
         includes=['.'],
         export_includes=['.'],
         linkflags=[
+            '-s', 'DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=1',
             '-s', 'EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"]',
-            # '-s', 'DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=1',
+            # '-s', 'MODULARIZE=1',
+            # '-s', 'EXPORT_NAME=VizglModule',
+            # '-s', 'EXPORT_ES6=1',
+            # '-s', 'ENVIRONMENT=web',
         ],
         target='vizgl',
     )

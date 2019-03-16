@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>vizgl | minimals</title>
+
+        <!-- You MUST include jQuery before Fomantic -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.2/semantic.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.2/semantic.min.js"></script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            canvas {
+                display: block;
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+        </div>
+        <script src="vizgl-wrapper.js"></script>
+
+        <script>
+            Module = {
+                canvas: document.getElementById('canvas'),
+
+                onRuntimeInitialized: () => {
+                    const { vizgl, app } = window;
+
+                    vizgl.initialize(Module);
+                    app.run();
+                },
+            };
+        </script>
+
+        <script async type="text/javascript" src="vizgl.js"></script>
+    </body>
+</html>

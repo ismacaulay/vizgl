@@ -41,6 +41,8 @@ node_modules
 dist
 
 # build artifacts
-www/vizgl-wrapper-umd.js
+www/vizgl-wrapper.js
 www/vizgl.js
 www/vizgl.wasm
+www/app.bundle.js
+www/index.html

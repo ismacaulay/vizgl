@@ -16,8 +16,7 @@ glm::vec3 calculateNumberOfChunks(const glm::vec3& dims)
 glm::vec3 calculateChunkDims(unsigned int x, unsigned int y, unsigned int z, const glm::vec3& dims)
 {
     auto calulateDim = [](unsigned int index, unsigned int dim) {
-        unsigned int remaining = dim - (index * Voxel::CHUNK_SIZE);
-        return remaining > Voxel::CHUNK_SIZE ? Voxel::CHUNK_SIZE : remaining;
+        return std::min(Voxel::CHUNK_SIZE, dim - (index * Voxel::CHUNK_SIZE));
     };
 
     unsigned int dimX = calulateDim(x, dims.x);
