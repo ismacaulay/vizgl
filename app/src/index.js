@@ -1,3 +1,5 @@
-import App from './app/App';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-window.app = new App(vizgl);
+ReactDOM.render(<App />, document.getElementById('root'));

@@ -39,6 +39,7 @@
 # js
 node_modules
 dist
+yarn-error.log
 
 # build artifacts
 www/vizgl-wrapper.js
