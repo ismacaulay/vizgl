@@ -1,16 +1,13 @@
 import { Cube, LotsOfMeshes, Topography } from './meshes';
+import { StaticBM, BlockModelWithNaNs } from './blockmodels';
 
 const views = {
     mesh_cube: new Cube('mesh_cube'),
     mesh_lots_of_meshes: new LotsOfMeshes('mesh_lots_of_meshes'),
     mesh_topography: new Topography('mesh_topography'),
-    // mesh_triangle: {
-    //     title: 'Triangle',
-    // },
 
-    // bm_2x3x4_static: {
-    //     title: '2x3x4 - Static',
-    // },
+    bm_static: new StaticBM('bm_static'),
+    bm_with_nans: new BlockModelWithNaNs('bm_with_nans'),
 };
 
 export function getMeshViews() {

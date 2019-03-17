@@ -131,7 +131,7 @@ class VizGL extends Component {
                             title={this.state.title}
                             onSidePanelButtonClick={() => this.toggleSidebar()}
                         />
-                        <Canvas isLoading={this.state.isLoading} />
+                        <Canvas isLoading={this.state.isLoading} viewTitle={this.state.title} />
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>
             </DocumentTitle>
