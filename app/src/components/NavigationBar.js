@@ -1,11 +1,16 @@
 import React from 'react';
+import { Icon, Menu, Container } from 'semantic-ui-react';
 
-export const NavigationBar = props => {
+const NavigationBar = props => {
     return (
-        <div className="ui fixed inverted menu">
-            <a className="item icon" onClick={props.onMenuButtonClick}>
-                <i className="content icon" />
-            </a>
-        </div>
+        <Container className="navigation-container">
+            <Menu fixed="top" inverted>
+                <Menu.Item onClick={props.onSidePanelButtonClick}>
+                    <Icon name="content" />
+                </Menu.Item>
+                <Menu.Item>{props.title}</Menu.Item>
+            </Menu>
+        </Container>
     );
 };
+export default NavigationBar;

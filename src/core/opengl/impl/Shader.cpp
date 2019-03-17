@@ -12,6 +12,10 @@ Shader::Shader(const std::string& vertexShader, const std::string& fragmentShade
 Shader::~Shader()
 {
     GL_CALL(glDeleteProgram(id_));
+
+    for (auto& location : attributeLocationCache_) {
+        GL_CALL(glDisableVertexAttribArray(location.second));
+    }
 }
 
 void Shader::bind() const

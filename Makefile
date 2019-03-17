@@ -1,7 +1,7 @@
 
 ORG=ismacaulay
 APP=vizgl
-SERVER=wasm-server
+SERVER=wasm-react-router-server
 BUILD_DIR=src/.build/wasm
 WASM_FILE=$(BUILD_DIR)/vizgl.wasm
 JS_FILE =$(BUILD_DIR)/vizgl.js

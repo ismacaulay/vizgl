@@ -8,7 +8,7 @@ export class ModuleWrapper {
     }
 
     malloc(typedBuffer) {
-        buffer = this._module._malloc(typedBuffer.length * typedBuffer.BYTES_PER_ELEMENT);
+        const buffer = this._module._malloc(typedBuffer.length * typedBuffer.BYTES_PER_ELEMENT);
 
         if (typedBuffer instanceof Uint8Array) {
             this._module.HEAPU8.set(typedBuffer, buffer);

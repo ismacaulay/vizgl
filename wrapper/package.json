@@ -1,5 +1,5 @@
 {
-    "name": "vizgl-wrapper",
+    "name": "@vizgl/wrapper",
     "version": "0.0.1",
     "description": "Javascript interface to vizgl",
     "private": true,

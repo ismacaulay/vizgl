@@ -6,14 +6,11 @@
 
         <title>vizgl | minimals</title>
 
-        <!-- You MUST include jQuery before Fomantic -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link
             rel="stylesheet"
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.2/semantic.min.css"
         />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.2/semantic.min.js"></script>
         <style>
             body {
                 margin: 0;
@@ -50,12 +47,19 @@
             .canvas-container {
                 margin: 0;
                 padding: 0;
+                width: 100%;
                 flex: 1;
             }
 
             .loading-container {
                 flex: 1;
                 height: 1000px;
+            }
+
+            .loading-dimmer {
+                margin: 0;
+                padding: 0;
+                width: 100%;
             }
 
             #controls {
@@ -78,67 +82,5 @@
         <noscript>
             You need to enable JavaScript to run this app.
         </noscript>
-
-        <!-- <script>
-            function toggleSidebar() {
-                console.log('toggleSidebar');
-                $('.ui.sidebar')
-                    .sidebar('setting', 'transition', 'overlay')
-                    .sidebar('toggle');
-            }
-
-            function changeItem(item) {
-                console.log({ item });
-                toggleSidebar();
-            }
-        </script>
-
-        <div class="ui left sidebar inverted vertical menu overlay">
-            <div class="item">
-                <div class="header">Meshes</div>
-                <div class="menu">
-                    <a class="item">Cube</a>
-                    <a class="item">Triangle</a>
-                    <a class="item">Topography</a>
-                    <a class="item">Lots of Meshes</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="header">Block Models</div>
-                <div class="menu">
-                    <a class="item">2x3x4 - Static</a>
-                    <a class="item">16x17x15 - Static</a>
-                    <a class="item">Large - Static</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="pusher dimmed app-container">
-            <div class="navigation-container">
-                <div class="ui fixed inverted menu">
-                    <a class="item icon" onclick="toggleSidebar()">
-                        <i class="content icon"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="canvas-container">
-                <div id="controls"></div>
-                <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-            </div>
-        </div> -->
-        <!--
-        <script src="vizgl-wrapper.js"></script>
-        <script>
-            Module = {
-                canvas: document.getElementById('canvas'),
-
-                onRuntimeInitialized: () => {
-                    const { vizgl, app } = window;
-
-                    vizgl.initialize(Module);
-                },
-            };
-        </script>
-        <script async type="text/javascript" src="vizgl.js"></script> -->
     </body>
 </html>

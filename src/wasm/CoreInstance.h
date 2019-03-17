@@ -7,6 +7,8 @@ class CoreInstance
 public:
     static Core& getInstance();
 
+    static void reset();
+
 private:
     CoreInstance();
 

@@ -1,17 +1,13 @@
 import React from 'react';
-import { Container, Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
-export const LoadingScreen = props => {
+const LoadingScreen = props => {
     return (
-        <Container>
-            <Dimmer active>
-                <Loader className="elastic">Loading</Loader>
-            </Dimmer>
-        </Container>
-        // <div className="ui main container">
-        //     <div className="ui active dimmer">
-        //         <div className="ui elastic text loader">{props.message}</div>
-        //     </div>
-        // </div>
+        <Dimmer active={true} style={{ width: '100%', margin: 0, padding: 0 }}>
+            <Loader active={true} className="elastic">
+                {props.message}
+            </Loader>
+        </Dimmer>
     );
 };
+export default LoadingScreen;
