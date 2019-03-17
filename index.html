@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>vizgl | minimals</title>
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.2/semantic.min.css"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            canvas {
+                display: block;
+                margin: 0;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+            }
+
+            .vizgl-container {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .app-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+            }
+
+            .navigation-container {
+                height: 40px;
+            }
+
+            .canvas-container {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                flex: 1;
+            }
+
+            .loading-container {
+                flex: 1;
+                height: 1000px;
+            }
+
+            .loading-dimmer {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            #controls {
+                position: absolute;
+                z-index: 10;
+                right: 25px;
+            }
+
+            #root {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
+    <script type="text/javascript" src="app.bundle.js?3c23c4a81c0c765e40e4"></script></body>
+</html>
