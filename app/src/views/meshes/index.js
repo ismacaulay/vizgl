@@ -1,5 +1,7 @@
 import Cube from './Cube';
-import Topography from './Topography';
 import LotsOfMeshes from './LotsOfMeshes';
+import Topography from './Topography';
+import TopographyToggleGradient from './TopographyToggleGradient';
+import Triangle from './Triangle';
 
-export { Cube, LotsOfMeshes, Topography };
+export { Cube, LotsOfMeshes, Topography, TopographyToggleGradient, Triangle };

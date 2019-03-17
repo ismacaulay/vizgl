@@ -4,7 +4,6 @@ APP=vizgl
 SERVER=wasm-react-router-server
 BUILD_DIR=src/.build/wasm
 WASM_FILE=$(BUILD_DIR)/vizgl.wasm
-JS_FILE =$(BUILD_DIR)/vizgl.js
 
 baseimage:
 	docker build -t $(ORG)/$(APP) .
@@ -25,7 +24,7 @@ dev:
 		$(ORG)/$(APP)
 
 install:
-	cp $(WASM_FILE) $(JS_FILE) www/
+	cp $(WASM_FILE) www/
 
 watch: install
-	watchman-make -p '$(WASM_FILE)' '$(JS_FILE)' -t install
+	watchman-make -p '$(WASM_FILE)' -t install
