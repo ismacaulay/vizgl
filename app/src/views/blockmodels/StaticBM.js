@@ -37,6 +37,8 @@ class StaticBM extends View {
             const mappingId = vizgl.mappingApi().createVoxelMapping(data, color, geometryId);
 
             vizgl.modelApi().createModel(geometryId, mappingId);
+
+            console.log(`Loaded ${this.id}`);
             resolve();
         });
     }

@@ -1,30 +1,30 @@
 import View from '../View';
 
-import { json } from '../../utils';
-
 class Triangle extends View {
     constructor(id) {
         super(id, 'Triangle');
     }
 
-    load(vizgl) {
-        const geometryLoader = json.load('res/geometry/triangle.json');
-        const dataLoader = json.load('res/data/triangle.json');
-        const colormapLoader = json.load('res/colormaps/viridis.json');
+    load(vizgl, dataloader) {
+        return dataloader.loadJson('manifests/triangle.json').then(manifest => {
+            const { elements } = manifest;
+            const [element] = elements;
 
-        return Promise.all([geometryLoader, dataLoader, colormapLoader]).then(loadedData => {
-            const [geometry, data, colormap] = loadedData;
-            const { vertices } = geometry;
-            const { values } = data;
-            const { colors } = colormap;
+            const vertLoader = dataloader.loadBinary(element.vertices, Float32Array);
+            const dataLoader = dataloader.loadBinary(element.data, Float32Array);
+            const colormapLoader = dataloader.loadBinary(element.colormap, Uint8Array);
 
-            const geometryId = vizgl.geometryApi().createMesh(vertices);
-            const colorMapId = vizgl.colorMapApi().createColorMap(colors);
-            const mappingId = vizgl.mappingApi().createContinuosMapping(values, colorMapId);
+            return Promise.all([vertLoader, dataLoader, colormapLoader]).then(loadedData => {
+                const [vertices, data, colors] = loadedData;
 
-            vizgl.modelApi().createModel(geometryId, mappingId);
+                const geometryId = vizgl.geometryApi().createMesh(vertices);
+                const colorMapId = vizgl.colorMapApi().createColorMap(colors);
+                const mappingId = vizgl.mappingApi().createContinuosMapping(data, colorMapId);
 
-            console.log(`Loaded ${this.id}`);
+                vizgl.modelApi().createModel(geometryId, mappingId);
+
+                console.log(`Loaded ${this.id}`);
+            });
         });
     }
 }

@@ -1,50 +1,61 @@
 import View from '../View';
 
-import { json } from '../../utils';
-
 class TopographyToggleGradient extends View {
     constructor(id) {
         super(id, 'Topography - Toggle Gradient');
     }
 
-    load(vizgl) {
-        const geometryLoader = json.load('res/geometry/topography.json');
-        const dataLoader = json.load('res/data/topography.json');
-        const crazyColorMapLoader = json.load('res/colormaps/joes-crazy-colors.json');
-        const viridisColorMapLoader = json.load('res/colormaps/viridis.json');
+    load(vizgl, dataloader) {
+        return dataloader.loadJson('manifests/topography.json').then(manifest => {
+            const { elements } = manifest;
+            const [element] = elements;
 
-        return Promise.all([
-            geometryLoader,
-            dataLoader,
-            crazyColorMapLoader,
-            viridisColorMapLoader,
-        ]).then(loadedData => {
-            const [geometry, data, crazyColorMap, viridisColorMap] = loadedData;
+            const vertLoader = dataloader.loadBinary(element.vertices, Float32Array);
+            const triLoader = dataloader.loadBinary(element.triangles, Uint32Array);
+            const dataLoader = dataloader.loadBinary(element.data, Float32Array);
+            const crazyColorMapLoader = dataloader.loadBinary(
+                'colormaps/joes-crazy-colors.bin',
+                Uint8Array,
+            );
+            const viridisColorMapLoader = dataloader.loadBinary(
+                'colormaps/viridis.bin',
+                Uint8Array,
+            );
 
-            const { vertices, triangles } = geometry;
-            const { values } = data;
+            return Promise.all([
+                vertLoader,
+                triLoader,
+                dataLoader,
+                crazyColorMapLoader,
+                viridisColorMapLoader,
+            ]).then(loadedData => {
+                const [vertices, triangles, data, crazyColorMap, viridisColorMap] = loadedData;
 
-            const transformedData = triangles.map(vertexIdx => {
-                return values[vertexIdx];
-            });
-            // console.log({ transformedData });
-            const geometryId = vizgl.geometryApi().createMesh2(vertices, triangles);
-            const crazyId = vizgl.colorMapApi().createColorMap(crazyColorMap.colors);
-            const viridisId = vizgl.colorMapApi().createColorMap(viridisColorMap.colors);
-            const mappingId = vizgl.mappingApi().createContinuosMapping(transformedData, crazyId);
+                const transformedData = new Float32Array(triangles.length);
+                triangles.forEach((vertexIdx, i) => {
+                    transformedData[i] = data[vertexIdx];
+                });
 
-            vizgl.modelApi().createModel(geometryId, mappingId);
+                const geometryId = vizgl.geometryApi().createMesh2(vertices, triangles);
+                const crazyId = vizgl.colorMapApi().createColorMap(crazyColorMap);
+                const viridisId = vizgl.colorMapApi().createColorMap(viridisColorMap);
+                const mappingId = vizgl
+                    .mappingApi()
+                    .createContinuosMapping(transformedData, crazyId);
 
-            let index = 0;
-            const colormaps = [crazyId, viridisId];
-            const toggleColorMap = () => {
-                index = (index + 1) % colormaps.length;
-                vizgl.mappingApi().setContinuousMappingGradient(mappingId, colormaps[index]);
+                vizgl.modelApi().createModel(geometryId, mappingId);
+
+                let index = 0;
+                const colormaps = [crazyId, viridisId];
+                const toggleColorMap = () => {
+                    index = (index + 1) % colormaps.length;
+                    vizgl.mappingApi().setContinuousMappingGradient(mappingId, colormaps[index]);
+                    setTimeout(toggleColorMap, 2500);
+                };
                 setTimeout(toggleColorMap, 2500);
-            };
-            setTimeout(toggleColorMap, 2500);
 
-            console.log(`Loaded ${this.id}`);
+                console.log(`Loaded ${this.id}`);
+            });
         });
     }
 }

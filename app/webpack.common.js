@@ -1,11 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         filename: `app.bundle.js`,
-        path: path.resolve(__dirname, '../www'),
+        path: path.resolve(__dirname, './dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -13,6 +14,7 @@ module.exports = {
             filename: 'index.html', //relative to root of the application
             template: './src/index.html',
         }),
+        new CopyWebpackPlugin(['../src/.build/wasm/vizgl.wasm']),
     ],
     module: {
         rules: [

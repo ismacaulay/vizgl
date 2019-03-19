@@ -1,5 +1,3 @@
-import { flattenArrayToTypedArray } from './utils';
-
 export class ColorMapApi {
     constructor(module) {
         this._module = module;
@@ -14,9 +12,8 @@ export class ColorMapApi {
         let buffer;
         return this._module.execute({
             func: () => {
-                const colorsBuffer = flattenArrayToTypedArray(colors, Uint8Array);
-                buffer = this._module.malloc(colorsBuffer);
-                return this._createColorMap(buffer, colorsBuffer.length);
+                buffer = this._module.malloc(colors);
+                return this._createColorMap(buffer, colors.length);
             },
             cleanup: () => {
                 this._module.free(buffer);
