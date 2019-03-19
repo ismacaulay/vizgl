@@ -1,0 +1,504 @@
+{
+    "elements": [
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_0.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_0.verts.bin",
+            "color": "#2EAA2E"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_1.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_1.verts.bin",
+            "color": "#D43A87"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_2.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_2.verts.bin",
+            "color": "#1F64AA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_3.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_3.verts.bin",
+            "color": "#D4277E"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_4.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_4.verts.bin",
+            "color": "#9FFFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_5.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_5.verts.bin",
+            "color": "#2FFF2F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_6.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_6.verts.bin",
+            "color": "#D4D497"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_7.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_7.verts.bin",
+            "color": "#6C2EAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_8.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_8.verts.bin",
+            "color": "#AAAA11"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_9.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_9.verts.bin",
+            "color": "#3A87D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_10.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_10.verts.bin",
+            "color": "#FF19FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_11.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_11.verts.bin",
+            "color": "#46FF46"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_12.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_12.verts.bin",
+            "color": "#A3D472"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_13.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_13.verts.bin",
+            "color": "#D415D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_14.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_14.verts.bin",
+            "color": "#2EAAAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_15.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_15.verts.bin",
+            "color": "#D4AC84"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_16.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_16.verts.bin",
+            "color": "#6A8AAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_17.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_17.verts.bin",
+            "color": "#5CFFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_18.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_18.verts.bin",
+            "color": "#9AD45F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_19.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_19.verts.bin",
+            "color": "#FF8C19"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_20.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_20.verts.bin",
+            "color": "#AA6A6A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_21.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_21.verts.bin",
+            "color": "#D4A372"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_22.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_22.verts.bin",
+            "color": "#A372D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_23.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_23.verts.bin",
+            "color": "#FFFFB5"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_24.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_24.verts.bin",
+            "color": "#6A6AAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_25.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_25.verts.bin",
+            "color": "#873AD4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_26.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_26.verts.bin",
+            "color": "#5FD45F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_27.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_27.verts.bin",
+            "color": "#D4D472"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_28.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_28.verts.bin",
+            "color": "#84D4AC"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_29.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_29.verts.bin",
+            "color": "#CFFF9F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_30.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_30.verts.bin",
+            "color": "#3D73AA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_31.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_31.verts.bin",
+            "color": "#97FF2F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_32.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_32.verts.bin",
+            "color": "#2727D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_33.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_33.verts.bin",
+            "color": "#D4D415"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_34.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_34.verts.bin",
+            "color": "#87D43A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_35.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_35.verts.bin",
+            "color": "#904DD4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_36.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_36.verts.bin",
+            "color": "#27D427"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_37.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_37.verts.bin",
+            "color": "#FFFF46"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_38.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_38.verts.bin",
+            "color": "#D45FD4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_39.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_39.verts.bin",
+            "color": "#AA2EAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_40.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_40.verts.bin",
+            "color": "#7BAA4C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_41.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_41.verts.bin",
+            "color": "#2F97FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_42.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_42.verts.bin",
+            "color": "#8AAA6A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_43.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_43.verts.bin",
+            "color": "#D49A5F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_44.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_44.verts.bin",
+            "color": "#FFFF9F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_45.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_45.verts.bin",
+            "color": "#FFB872"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_46.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_46.verts.bin",
+            "color": "#19FFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_47.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_47.verts.bin",
+            "color": "#D4D484"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_48.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_48.verts.bin",
+            "color": "#D47E27"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_49.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_49.verts.bin",
+            "color": "#AA733D"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_50.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_50.verts.bin",
+            "color": "#3AD43A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_51.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_51.verts.bin",
+            "color": "#C489FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_52.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_52.verts.bin",
+            "color": "#89FF89"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_53.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_53.verts.bin",
+            "color": "#5D11AA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_54.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_54.verts.bin",
+            "color": "#3A3AD4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_55.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_55.verts.bin",
+            "color": "#AAAA6A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_56.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_56.verts.bin",
+            "color": "#DAB5FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_57.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_57.verts.bin",
+            "color": "#D45F9A"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_58.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_58.verts.bin",
+            "color": "#FFFF5C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_59.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_59.verts.bin",
+            "color": "#AA4C4C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_60.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_60.verts.bin",
+            "color": "#B5FFDA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_61.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_61.verts.bin",
+            "color": "#DAFFB5"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_62.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_62.verts.bin",
+            "color": "#4DD44D"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_63.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_63.verts.bin",
+            "color": "#FFFF19"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_64.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_64.verts.bin",
+            "color": "#FF7272"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_65.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_65.verts.bin",
+            "color": "#AA2E6C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_66.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_66.verts.bin",
+            "color": "#15D4D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_67.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_67.verts.bin",
+            "color": "#27D4D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_68.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_68.verts.bin",
+            "color": "#AD5CFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_69.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_69.verts.bin",
+            "color": "#FFB5DA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_70.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_70.verts.bin",
+            "color": "#D4D427"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_71.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_71.verts.bin",
+            "color": "#7272FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_72.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_72.verts.bin",
+            "color": "#FF198C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_73.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_73.verts.bin",
+            "color": "#733DAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_74.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_74.verts.bin",
+            "color": "#D484AC"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_75.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_75.verts.bin",
+            "color": "#2EAA6C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_76.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_76.verts.bin",
+            "color": "#7415D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_77.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_77.verts.bin",
+            "color": "#4DD4D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_78.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_78.verts.bin",
+            "color": "#9FCFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_79.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_79.verts.bin",
+            "color": "#FF46FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_80.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_80.verts.bin",
+            "color": "#5BAA82"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_81.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_81.verts.bin",
+            "color": "#72D4A3"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_82.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_82.verts.bin",
+            "color": "#5BAAAA"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_83.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_83.verts.bin",
+            "color": "#CF9FFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_84.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_84.verts.bin",
+            "color": "#82AA5B"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_85.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_85.verts.bin",
+            "color": "#FFB5FF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_86.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_86.verts.bin",
+            "color": "#2FFFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_87.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_87.verts.bin",
+            "color": "#72A3D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_88.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_88.verts.bin",
+            "color": "#19FF8C"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_89.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_89.verts.bin",
+            "color": "#D44D90"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_90.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_90.verts.bin",
+            "color": "#1FAA64"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_91.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_91.verts.bin",
+            "color": "#84D4D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_92.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_92.verts.bin",
+            "color": "#1574D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_93.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_93.verts.bin",
+            "color": "#FF972F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_94.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_94.verts.bin",
+            "color": "#46FFFF"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_95.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_95.verts.bin",
+            "color": "#D4D45F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_96.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_96.verts.bin",
+            "color": "#FF46A2"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_97.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_97.verts.bin",
+            "color": "#5FD4D4"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_98.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_98.verts.bin",
+            "color": "#FF9F9F"
+        },
+        {
+            "triangles": "geometry/lots-of-meshes/mesh_99.tris.bin",
+            "vertices": "geometry/lots-of-meshes/mesh_99.verts.bin",
+            "color": "#FFFFFF"
+        }
+    ]
+}

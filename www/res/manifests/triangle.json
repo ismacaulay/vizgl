@@ -1,0 +1,9 @@
+{
+    "elements": [
+        {
+            "vertices": "geometry/triangle.verts.bin",
+            "colormap": "colormaps/viridis.bin",
+            "data": "data/triangle.bin"
+        }
+    ]
+}

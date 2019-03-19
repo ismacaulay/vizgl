@@ -1,0 +1,10 @@
+{
+    "elements": [
+        {
+            "vertices": "geometry/topography.verts.bin",
+            "triangles": "geometry/topography.tris.bin",
+            "colormap": "colormaps/joes-crazy-colors.bin",
+            "data": "data/topography.bin"
+        }
+    ]
+}
