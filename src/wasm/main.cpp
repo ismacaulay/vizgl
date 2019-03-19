@@ -1,61 +1,35 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_em.h>
 
 #include "CoreInstance.h"
-#include "ImGuiCoreInstance.h"
 
 #include <stdio.h>
 
 void main_loop()
 {
-    // ImGuiImpl::BeginFrame();
-    // ImGui::NewFrame();
-
-    // ImGuiCoreInstance::getInstance().render();
-
-    // static bool showDemo = false;
-    // ImGui::ShowDemoWindow(&showDemo);
-
     CoreInstance::getInstance().render();
-    // ImGui::Render();
 }
 
 int mouse_down_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    // if(ImGui::GetIO().WantCaptureMouse) {
-    //     return false;
-    // }
     CoreInstance::getInstance().cameraApi().start(mouseEvent->button, mouseEvent->clientX, mouseEvent->clientY);
     return true;
 }
 
 int mouse_up_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    // if(ImGui::GetIO().WantCaptureMouse) {
-    //     return false;
-    // }
     CoreInstance::getInstance().cameraApi().finish();
     return true;
 }
 
 int mouse_move_callback(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData)
 {
-    // if(ImGui::GetIO().WantCaptureMouse) {
-    //     return false;
-    // }
-
     CoreInstance::getInstance().cameraApi().update(mouseEvent->clientX, mouseEvent->clientY);
     return true;
 }
 
 int mouse_wheel_callback(int eventType, const EmscriptenWheelEvent *wheelEvent, void *userData)
 {
-    // if(ImGui::GetIO().WantCaptureMouse) {
-    //     return false;
-    // }
-
     CoreInstance::getInstance().cameraApi().zoom(wheelEvent->deltaY);
     return true;
 }
@@ -103,17 +77,6 @@ int main() {
     // }
 
 
-    // ImGui::CreateContext();
-    // ImGuiIO& io = ImGui::GetIO(); (void)io;
-    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-
-    // Setup Dear ImGui style
-    // ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-
-    // Setup Platform/Renderer bindings
-    // ImGuiImpl::init();
-
     emscripten_set_mousedown_callback("#canvas", nullptr, true, &mouse_down_callback);
     emscripten_set_mouseup_callback("#canvas", nullptr, true, &mouse_up_callback);
     emscripten_set_mousemove_callback("#canvas", nullptr, true, &mouse_move_callback);
@@ -130,7 +93,6 @@ int main() {
 
     emscripten_set_main_loop(main_loop, 0, true);
 
-    // ImGui::DestroyContext();
     emscripten_webgl_destroy_context(context);
     return 0;
 }

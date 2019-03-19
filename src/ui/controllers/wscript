@@ -1,9 +1,0 @@
-
-def build(bld):
-    bld.stlib(
-        use=['glm', 'api', 'components'],
-        source=bld.path.ant_glob('*.cpp'),
-        includes=['.'],
-        export_includes=['.'],
-        target='ui_controllers'
-    )

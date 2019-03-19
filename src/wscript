@@ -34,6 +34,5 @@ def build(bld):
     bld.recurse('vendor')
     bld.recurse('components')
     bld.recurse('core')
-    bld.recurse('ui')
     bld.recurse('utils')
     bld.recurse('wasm')

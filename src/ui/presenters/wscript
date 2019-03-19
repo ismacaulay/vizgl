@@ -1,9 +1,0 @@
-
-def build(bld):
-    bld.stlib(
-        use=['glm', 'components'],
-        source=bld.path.ant_glob('*.cpp'),
-        includes=['.'],
-        export_includes=['.'],
-        target='ui_presenters'
-    )

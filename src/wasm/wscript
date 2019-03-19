@@ -1,7 +1,7 @@
 
 def build(bld):
     bld.program(
-        use=['core', 'imguicore', 'imgui', 'opengl'],
+        use=['core', 'opengl'],
         source=bld.path.ant_glob('*.cpp'),
         includes=['.'],
         export_includes=['.'],
