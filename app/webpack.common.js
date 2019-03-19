@@ -13,6 +13,7 @@ module.exports = {
             hash: true,
             filename: 'index.html', //relative to root of the application
             template: './src/index.html',
+            favicon: './cube.ico',
         }),
         new CopyWebpackPlugin(['../src/.build/wasm/vizgl.wasm']),
     ],
