@@ -79,20 +79,11 @@ class VizGL extends Component {
         });
     }
 
-    generateRoutePath(id) {
-        if (process.env.NODE_ENV === 'development' || LOCAL_PRODUCTION) {
-            return id;
-        }
-        return `vizgl/${id}`;
-    }
-
     render() {
         const menuItems = buildMenuItemList().map((section, i) => {
             const { title, items } = section;
 
             const sectionItems = items.map((item, i) => {
-                const toPath = this.generateRoutePath(item.id);
-                console.log(toPath);
                 return (
                     <Menu.Item
                         key={i}
@@ -100,7 +91,7 @@ class VizGL extends Component {
                             this.handleMenuItemSelected(item.id);
                         }}
                         as={Link}
-                        to={toPath}
+                        to={item.id}
                     >
                         {item.title}
                     </Menu.Item>
