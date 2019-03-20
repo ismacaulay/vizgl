@@ -11,15 +11,15 @@ class BlockModelWithNaNs extends View {
             const [element] = elements;
 
             const { tensor_u, tensor_v, tensor_w } = element;
-            const dims = [tensor_u.length, tensor_v.length, tensor_w.length];
 
             const dataLoader = dataloader.loadBinary(element.data, Float32Array);
-            // const colormapLoader = dataloader.loadBinary(element.gradient, Uint8Array);
 
             return Promise.all([dataLoader]).then(loadedData => {
                 const [data] = loadedData;
 
-                const geometryId = vizgl.geometryApi().createVoxelMesh(dims);
+                const geometryId = vizgl
+                    .geometryApi()
+                    .createVoxelMesh2(tensor_u, tensor_v, tensor_w);
                 const color = [19, 55, 130];
                 const mappingId = vizgl.mappingApi().createVoxelMapping(data, color, geometryId);
                 vizgl.modelApi().createModel(geometryId, mappingId);

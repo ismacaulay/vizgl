@@ -10,8 +10,12 @@ public:
     ~Chunk() = default;
 
     const glm::vec3& dims() const;
+    const glm::vec3& size() const;
 
     void setData(const std::vector<float>& data);
+    void setSizes(const std::vector<float>& tensor_u,
+                  const std::vector<float>& tensor_v,
+                  const std::vector<float>& tensor_w);
 
     std::vector<float> vertices(const glm::vec3& baseOffset) const;
 
@@ -22,4 +26,9 @@ private:
 private:
     glm::vec3 dims_;
     std::vector<Block> blocks_;
+    glm::vec3 size_;
+
+    std::vector<float> tensor_u_;
+    std::vector<float> tensor_v_;
+    std::vector<float> tensor_w_;
 };

@@ -21,6 +21,15 @@ IntegerId VoxelEngine::generate(const glm::vec3& dims)
     return chunkManagerRepository_.insert(chunkManager);
 }
 
+ IntegerId VoxelEngine::generate(const std::vector<float>& tensor_u,
+                                 const std::vector<float>& tensor_v,
+                                 const std::vector<float>& tensor_w)
+{
+    printf("[VoxelEngine] Generate: %lu %lu %lu\n", tensor_u.size(), tensor_v.size(), tensor_w.size());
+    auto chunkManager = chunkManagerFactory_.create(tensor_u, tensor_v, tensor_w);
+    return chunkManagerRepository_.insert(chunkManager);
+}
+
 void VoxelEngine::onChanged(const IntegerId& mesh, const std::function<void()>& cb)
 {
     auto& chunkManager = chunkManagerRepository_.lookup(mesh);

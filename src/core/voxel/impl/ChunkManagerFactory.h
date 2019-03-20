@@ -8,4 +8,7 @@ public:
     ~ChunkManagerFactory() = default;
 
     std::shared_ptr<I_ChunkManager> create(const glm::vec3& dims);
+    std::shared_ptr<I_ChunkManager> create(const std::vector<float>& tensor_u,
+                                           const std::vector<float>& tensor_v,
+                                           const std::vector<float>& tensor_w);
 };

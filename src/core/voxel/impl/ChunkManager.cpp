@@ -40,6 +40,33 @@ ChunkManager::ChunkManager(const glm::vec3& dims)
     }
 }
 
+ChunkManager::ChunkManager(const std::vector<float>& tensor_u,
+                           const std::vector<float>& tensor_v,
+                           const std::vector<float>& tensor_w)
+{
+    dims_ = glm::vec3(tensor_u.size(), tensor_v.size(), tensor_w.size());
+    numChunks_ = calculateNumberOfChunks(dims_);
+    printf("[ChunkManager] num chunks: %f %f %f\n", numChunks_.x,  numChunks_.y,  numChunks_.z);
+    for (int i = 0; i < numChunks_.x; i++) {
+        unsigned int x0 = i * Voxel::CHUNK_SIZE;
+        for (int j = 0; j < numChunks_.y; j++) {
+            unsigned int y0 = j * Voxel::CHUNK_SIZE;
+            for (int k = 0; k < numChunks_.z; k++) {
+                unsigned int z0 = k * Voxel::CHUNK_SIZE;
+
+                glm::vec3 chunkDims = calculateChunkDims(i, j, k, dims_);
+                std::vector<float> chunkTensorU(tensor_u.begin() + x0, tensor_u.begin() + x0 + chunkDims.x);
+                std::vector<float> chunkTensorV(tensor_v.begin() + y0, tensor_v.begin() + y0 + chunkDims.y);
+                std::vector<float> chunkTensorW(tensor_w.begin() + z0, tensor_w.begin() + z0 + chunkDims.z);
+
+                Chunk chunk(chunkDims);
+                chunk.setSizes(chunkTensorU, chunkTensorV, chunkTensorW);
+                chunks_.push_back(chunk);
+            }
+        }
+    }
+}
+
 void ChunkManager::onChanged(const std::function<void()>& cb)
 {
     observers_.push_back(cb);
@@ -70,9 +97,31 @@ const glm::vec3& ChunkManager::dims() const
 
 std::vector<float> ChunkManager::vertices(unsigned int x, unsigned int y, unsigned int z) const
 {
+    float xOffset = 0.0;
+    for(int i = 0; i < x; i++) {
+        unsigned int chunkIdx = ArrayUtils::calculateIndex(i, 0, 0, numChunks_);
+        const auto& chunkSize = chunks_[chunkIdx].size();
+        xOffset += chunkSize.x;
+    }
+
+    float yOffset = 0.0;
+    for(int i = 0; i < y; i++) {
+        unsigned int chunkIdx = ArrayUtils::calculateIndex(0, i, 0, numChunks_);
+        const auto& chunkSize = chunks_[chunkIdx].size();
+        yOffset += chunkSize.y;
+    }
+
+    float zOffset = 0.0;
+    for(int i = 0; i < z; i++) {
+        unsigned int chunkIdx = ArrayUtils::calculateIndex(0, 0, i, numChunks_);
+        const auto& chunkSize = chunks_[chunkIdx].size();
+        zOffset += chunkSize.z;
+    }
+
     unsigned int chunkIdx = ArrayUtils::calculateIndex(x, y, z, numChunks_);
     auto chunk = chunks_[chunkIdx];
-    return chunk.vertices(glm::vec3(x, y, z));
+    glm::vec3 offset(xOffset, yOffset, zOffset);
+    return chunk.vertices(offset);
 }
 
 std::vector<float> ChunkManager::extractChunkData(

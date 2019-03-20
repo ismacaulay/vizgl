@@ -6,6 +6,10 @@ class ChunkManager : public I_ChunkManager
 {
 public:
     explicit ChunkManager(const glm::vec3& dims);
+    explicit ChunkManager(const std::vector<float>& tensor_u,
+                          const std::vector<float>& tensor_v,
+                          const std::vector<float>& tensor_w);
+
     ~ChunkManager() = default;
 
     void onChanged(const std::function<void()>& cb);

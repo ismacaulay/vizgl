@@ -1,5 +1,5 @@
 import { Cube, LotsOfMeshes, Topography, TopographyToggleGradient, Triangle } from './meshes';
-import { StaticBM, BlockModelWithNaNs } from './blockmodels';
+import { StaticBM, BlockModelWithNaNs, StaticTensorBM } from './blockmodels';
 
 const views = {
     mesh_cube: new Cube('mesh_cube'),
@@ -11,6 +11,7 @@ const views = {
     ),
 
     bm_static: new StaticBM('bm_static'),
+    bm_static_tensors: new StaticTensorBM('bm_static_tensors'),
     bm_with_nans: new BlockModelWithNaNs('bm_with_nans'),
 };
 

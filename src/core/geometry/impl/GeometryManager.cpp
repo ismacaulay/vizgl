@@ -45,3 +45,13 @@ IntegerId GeometryManager::createVoxelMesh(const glm::vec3& dims)
     geometryToVoxelMeshLookupTable_.insert(geometryId, geometry->voxelMeshId());
     return geometryId;
 }
+
+IntegerId GeometryManager::createVoxelMesh(const std::vector<float>& tensor_u,
+                                           const std::vector<float>& tensor_v,
+                                           const std::vector<float>& tensor_w)
+{
+    auto geometry = factory_.createVoxelMesh(tensor_u, tensor_v, tensor_w);
+    auto geometryId = repository_.insert(geometry);
+    geometryToVoxelMeshLookupTable_.insert(geometryId, geometry->voxelMeshId());
+    return geometryId;
+}

@@ -57,15 +57,22 @@ export class GeometryApi {
         });
     }
 
-    createVoxelMesh(dims) {
+    createVoxelMesh(dims, blockSize) {
+        if (blockSize === undefined) {
+            blockSize = [1, 1, 1];
+        }
+
         let buffer;
+        let blocksizeBuffer;
         return this._module.execute({
             func: () => {
                 buffer = this._module.malloc(new Uint32Array(dims));
-                return this._createVoxelMesh(buffer);
+                blocksizeBuffer = this._module.malloc(new Float32Array(blockSize));
+                return this._createVoxelMesh(buffer, blocksizeBuffer);
             },
             cleanup: () => {
                 this._module.free(buffer);
+                this._module.free(blocksizeBuffer);
             },
         });
     }

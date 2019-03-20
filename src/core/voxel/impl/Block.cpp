@@ -4,6 +4,7 @@
 
 Block::Block()
     : isActive_(false)
+    , size_(1.0f, 1.0f, 1.0f)
 {
 }
 
@@ -17,52 +18,67 @@ void Block::setActive(bool active)
     isActive_ = active;
 }
 
+const glm::vec3& Block::size() const
+{
+    return size_;
+}
+
+void Block::setSize(const glm::vec3& size)
+{
+    size_ = size;
+}
+
+
 glm::vec3 Block::getVertex(unsigned int vertex, const glm::vec3& offset) const
 {
+    glm::vec3 point;
     switch(vertex)
     {
         case 0:
         {
-            return glm::vec3(0, 0, 0) + offset;
+            point = glm::vec3(0, 0, 0);
             break;
         }
         case 1:
         {
-            return glm::vec3(1, 0, 0) + offset;
+            point = glm::vec3(size_.x, 0, 0);
             break;
         }
         case 2:
         {
-            return glm::vec3(1, 1, 0) + offset;
+            point = glm::vec3(size_.x, size_.y, 0);
             break;
         }
         case 3:
         {
-            return glm::vec3(0, 1, 0) + offset;
+            point = glm::vec3(0, size_.y, 0);
             break;
         }
         case 4:
         {
-            return glm::vec3(0, 0, 1) + offset;
+            point = glm::vec3(0, 0, size_.z);
             break;
         }
         case 5:
         {
-            return glm::vec3(1, 0, 1) + offset;
+            point = glm::vec3(size_.x, 0, size_.z);
             break;
         }
         case 6:
         {
-            return glm::vec3(1, 1, 1) + offset;
+            point = glm::vec3(size_.x, size_.y, size_.z);
             break;
         }
         case 7:
         {
-            return glm::vec3(0, 1, 1) + offset;
+            point = glm::vec3(0, size_.y, size_.z);
             break;
+        }
+        default:
+        {
+            printf("[Block] Unknown vertex number: %d\n", vertex);
         }
     }
 
-    printf("[Block] Unknown vertex number: %d\n", vertex);
-    return glm::vec3();
+    return offset + point;
 }

@@ -13,4 +13,7 @@ public:
 
     virtual std::shared_ptr<I_Geometry> createMesh(const std::vector<float>& vertices) = 0;
     virtual std::shared_ptr<I_VoxelGeometry> createVoxelMesh(const glm::vec3& dims) = 0;
+    virtual std::shared_ptr<I_VoxelGeometry> createVoxelMesh(const std::vector<float>& tensor_u,
+                                                             const std::vector<float>& tensor_v,
+                                                             const std::vector<float>& tensor_w) = 0;
 };

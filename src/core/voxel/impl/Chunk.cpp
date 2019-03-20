@@ -2,11 +2,17 @@
 
 #include "VoxelDefines.h"
 #include "ArrayUtils.h"
+#include "MathUtils.h"
 
 #include <stdio.h>
 
 Chunk::Chunk(const glm::vec3& dims)
     : dims_(dims)
+    , size_(dims)
+
+    , tensor_u_(dims.x, 1.0)
+    , tensor_v_(dims.y, 1.0)
+    , tensor_w_(dims.z, 1.0)
 {
     const unsigned int totalBlocks = Voxel::CHUNK_SIZE * Voxel::CHUNK_SIZE * Voxel::CHUNK_SIZE;
     blocks_.reserve(totalBlocks);
@@ -28,6 +34,11 @@ const glm::vec3& Chunk::dims() const
     return dims_;
 }
 
+const glm::vec3& Chunk::size() const
+{
+    return size_;
+}
+
 void Chunk::setData(const std::vector<float>& data)
 {
     if (data.size() < dims_.x * dims_.y * dims_.z) {
@@ -44,12 +55,32 @@ void Chunk::setData(const std::vector<float>& data)
             for(int k = 0; k < dims_.z; k++) {
                 unsigned int index = ArrayUtils::calculateIndex(i, j, k, dims_);
                 if (!std::isnan(data[index])) {
-                    unsigned int blockIdx = blockIndex(i, j, k);
-                    blocks_[blockIdx].setActive(true);
+                    enableBlock(i, j, k);
                 }
             }
         }
     }
+}
+
+void Chunk::setSizes(const std::vector<float>& tensor_u,
+                     const std::vector<float>& tensor_v,
+                     const std::vector<float>& tensor_w)
+{
+    tensor_u_ = tensor_u;
+    tensor_v_ = tensor_v;
+    tensor_w_ = tensor_w;
+
+    for(int i = 0; i < dims_.x; i++) {
+        for(int j = 0; j < dims_.y; j++) {
+            for(int k = 0; k < dims_.z; k++) {
+                unsigned int blockIdx = blockIndex(i, j, k);
+                glm::vec3 size(tensor_u[i], tensor_v[j], tensor_w[k]);
+                blocks_[blockIdx].setSize(size);
+            }
+        }
+    }
+
+    size_ = glm::vec3(MathUtils::sum(tensor_u), MathUtils::sum(tensor_v), MathUtils::sum(tensor_w));
 }
 
 void Chunk::enableBlock(unsigned int x, unsigned int y, unsigned int z)
@@ -58,7 +89,7 @@ void Chunk::enableBlock(unsigned int x, unsigned int y, unsigned int z)
     blocks_[index].setActive(true);
 }
 
-std::vector<float> Chunk::vertices(const glm::vec3& chunkIndex) const
+std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
 {
     std::vector<float> verts;
     // const auto addTriangle = [&verts](const glm::vec3& p0, const glm::vec3& p1, const glm::vec3& p2) {
@@ -92,14 +123,16 @@ std::vector<float> Chunk::vertices(const glm::vec3& chunkIndex) const
         verts.push_back(1.0); verts.push_back(0.0); verts.push_back(1.0);
     };
 
-    glm::vec3 baseOffset = chunkIndex * static_cast<float>(Voxel::CHUNK_SIZE);
     for(int k = 0; k < Voxel::CHUNK_SIZE; k++) {
+        float zOffset = MathUtils::sum_to_index(tensor_w_, k);
         for(int j = 0; j < Voxel::CHUNK_SIZE; j++) {
+            float yOffset = MathUtils::sum_to_index(tensor_v_, j);
             for(int i = 0; i < Voxel::CHUNK_SIZE; i++) {
                 unsigned int index = blockIndex(i, j, k);
                 const auto& block = blocks_[index];
                 if (block.isActive()) {
-                    glm::vec3 offset = baseOffset + glm::vec3(i, j, k);
+                    float xOffset = MathUtils::sum_to_index(tensor_u_, i);
+                    glm::vec3 offset = baseOffset + glm::vec3(xOffset, yOffset, zOffset);
                     glm::vec3 p0 = block.getVertex(0, offset);
                     glm::vec3 p1 = block.getVertex(1, offset);
                     glm::vec3 p2 = block.getVertex(2, offset);

@@ -12,6 +12,9 @@ public:
     virtual ~I_VoxelEngine() = default;
 
     virtual IntegerId generate(const glm::vec3& dims) = 0;
+    virtual IntegerId generate(const std::vector<float>& tensor_u,
+                               const std::vector<float>& tensor_v,
+                               const std::vector<float>& tensor_w) = 0;
 
     virtual void onChanged(const IntegerId& mesh, const std::function<void()>& cb) = 0;
     virtual void setData(const IntegerId& mesh, const std::vector<float>& data) = 0;
