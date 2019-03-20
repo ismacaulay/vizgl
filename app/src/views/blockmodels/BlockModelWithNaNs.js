@@ -6,25 +6,32 @@ class BlockModelWithNaNs extends View {
     }
 
     load(vizgl, dataloader) {
-        return dataloader.loadJson('manifests/blockmodel-with-nans.json').then(manifest => {
-            const { elements } = manifest;
-            const [element] = elements;
+        return new Promise(resolve => {
+            return dataloader.loadJson('manifests/blockmodel-with-nans.json').then(manifest => {
+                const { elements } = manifest;
+                const [element] = elements;
 
-            const { tensor_u, tensor_v, tensor_w } = element;
+                const { tensor_u, tensor_v, tensor_w } = element;
 
-            const dataLoader = dataloader.loadBinary(element.data, Float32Array);
+                const dataLoader = dataloader.loadBinary(element.data, Float32Array);
+                const gradientLoader = dataloader.loadBinary(element.gradient, Uint8Array);
 
-            return Promise.all([dataLoader]).then(loadedData => {
-                const [data] = loadedData;
+                return Promise.all([dataLoader, gradientLoader]).then(loadedData => {
+                    const [data, gradient] = loadedData;
 
-                const geometryId = vizgl
-                    .geometryApi()
-                    .createVoxelMesh2(tensor_u, tensor_v, tensor_w);
-                const color = [19, 55, 130];
-                const mappingId = vizgl.mappingApi().createVoxelMapping(data, color, geometryId);
-                vizgl.modelApi().createModel(geometryId, mappingId);
+                    const geometryId = vizgl
+                        .geometryApi()
+                        .createVoxelMesh2(tensor_u, tensor_v, tensor_w);
+                    const gradientId = vizgl.colorMapApi().createColorMap(gradient);
 
-                console.log(`Loaded ${this.id}`);
+                    const mappingId = vizgl
+                        .mappingApi()
+                        .createVoxelContinuousMapping(data, gradientId, geometryId);
+                    vizgl.modelApi().createModel(geometryId, mappingId);
+
+                    console.log(`Loaded ${this.id}`);
+                    resolve();
+                });
             });
         });
     }

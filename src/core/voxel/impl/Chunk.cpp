@@ -54,8 +54,12 @@ void Chunk::setData(const std::vector<float>& data)
         for(int j = 0; j < dims_.y; j++) {
             for(int k = 0; k < dims_.z; k++) {
                 unsigned int index = ArrayUtils::calculateIndex(i, j, k, dims_);
-                if (!std::isnan(data[index])) {
-                    enableBlock(i, j, k);
+                float value = data[index];
+                if (!std::isnan(value)) {
+                    unsigned int index = blockIndex(i, j, k);
+                    auto& block = blocks_[index];
+                    block.setActive(true);
+                    block.setValue(value);
                 }
             }
         }
@@ -92,8 +96,7 @@ void Chunk::enableBlock(unsigned int x, unsigned int y, unsigned int z)
 std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
 {
     std::vector<float> verts;
-    // const auto addTriangle = [&verts](const glm::vec3& p0, const glm::vec3& p1, const glm::vec3& p2) {
-    const auto addFace = [&verts](glm::vec3 t1[3], glm::vec3 t2[3]) {
+    const auto addFace = [&verts](glm::vec3 t1[3], glm::vec3 t2[3], float value) {
         // triangle 1
         glm::vec3 p0 = t1[0];
         glm::vec3 p1 = t1[1];
@@ -101,12 +104,15 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
 
         verts.push_back(p0.x); verts.push_back(p0.y); verts.push_back(p0.z);
         verts.push_back(1.0); verts.push_back(1.0); verts.push_back(0.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
 
         verts.push_back(p1.x); verts.push_back(p1.y); verts.push_back(p1.z);
         verts.push_back(1.0); verts.push_back(0.0); verts.push_back(0.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
 
         verts.push_back(p2.x); verts.push_back(p2.y); verts.push_back(p2.z);
         verts.push_back(1.0); verts.push_back(0.0); verts.push_back(1.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
 
         // triangle 2
         p0 = t2[0];
@@ -115,12 +121,15 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
 
         verts.push_back(p0.x); verts.push_back(p0.y); verts.push_back(p0.z);
         verts.push_back(1.0); verts.push_back(1.0); verts.push_back(0.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
 
         verts.push_back(p1.x); verts.push_back(p1.y); verts.push_back(p1.z);
         verts.push_back(1.0); verts.push_back(0.0); verts.push_back(0.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
 
         verts.push_back(p2.x); verts.push_back(p2.y); verts.push_back(p2.z);
         verts.push_back(1.0); verts.push_back(0.0); verts.push_back(1.0);
+        verts.push_back(value); verts.push_back(value); verts.push_back(value);
     };
 
     for(int k = 0; k < Voxel::CHUNK_SIZE; k++) {
@@ -141,6 +150,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     glm::vec3 p5 = block.getVertex(5, offset);
                     glm::vec3 p6 = block.getVertex(6, offset);
                     glm::vec3 p7 = block.getVertex(7, offset);
+                    float value = block.value();
 
                     bool addFrontFace = true;
                     if (k > 0) {
@@ -149,7 +159,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if(addFrontFace) {
                         glm::vec3 t1[3] = { p0, p1, p2 };
                         glm::vec3 t2[3] = { p2, p3, p0 };
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
 
                     bool addBackFace = true;
@@ -159,7 +169,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if (addBackFace) {
                         glm::vec3 t1[3] = {p5, p4, p7};
                         glm::vec3 t2[3] = {p7, p6, p5};
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
 
                     bool addLeftFace = true;
@@ -169,7 +179,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if(addLeftFace) {
                         glm::vec3 t1[3] = {p4, p0, p3};
                         glm::vec3 t2[3] = {p3, p7, p4};
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
 
                     bool addRightFace = true;
@@ -179,7 +189,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if(addRightFace) {
                         glm::vec3 t1[3] = {p1, p5, p6};
                         glm::vec3 t2[3] = {p6, p2, p1};
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
 
                     bool addTopFace = true;
@@ -189,7 +199,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if(addTopFace) {
                         glm::vec3 t1[3] = {p3, p2, p6};
                         glm::vec3 t2[3] = {p6, p7, p3};
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
 
                     bool addBottomFace = true;
@@ -199,7 +209,7 @@ std::vector<float> Chunk::vertices(const glm::vec3& baseOffset) const
                     if (addBottomFace) {
                         glm::vec3 t1[3] = {p0, p4, p5};
                         glm::vec3 t2[3] = {p5, p1, p0};
-                        addFace(t1, t2);
+                        addFace(t1, t2, value);
                     }
                 }
             }

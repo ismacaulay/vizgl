@@ -27,6 +27,10 @@ public:
         const std::vector<float>& data,
         const glm::vec3& rgb,
         const IntegerId& geometryId);
+    std::shared_ptr<I_Mapping> createVoxelContinuousMapping(
+        const std::vector<float>& data,
+        const IntegerId& colorMapId,
+        const IntegerId& geometryId);
 
 private:
     I_Repository<I_ColorMap>& colorMapRespository_;

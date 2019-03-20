@@ -17,12 +17,14 @@ class VoxelVertexBuffer
 public:
     VoxelVertexBuffer(const std::vector<float>& verts)
         : vb(std::make_unique<VertexBuffer>(verts.data(), verts.size() * sizeof(float)))
-        , count(verts.size() / 6)
+        , count(verts.size() / ValuesPerVertex)
     {
     }
 
     std::unique_ptr<VertexBuffer> vb;
     unsigned int count;
+
+    static const unsigned int ValuesPerVertex = 9;
 };
 
 class VoxelGeometry::Impl
@@ -68,10 +70,13 @@ public:
     {
         shader.enableAttribute("a_position");
         shader.enableAttribute("a_barycentric");
+        shader.enableAttribute("a_data");
+        unsigned int stride = VoxelVertexBuffer::ValuesPerVertex * sizeof(float);
         for (auto& buffer : buffers) {
             buffer.vb->bind();
-            shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-            shader.vertexAttributePointer("a_barycentric", 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 12);
+            shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, stride, 0);
+            shader.vertexAttributePointer("a_barycentric", 3, GL_FLOAT, GL_FALSE, stride, 12);
+            shader.vertexAttributePointer("a_data", 3, GL_FLOAT, GL_FALSE, stride, 24);
             GL_CALL(glDrawArrays(GL_TRIANGLES, 0, buffer.count));
         }
     }

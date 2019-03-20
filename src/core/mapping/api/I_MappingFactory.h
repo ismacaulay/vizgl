@@ -21,4 +21,8 @@ public:
         const std::vector<float>& data,
         const glm::vec3& rgb,
         const IntegerId& geometryId) = 0;
+    virtual std::shared_ptr<I_Mapping> createVoxelContinuousMapping(
+        const std::vector<float>& data,
+        const IntegerId& colorMapId,
+        const IntegerId& geometryId) = 0;
 };

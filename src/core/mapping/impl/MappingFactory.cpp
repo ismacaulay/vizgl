@@ -4,6 +4,7 @@
 #include "I_IdLookupTable.h"
 #include "I_VoxelEngine.h"
 #include "StaticMapping.h"
+#include "VoxelContinuousMapping.h"
 
 MappingFactory::MappingFactory(
     I_Repository<I_ColorMap>& colorMapRespository,
@@ -24,7 +25,7 @@ std::shared_ptr<I_Mapping> MappingFactory::createContinuousMapping(
     const std::vector<float>& data,
     const IntegerId& colorMapId)
 {
-    return std::make_shared<ContinuousMapping>(data, colorMapRespository_, colorMapId);
+    return std::make_shared<ContinuousMapping>(data, colorMapRespository_, colorMapId, false);
 }
 
 std::shared_ptr<I_Mapping> MappingFactory::createVoxelMapping(
@@ -36,4 +37,15 @@ std::shared_ptr<I_Mapping> MappingFactory::createVoxelMapping(
     voxelEngine_.setData(voxelId, data);
 
     return std::make_shared<StaticMapping>(rgb, true);
+}
+
+std::shared_ptr<I_Mapping> MappingFactory::createVoxelContinuousMapping(
+    const std::vector<float>& data,
+    const IntegerId& colorMapId,
+    const IntegerId& geometryId)
+{
+    auto voxelId = geometryIdToVoxelIdLookupTable_.lookup(geometryId);
+    voxelEngine_.setData(voxelId, data);
+
+    return std::make_shared<VoxelContinuousMapping>(data, colorMapRespository_, colorMapId, true);
 }

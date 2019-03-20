@@ -26,6 +26,12 @@ std::shared_ptr<I_Shader> ShaderFactory::createShaderForMappingType(MappingType 
                 ContinuousMappingShaderSource::VertexShader,
                 ContinuousMappingShaderSource::FragmentShader);
         }
+        case MappingType::ContinuousWithWireframe:
+        {
+            return std::make_shared<Shader>(
+                ContinuousMappingShaderSource::VertexShaderWithWireframe,
+                ContinuousMappingShaderSource::FragmentShaderWithWireframe);
+        }
     };
 
     return nullptr;

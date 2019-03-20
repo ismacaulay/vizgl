@@ -10,6 +10,9 @@ public:
     bool isActive() const;
     void setActive(bool active);
 
+    float value() const;
+    void setValue(float value);
+
     const glm::vec3& size() const;
     void setSize(const glm::vec3& size);
 
@@ -17,5 +20,6 @@ public:
 
 private:
     bool isActive_;
+    float value_;
     glm::vec3 size_;
 };

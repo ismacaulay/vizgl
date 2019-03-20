@@ -8,15 +8,15 @@ template<typename T> class I_Repository;
 class I_ColorMap;
 class IntegerId;
 
-class ContinuousMapping : public I_Mapping
+class VoxelContinuousMapping : public I_Mapping
 {
 public:
-    explicit ContinuousMapping(
+    explicit VoxelContinuousMapping(
         const std::vector<float>& data,
         I_Repository<I_ColorMap>& colorMapRepository,
         const IntegerId& gradientId,
         bool wireframe);
-    ~ContinuousMapping();
+    ~VoxelContinuousMapping();
 
     MappingType type() const;
     void bind(I_Shader& shader);

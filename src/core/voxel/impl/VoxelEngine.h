@@ -24,7 +24,6 @@ public:
     const glm::vec3& dims(const IntegerId& mesh) const;
     std::vector<float> vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const;
 
-
 private:
     I_ChunkManagerFactory& chunkManagerFactory_;
     I_Repository<I_ChunkManager>& chunkManagerRepository_;

@@ -4,6 +4,7 @@
 
 Block::Block()
     : isActive_(false)
+    , value_(0.0f)
     , size_(1.0f, 1.0f, 1.0f)
 {
 }
@@ -16,6 +17,16 @@ bool Block::isActive() const
 void Block::setActive(bool active)
 {
     isActive_ = active;
+}
+
+float Block::value() const
+{
+    return value_;
+}
+
+void Block::setValue(float value)
+{
+    value_ = value;
 }
 
 const glm::vec3& Block::size() const

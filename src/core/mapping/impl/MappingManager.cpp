@@ -39,3 +39,10 @@ IntegerId MappingManager::createVoxelMapping(
     auto mapping = factory_.createVoxelMapping(data, rgb, geometryId);
     return repository_.insert(mapping);
 }
+
+IntegerId MappingManager::createVoxelContinuousMapping(
+    const std::vector<float>& data, const IntegerId& colorMapId, const IntegerId& geometryId)
+{
+    auto mapping = factory_.createVoxelContinuousMapping(data, colorMapId, geometryId);
+    return repository_.insert(mapping);
+}

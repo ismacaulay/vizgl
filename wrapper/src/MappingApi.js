@@ -29,6 +29,17 @@ export class MappingApi {
             'number', // int8_t* color
             'number', // unsigned int geometryId
         ]);
+
+        this._createVoxelContinuousMapping = this._module.wrap(
+            'createVoxelContinuousMapping',
+            'number',
+            [
+                'number', // float* data
+                'number', // unsigned int numData
+                'number', // unsigned int gradientId
+                'number', // unsigned int geometryId
+            ],
+        );
     }
 
     createStaticMapping(color) {
@@ -86,6 +97,25 @@ export class MappingApi {
             cleanup: () => {
                 this._module.free(dataBuffer);
                 this._module.free(colorBuffer);
+            },
+        });
+    }
+
+    createVoxelContinuousMapping(data, gradientId, geometryId) {
+        let dataBuffer;
+        return this._module.execute({
+            func: () => {
+                const dataArray = isTypedArray(data) ? data : new Float32Array(data);
+                dataBuffer = this._module.malloc(dataArray);
+                return this._createVoxelContinuousMapping(
+                    dataBuffer,
+                    dataArray.length,
+                    gradientId,
+                    geometryId,
+                );
+            },
+            cleanup: () => {
+                this._module.free(dataBuffer);
             },
         });
     }
