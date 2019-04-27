@@ -31,7 +31,12 @@ def configure(conf):
     ]
 
 def build(bld):
-    bld.recurse('vendor')
+    bld(
+        includes=['vendor/glm/glm'],
+        export_includes=['vendor/glm'],
+        name='glm',
+    )
+
     bld.recurse('components')
     bld.recurse('core')
     bld.recurse('utils')

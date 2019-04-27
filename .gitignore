@@ -50,3 +50,4 @@ www/index.html
 www/cube.ico
 
 src/vendor
+.emscripten_cache

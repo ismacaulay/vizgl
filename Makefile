@@ -1,6 +1,7 @@
 
 ORG=ismacaulay
 APP=vizgl
+
 SERVER=wasm-react-router-server
 BUILD_DIR=src/.build/wasm
 WASM_FILE=$(BUILD_DIR)/vizgl.wasm
@@ -20,7 +21,8 @@ run-server:
 
 dev:
 	docker run --rm -it \
-		-v $(shell pwd):/usr/src/app \
+		-v $(shell pwd)/src:/usr/src \
+		-v $(shell pwd)/.emscripten_cache:/root/.emscripten_cache \
 		$(ORG)/$(APP)
 
 install:
