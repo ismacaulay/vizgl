@@ -4,4 +4,4 @@ repos:
 	bme src/vendor/bm-engine git@github.com:ismacaulay/bm-engine.git
 states:
 	glm master 0.9.9.5
-	bme master f76d35ba233aafd918a11bd7b394d8b7093d0339
+	bme master 25fbf438363e31474c26cc3142171151ad3f8fdf
