@@ -48,3 +48,5 @@ www/vizgl.wasm
 www/app.bundle.js
 www/index.html
 www/cube.ico
+
+src/vendor
