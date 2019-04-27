@@ -1,55 +1,48 @@
 #include "VoxelEngine.h"
 
-#include "I_ChunkManagerFactory.h"
-#include "I_ChunkManager.h"
 #include "I_Repository.h"
-#include "VoxelDefines.h"
+
+#include <bm-engine/engine.h>
 
 #include <stdio.h>
 
-VoxelEngine::VoxelEngine(
-    I_ChunkManagerFactory& chunkManagerFactory,
-    I_Repository<I_ChunkManager>& chunkManagerRepository)
-    : chunkManagerFactory_(chunkManagerFactory)
-    , chunkManagerRepository_(chunkManagerRepository)
+VoxelEngine::VoxelEngine(I_Repository<bme::Mesh>& repository)
+    : repository_(repository)
 {
 }
 
-IntegerId VoxelEngine::generate(const glm::vec3& dims)
+IntegerId VoxelEngine::generate(const glm::uvec3& dims)
 {
-    auto chunkManager = chunkManagerFactory_.create(dims);
-    return chunkManagerRepository_.insert(chunkManager);
-}
+    glm::vec3 axis_u = {1.0, 0.0, 0.0};
+    glm::vec3 axis_v = {0.0, 1.0, 0.0};
+    glm::vec3 axis_w = {0.0, 0.0, 1.0};
+    glm::vec3 corner = {0.0, 0.0, 0.0};
+    glm::vec3 block_size = {1.0, 1.0, 1.0};
 
- IntegerId VoxelEngine::generate(const std::vector<float>& tensor_u,
-                                 const std::vector<float>& tensor_v,
-                                 const std::vector<float>& tensor_w)
-{
-    printf("[VoxelEngine] Generate: %lu %lu %lu\n", tensor_u.size(), tensor_v.size(), tensor_w.size());
-    auto chunkManager = chunkManagerFactory_.create(tensor_u, tensor_v, tensor_w);
-    return chunkManagerRepository_.insert(chunkManager);
+    bme::RegularBlockModel bm = {
+        axis_u,
+        axis_v,
+        axis_w,
+        corner,
+        block_size,
+        dims,
+    };
+
+    std::shared_ptr<bme::Mesh> mesh = bme::generate(bm);
+    return repository_.insert(mesh);
 }
 
 void VoxelEngine::onChanged(const IntegerId& mesh, const std::function<void()>& cb)
 {
-    auto& chunkManager = chunkManagerRepository_.lookup(mesh);
-    chunkManager.onChanged(cb);
 }
 
 void VoxelEngine::setData(const IntegerId& mesh, const std::vector<float>& data)
 {
-    auto& chunkManager = chunkManagerRepository_.lookup(mesh);
-    chunkManager.setData(data);
+    // auto& chunkManager = chunkManagerRepository_.lookup(mesh);
+    // chunkManager.setData(data);
 }
 
-const glm::vec3& VoxelEngine::dims(const IntegerId& mesh) const
+const bme::Mesh& VoxelEngine::mesh(const IntegerId& id) const
 {
-    const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
-    return chunkManager.dims();
-}
-
-std::vector<float> VoxelEngine::vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const
-{
-    const auto& chunkManager = chunkManagerRepository_.lookup(mesh);
-    return chunkManager.vertices(x, y, z);
+    return repository_.lookup(id);
 }

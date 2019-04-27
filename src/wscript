@@ -15,6 +15,8 @@ def configure(conf):
         '-std=c++17',
         '-Wall',
         '-Werror',
+        '-Wno-missing-braces',
+
         '-s', 'WASM=1',
         # '-s', 'BINARYEN_TRAP_MODE="clamp"',
         '-Os',
@@ -31,12 +33,15 @@ def configure(conf):
     ]
 
 def build(bld):
+    # vendor
     bld(
         includes=['vendor/glm/glm'],
         export_includes=['vendor/glm'],
         name='glm',
     )
+    bld.recurse('vendor/bm-engine/bm-engine')
 
+    # vizgl
     bld.recurse('components')
     bld.recurse('core')
     bld.recurse('utils')

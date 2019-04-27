@@ -38,20 +38,10 @@ IntegerId GeometryManager::createMesh(
     return createMesh(positions);
 }
 
-IntegerId GeometryManager::createVoxelMesh(const glm::vec3& dims)
+IntegerId GeometryManager::createBlockModel(const glm::vec3& dims)
 {
-    auto geometry = factory_.createVoxelMesh(dims);
+    auto geometry = factory_.createBlockModel(dims);
     auto geometryId = repository_.insert(geometry);
-    geometryToVoxelMeshLookupTable_.insert(geometryId, geometry->voxelMeshId());
-    return geometryId;
-}
-
-IntegerId GeometryManager::createVoxelMesh(const std::vector<float>& tensor_u,
-                                           const std::vector<float>& tensor_v,
-                                           const std::vector<float>& tensor_w)
-{
-    auto geometry = factory_.createVoxelMesh(tensor_u, tensor_v, tensor_w);
-    auto geometryId = repository_.insert(geometry);
-    geometryToVoxelMeshLookupTable_.insert(geometryId, geometry->voxelMeshId());
+    geometryToVoxelMeshLookupTable_.insert(geometryId, geometry->id());
     return geometryId;
 }

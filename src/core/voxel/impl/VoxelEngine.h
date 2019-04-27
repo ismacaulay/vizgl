@@ -2,29 +2,20 @@
 #include "I_VoxelEngine.h"
 
 template<typename T> class I_Repository;
-class I_ChunkManager;
-class I_ChunkManagerFactory;
 
 class VoxelEngine : public I_VoxelEngine
 {
 public:
-    explicit VoxelEngine(
-        I_ChunkManagerFactory& chunkManagerFactory,
-        I_Repository<I_ChunkManager>& chunkManagerRepository);
+    explicit VoxelEngine(I_Repository<bme::Mesh>& repository);
     ~VoxelEngine() = default;
 
-    IntegerId generate(const glm::vec3& dims);
-    IntegerId generate(const std::vector<float>& tensor_u,
-                       const std::vector<float>& tensor_v,
-                       const std::vector<float>& tensor_w);
+    IntegerId generate(const glm::uvec3& dims);
 
     void onChanged(const IntegerId& mesh, const std::function<void()>& cb);
     void setData(const IntegerId& mesh, const std::vector<float>& data);
 
-    const glm::vec3& dims(const IntegerId& mesh) const;
-    std::vector<float> vertices(const IntegerId& mesh, unsigned int x, unsigned int y, unsigned int z) const;
+    const bme::Mesh& mesh(const IntegerId& id) const;
 
 private:
-    I_ChunkManagerFactory& chunkManagerFactory_;
-    I_Repository<I_ChunkManager>& chunkManagerRepository_;
+    I_Repository<bme::Mesh>& repository_;
 };

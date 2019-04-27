@@ -28,9 +28,9 @@ unsigned int createMesh2(float* vertices, int numVertices, uint32_t* triangles, 
 EMSCRIPTEN_KEEPALIVE
 unsigned int createVoxelMesh(uint32_t* dims)
 {
-    glm::vec3 d(dims[0], dims[1], dims[2]);
+    glm::uvec3 d(dims[0], dims[1], dims[2]);
 
-    auto geometryId = CoreInstance::getInstance().geometryApi().createVoxelMesh(d);
+    auto geometryId = CoreInstance::getInstance().geometryApi().createBlockModel(d);
     return geometryId.value();
 }
 
@@ -40,12 +40,13 @@ unsigned int createVoxelMesh2(
     float* tensor_v, int vSize,
     float* tensor_w, int wSize)
 {
-    std::vector<float> u(tensor_u, tensor_u + uSize);
-    std::vector<float> v(tensor_v, tensor_v + vSize);
-    std::vector<float> w(tensor_w, tensor_w + wSize);
+    // std::vector<float> u(tensor_u, tensor_u + uSize);
+    // std::vector<float> v(tensor_v, tensor_v + vSize);
+    // std::vector<float> w(tensor_w, tensor_w + wSize);
 
-    auto geometryId = CoreInstance::getInstance().geometryApi().createVoxelMesh(u, v, w);
-    return geometryId.value();
+    // auto geometryId = CoreInstance::getInstance().geometryApi().createVoxelMesh(u, v, w);
+    // return geometryId.value();
+    return 0;
 }
 
 }

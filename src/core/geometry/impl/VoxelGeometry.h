@@ -18,7 +18,7 @@ public:
 
     void render(I_Shader& shader);
 
-    const IntegerId& voxelMeshId() const;
+    const IntegerId& id() const;
 
 private:
     class Impl;

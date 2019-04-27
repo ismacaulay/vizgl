@@ -3,13 +3,11 @@
 #include "Camera.h"
 #include "CameraController.h"
 #include "CameraControls.h"
-#include "ChunkManagerFactory.h"
 #include "ColorMapFactory.h"
 #include "ColorMapManager.h"
 #include "GenericRepository.h"
 #include "GeometryFactory.h"
 #include "GeometryManager.h"
-#include "I_ChunkManager.h"
 #include "I_Geometry.h"
 #include "I_Mapping.h"
 #include "I_Model.h"
@@ -47,14 +45,11 @@ public:
         , mappingRepository()
         , modelRepository()
         , shaderRepository()
-        , chunkManagerRepository()
+        , blockmodelMeshRepository()
 
         , geometryToVoxelMeshLookupTable()
 
-        , chunkManagerFactory()
-        , voxelEngine(
-            chunkManagerFactory,
-            chunkManagerRepository)
+        , voxelEngine(blockmodelMeshRepository)
 
         , geometryFactory(
             voxelEngine)
@@ -122,11 +117,10 @@ public:
     GenericRepository<I_Mapping> mappingRepository;
     GenericRepository<I_Model> modelRepository;
     GenericRepository<I_Shader> shaderRepository;
-    GenericRepository<I_ChunkManager> chunkManagerRepository;
+    GenericRepository<bme::Mesh> blockmodelMeshRepository;
 
     IdLookupTable geometryToVoxelMeshLookupTable;
 
-    ChunkManagerFactory chunkManagerFactory;
     VoxelEngine voxelEngine;
 
     GeometryFactory geometryFactory;

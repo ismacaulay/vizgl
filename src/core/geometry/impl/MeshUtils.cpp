@@ -33,6 +33,31 @@ BoundingBox computeBoundingBox(const std::vector<float>& vertices)
     return { glm::vec2(min_x, max_x), glm::vec2(min_y, max_y), glm::vec2(min_z, max_z) };
 }
 
+BoundingBox computeBoundingBox(const std::vector<glm::vec3>& vertices)
+{
+    float min_x = std::numeric_limits<float>::max();
+    float max_x = std::numeric_limits<float>::min();
+
+    float min_y = std::numeric_limits<float>::max();
+    float max_y = std::numeric_limits<float>::min();
+
+    float min_z = std::numeric_limits<float>::max();
+    float max_z = std::numeric_limits<float>::min();
+
+    for (const auto& vertex: vertices) {
+        min_x = std::min(vertex.x, min_x);
+        max_x = std::max(vertex.x, max_x);
+
+        min_y = std::min(vertex.y, min_y);
+        max_y = std::max(vertex.y, max_y);
+
+        min_z = std::min(vertex.z, min_z);
+        max_z = std::max(vertex.z, max_z);
+    }
+
+    return { glm::vec2(min_x, max_x), glm::vec2(min_y, max_y), glm::vec2(min_z, max_z) };
+}
+
 BoundingBox addVerticesToBoundingBox(const BoundingBox& initial, const std::vector<float>& vertices)
 {
     auto bb = computeBoundingBox(vertices);

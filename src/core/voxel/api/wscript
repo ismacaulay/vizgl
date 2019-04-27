@@ -1,7 +1,7 @@
 
 def build(bld):
     bld(
-        use=['components', 'glm'],
+        use=['components', 'glm', 'bm-engine'],
         includes=['.'],
         export_includes=['.'],
         target='voxelapi',

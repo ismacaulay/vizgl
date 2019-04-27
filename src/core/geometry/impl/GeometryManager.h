@@ -19,10 +19,7 @@ public:
     IntegerId createMesh(const std::vector<float>& vertices,
                          const std::vector<uint32_t>& triangles);
 
-    IntegerId createVoxelMesh(const glm::vec3& dims);
-    IntegerId createVoxelMesh(const std::vector<float>& tensor_u,
-                              const std::vector<float>& tensor_v,
-                              const std::vector<float>& tensor_w);
+    IntegerId createBlockModel(const glm::vec3& dims);
 
 private:
     I_GeometryFactory& factory_;

@@ -24,64 +24,94 @@ public:
     std::unique_ptr<VertexBuffer> vb;
     unsigned int count;
 
-    static const unsigned int ValuesPerVertex = 9;
+    static const unsigned int ValuesPerVertex = 6;
+    static const unsigned int Stride = sizeof(float) * ValuesPerVertex;
+    static const unsigned int PositionOffset = 0;
+    static const unsigned int BarycentricOffset = sizeof(float) * 3;
 };
 
 class VoxelGeometry::Impl
 {
 public:
     Impl(const IntegerId& id, I_VoxelEngine& engine)
-        : voxelMeshId(id)
+        : id(id)
         , engine(engine)
     {
-        engine.onChanged(voxelMeshId, [this](){ update(); });
-
+        // engine.onChanged(meshId, [this](){ update(); });
         update();
     }
 
     void update()
     {
-        buffers.clear();
+        const auto& mesh = engine.mesh(id);
+        const auto& vertices = mesh.vertices();
 
-        const auto& dims = engine.dims(voxelMeshId);
         std::vector<float> verts;
-        for(int k = 0; k < dims.z; k++) {
-            for(int j = 0; j < dims.y; j++) {
-                for(int i = 0; i < dims.x; i++) {
-                    std::vector<float> nextVerts = engine.vertices(voxelMeshId, i, j, k);
-                    verts.insert(verts.end(), nextVerts.begin(), nextVerts.end());
-                    if (verts.size() >= 2000000) {
-                        buffers.emplace_back(verts);
-                        boundingBox = MeshUtils::addVerticesToBoundingBox(boundingBox, verts);
-                        verts.clear();
-                    }
-                }
+        verts.reserve(vertices.size() * VoxelVertexBuffer::ValuesPerVertex);
+        unsigned int vertexStride = 6;
+        for (unsigned int i = 0; i < vertices.size() / vertexStride; i++) {
+            {
+                const auto& vert = vertices[(i * vertexStride) + 0];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(0.0); verts.push_back(0.0);
+            }
+            {
+                const auto& vert = vertices[(i * vertexStride) + 1];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(1.0); verts.push_back(0.0);
+            }
+            {
+                const auto& vert = vertices[(i * vertexStride) + 2];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(0.0); verts.push_back(1.0);
+            }
+
+            {
+                const auto& vert = vertices[(i * vertexStride) + 3];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(1.0); verts.push_back(0.0);
+            }
+            {
+                const auto& vert = vertices[(i * vertexStride) + 4];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(0.0); verts.push_back(0.0);
+            }
+            {
+                const auto& vert = vertices[(i * vertexStride) + 5];
+                verts.push_back(vert.x); verts.push_back(vert.y); verts.push_back(vert.z);
+                verts.push_back(1.0); verts.push_back(0.0); verts.push_back(1.0);
+            }
+
+            if (verts.size() >= 2000000) {
+                buffers.emplace_back(verts);
+                verts.clear();
             }
         }
 
         if (verts.size() > 0) {
             buffers.emplace_back(verts);
-            boundingBox = MeshUtils::addVerticesToBoundingBox(boundingBox, verts);
-            verts.clear();
         }
+
+        boundingBox = MeshUtils::computeBoundingBox(vertices);
     }
 
     void render(I_Shader& shader)
     {
         shader.enableAttribute("a_position");
         shader.enableAttribute("a_barycentric");
-        shader.enableAttribute("a_data");
-        unsigned int stride = VoxelVertexBuffer::ValuesPerVertex * sizeof(float);
+        // shader.enableAttribute("a_data");
         for (auto& buffer : buffers) {
             buffer.vb->bind();
-            shader.vertexAttributePointer("a_position", 3, GL_FLOAT, GL_FALSE, stride, 0);
-            shader.vertexAttributePointer("a_barycentric", 3, GL_FLOAT, GL_FALSE, stride, 12);
-            shader.vertexAttributePointer("a_data", 3, GL_FLOAT, GL_FALSE, stride, 24);
+            shader.vertexAttributePointer(
+                "a_position", 3, GL_FLOAT, GL_FALSE, VoxelVertexBuffer::Stride, VoxelVertexBuffer::PositionOffset);
+            shader.vertexAttributePointer(
+                "a_barycentric", 3, GL_FLOAT, GL_FALSE, VoxelVertexBuffer::Stride, VoxelVertexBuffer::BarycentricOffset);
+            // shader.vertexAttributePointer("a_data", 3, GL_FLOAT, GL_FALSE, stride, 24);
             GL_CALL(glDrawArrays(GL_TRIANGLES, 0, buffer.count));
         }
     }
 
-    IntegerId voxelMeshId;
+    IntegerId id;
     I_VoxelEngine& engine;
 
     std::vector<VoxelVertexBuffer> buffers;
@@ -118,7 +148,7 @@ void VoxelGeometry::render(I_Shader& shader)
     p_->render(shader);
 }
 
-const IntegerId& VoxelGeometry::voxelMeshId() const
+const IntegerId& VoxelGeometry::id() const
 {
-    return p_->voxelMeshId;
+    return p_->id;
 }

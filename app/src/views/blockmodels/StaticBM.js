@@ -27,7 +27,7 @@ class StaticBM extends View {
             // const dims = [512, 512, 512];
             // const dims = [374, 263, 197];
             // const dims = [256, 256, 256];
-            const dims = [33, 18, 17];
+            const dims = [15, 33, 57];
             console.log({ blockCount: dims[0] * dims[1] * dims[2] });
 
             const geometryId = vizgl.geometryApi().createVoxelMesh(dims);

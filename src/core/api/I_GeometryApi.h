@@ -12,8 +12,5 @@ public:
     virtual IntegerId createMesh(const std::vector<float>& vertices,
                                  const std::vector<uint32_t>& triangles) = 0;
 
-    virtual IntegerId createVoxelMesh(const glm::vec3& dims) = 0;
-    virtual IntegerId createVoxelMesh(const std::vector<float>& tensor_u,
-                                      const std::vector<float>& tensor_v,
-                                      const std::vector<float>& tensor_w) = 0;
+    virtual IntegerId createBlockModel(const glm::vec3& dims) = 0;
 };

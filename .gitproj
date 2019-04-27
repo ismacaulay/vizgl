@@ -1,5 +1,7 @@
 version: 0.1.0
 repos:
 	glm src/vendor/glm git@github.com:g-truc/glm.git
+	bme src/vendor/bm-engine git@github.com:ismacaulay/bm-engine.git
 states:
 	glm master 0.9.9.5
+	bme master f76d35ba233aafd918a11bd7b394d8b7093d0339
